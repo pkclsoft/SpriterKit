@@ -45,6 +45,11 @@ public extension CGPoint {
         return CGPoint.init(x: v.x*s, y: v.y*s)
     }
     
+    /// Provides  a `CGPoint` multiplication with the value of another.
+    static func *= (left: inout CGPoint, right: CGPoint) {
+        left = left * right
+    }
+
     /// Provides a simple multiplication operator for `CGPoint`.
     static func * (v: CGPoint, s: CGPoint) -> CGPoint {
         return CGPoint.init(x: v.x*s.x, y: v.y*s.y)

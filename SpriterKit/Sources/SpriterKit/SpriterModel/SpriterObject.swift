@@ -22,7 +22,7 @@ struct SpriterObject: SpriterParseable {
     var angle: CGFloat = 0.0
     var scaleX: CGFloat = 1.0
     var scaleY: CGFloat = 1.0
-    var pivot: CGPoint = SpriterDefaultPivot
+    var pivot: CGPoint = DEFAULT_PIVOT
     var alpha: CGFloat = 1.0
     var spin: SpriterSpinType = .clockwise
     

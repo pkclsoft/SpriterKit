@@ -16,11 +16,18 @@ import SpriteKit
 
 struct SpriterBone: SpriterParseable {
     
+    /// The position of the bone within it's parent space.
     var position: CGPoint = .zero
+    
+    #if DEBUG
+    /// The size of the bone according to the `bone_info`.  This is added by the parser as it is not available
+    /// in the `bone_ref`.  You only really need this if you want to display the bones.
     var size: CGSize = .zero
+    #endif
+    
     var angle: CGFloat = 0.0
-    var scaleX: CGFloat = 1.0
-    var scaleY: CGFloat = 1.0
+    var scaleX: CGFloat = DEFAULT_SCALE
+    var scaleY: CGFloat = DEFAULT_SCALE
     var alpha: CGFloat = 1.0
     var spin: SpriterSpinType = .clockwise
 
@@ -29,8 +36,8 @@ struct SpriterBone: SpriterParseable {
     /// SpriteKit is being used to manage the combined scale of nodes in the node tree, this combined scale
     /// needs to be managed separately.
     ///
-    var combinedScaleX: CGFloat = 1.0
-    var combinedScaleY: CGFloat = 1.0
+    var combinedScaleX: CGFloat = DEFAULT_SCALE
+    var combinedScaleY: CGFloat = DEFAULT_SCALE
     
     var scale : CGPoint {
         get {

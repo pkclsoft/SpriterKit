@@ -15,7 +15,7 @@ import Foundation
 struct SpriterBoneRef: SpriterParseable {
     
     var id: Int
-    var parentID: Int = SpriterRefNoParentValue
+    var parentID: Int = NO_PARENT
     var timelineID: Int
     var timeline: SpriterTimeline?
     var keyID: Int

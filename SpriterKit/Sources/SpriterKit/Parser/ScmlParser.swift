@@ -58,7 +58,12 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
     private var entities : [SpriterEntity] = []
     private var folders : [SpriterFolder] = []
     private var atlasNames : [String] = []
+    
+    #if DEBUG
+    /// These are needed from the `bone_info` elements of the project if we are going to be able to display
+    /// bones.
     private var boneSizes : [String: CGSize] = [:]
+    #endif
     
     enum ParsingState : Equatable {
         case none
@@ -312,13 +317,16 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                         self.entities[lastEntity].animations.append(animation)
                     }
                 case .objInfo:
+                    #if DEBUG
                     if let width = attributeDict["w"],
                        let height = attributeDict["h"],
                        let name = attributeDict["name"] {
                         boneSizes[name] = CGSize(width: width.CGFloatValue(), height: height.CGFloatValue())
                     }
-                    
+                    #else
                     break
+                    #endif
+                    
                 case .characterMap:
                     break
                 case .map:
@@ -407,7 +415,7 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                         // if the object has a default pivot, then adopt the pivot from the file in case it
                         // is not a default value.
                         //
-                        if object.pivot == SpriterDefaultPivot,
+                        if object.pivot == DEFAULT_PIVOT,
                            let folder = self.folders.first(where: { folder in
                                return folder.id == object.folderID
                            }),
@@ -438,9 +446,11 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                             .timelines[lastTimelineIndex]
                         let lastKey = timeline.keys.endIndex-1
                         
+                        #if DEBUG
                         if let size = boneSizes[timeline.name] {
                             bone.size = size
                         }
+                        #endif
 
                         bone.spin = self.entities[lastEntity]
                             .animations[lastAnimation]

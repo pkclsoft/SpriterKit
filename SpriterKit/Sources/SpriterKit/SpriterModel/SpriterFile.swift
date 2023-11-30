@@ -24,7 +24,7 @@ struct SpriterFile: SpriterParseable {
     var name: String
     var width: CGFloat
     var height: CGFloat
-    var pivot: CGPoint = SpriterDefaultPivot
+    var pivot: CGPoint = DEFAULT_PIVOT
     
     var assetName : String {
         get {

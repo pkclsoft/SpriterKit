@@ -12,10 +12,11 @@
 
 import Foundation
 
-let SpriterRefNoParentValue: Int = -1
+/// When a bone or object has no parent, this is the default parent ID.
+let NO_PARENT: Int = -1
 
-let SpriterObjectNoPivotValue: CGFloat = CGFloat.leastNormalMagnitude
+/// All objects have a default pivot at the top, left of the object.
+let DEFAULT_PIVOT = CGPoint(x: 0.0, y: 1.0)
 
-let SpriterDefaultPivot = CGPoint(x: 0.0, y: 1.0)
-
-let DEFAULT_SCALE = CGPoint(x: 1.0, y: 1.0)
+/// The default scale for bones and objects.
+let DEFAULT_SCALE : CGFloat = 1.0

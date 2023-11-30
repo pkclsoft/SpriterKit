@@ -16,6 +16,7 @@ public class SKSpriterBone : SKNode {
     var reference: SpriterBone
     var entityNode: SKNode
     
+    #if DEBUG
     var showBones : Bool {
         didSet {
             self.boneJoint.isHidden = !showBones
@@ -27,6 +28,7 @@ public class SKSpriterBone : SKNode {
     private let BONE_ALPHA = 0.5
 
     var boneJoint : SKShapeNode
+    #endif
     
     init(withBone: SpriterBone, initialTimelineID: Int, inEntity entity: SKNode) {
         timelineID = initialTimelineID
@@ -34,18 +36,22 @@ public class SKSpriterBone : SKNode {
         reference = withBone
         entityNode = entity
         
+        #if DEBUG
         boneJoint = SKShapeNode(circleOfRadius: 25.0)
         
         showBones = true
+        #endif
         
         super.init()
         
+        #if DEBUG
         boneJoint.strokeColor = .clear
         boneJoint.fillColor = .blue
         boneJoint.alpha = BONE_ALPHA
         boneJoint.zPosition = 5000.0
         boneJoint.name = BONE_JOINT_NAME
         self.addChild(boneJoint)
+        #endif
         
         self.update(fromReference: self.reference)
     }
@@ -83,12 +89,13 @@ public class SKSpriterBone : SKNode {
     }
     
     func update(fromReference updateReference: SpriterBone) {
-        let endPoint : CGPoint = CGPoint.zero.pointOnCircle(withRadius: updateReference.size.width * updateReference.combinedScaleX,
-                                                            atRadians: 0.0)
-
         self.position = updateReference.position
         
         self.zRotation = updateReference.angle
+
+        #if DEBUG
+        let endPoint : CGPoint = CGPoint.zero.pointOnCircle(withRadius: updateReference.size.width * updateReference.combinedScaleX,
+                                                            atRadians: 0.0)
 
         if let bone = boneJoint.childNode(withName: BONE_VISUALISATION_NAME) {
             bone.removeFromParent()
@@ -106,6 +113,7 @@ public class SKSpriterBone : SKNode {
         boneVisualisation.name = BONE_VISUALISATION_NAME
 
         boneJoint.addChild(boneVisualisation)
+        #endif
     }
 
     func tween(forPercent percent: CGFloat) -> SpriterBone {

@@ -309,10 +309,12 @@ public class SKSpriterEntity : SKNode {
                                 }
                             }
                             
+                            #if DEBUG
                             boneNode.showBones = self.showBones
+                            #endif
                             
                             // if the parent exists already (which it should if there is a parent)...
-                            if boneRef.parentID != SpriterRefNoParentValue {
+                            if boneRef.parentID != NO_PARENT {
                                 if let parent = boneNode.parent as? SKSpriterBone {
                                     // update the bone using information from the parent bone.
                                     //
@@ -330,7 +332,7 @@ public class SKSpriterEntity : SKNode {
                                     }
                                 }
                                 
-                            } else if boneRef.parentID == SpriterRefNoParentValue {
+                            } else if boneRef.parentID == NO_PARENT {
                                 // the bone is a top level bone, so add it to the tree.
                                 //
                                 if newNode {
@@ -407,7 +409,7 @@ public class SKSpriterEntity : SKNode {
                                 sprite = SKSpriterObject(forSpriterObject: object, usingSpriterModel: self.model, andName: objectName)
                             }
                             
-                            if objectRef.parentID != SpriterRefNoParentValue {
+                            if objectRef.parentID != NO_PARENT {
                                 // now see if there is a parent (objects should always have bone as a parent...)
                                 //
                                 if let parent = sprite.parent as? SKSpriterBone {
