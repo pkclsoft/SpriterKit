@@ -21,6 +21,13 @@ class SKSpriterUtilities {
         }
     }
     
+    /// Given two angles, `a` and `b` and an interpolation factor, compute an angle between `a` and `b`.   `spin` is used to influence the direction of turn.
+    /// - Parameters:
+    ///   - a: the start angle
+    ///   - b: the ending angle
+    ///   - t: the interpolation factor
+    ///   - spin: the direction of spin/turn
+    /// - Returns: An angle.
     static func tweenAngle(a: CGFloat, b: CGFloat, t: CGFloat, spin: SpriterSpinType) -> CGFloat {
         var bi : CGFloat = b
         

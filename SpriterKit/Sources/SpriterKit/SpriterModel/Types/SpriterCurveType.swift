@@ -26,6 +26,9 @@ enum SpriterCurveType : Equatable {
     case quintic(c1: CGFloat, c2: CGFloat, c3: CGFloat, c4: CGFloat)
     case bezier(c1: CGFloat, c2: CGFloat, c3: CGFloat, c4: CGFloat)
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCON parser.
+    /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
         var c1: CGFloat = 0.0
         var c2: CGFloat = 0.0
@@ -72,6 +75,9 @@ enum SpriterCurveType : Equatable {
         }
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCML parser.
+    /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
         var c1: CGFloat = 0.0
         var c2: CGFloat = 0.0
@@ -117,18 +123,5 @@ enum SpriterCurveType : Equatable {
             return nil
         }
 
-    }
-    
-    init?(string: String) {
-        switch string.lowercased() {
-            case "instant": self = .instant
-            case "linear":  self = .linear
-            case "quadratic": self = .quadratic(c1: 0.0)
-            case "cubic": self = .cubic(c1: 0.0, c2: 0.0)
-            case "quartic": self = .quartic(c1: 0.0, c2: 0.0, c3: 0.0)
-            case "quintic": self = .quintic(c1: 0.0, c2: 0.0, c3: 0.0, c4: 0.0)
-            case "bezier": self = .bezier(c1: 0.0, c2: 0.0, c3: 0.0, c4: 0.0)
-            default: return nil
-        }
     }
 }

@@ -262,8 +262,6 @@ public class SKSpriterEntity : SKNode {
                 duration = nextDuration()  * debugTimeFactor
             }
             
-            print("\n\nupdating for key with time: \(key.time), using duration: \(duration / debugTimeFactor)\n\n")
-            
             self.debugLabel.text = "frame time: \(numStr(of: key.time))"
             
             // Now traverse all of the bone references and build up the node tree representing the bones.
@@ -291,16 +289,13 @@ public class SKSpriterEntity : SKNode {
                                     //
                                     boneNode.prevReference = boneNode.reference
                                     boneNode.reference = bone
-                                } else {
-                                    // The timeline has changed so there has been a reordering.
-                                    //timelinePerBone[boneRef.timelineID] = boneRef.id
                                 }
                                 
                                 newNode = false
                             } else {
                                 // not in the tree so create it anew.
                                 //
-                                boneNode = SKSpriterBone(withBone: bone, initialTimelineID: boneRef.timelineID, inEntity: self.nodeTree)
+                                boneNode = SKSpriterBone(withBone: bone, initialTimelineID: boneRef.timelineID)
                                 boneNode.name = boneName
                                 newNode = true
                                 
