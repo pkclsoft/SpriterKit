@@ -20,24 +20,28 @@ import Foundation
 ///
 struct SpriterFile: SpriterParseable {
     
+    /// The ID of the file within it's folder.
     var id: Int
+    
+    /// The name of the file, which may include a folder prefix.
     var name: String
-    var width: CGFloat
-    var height: CGFloat
+    
+    /// The size in pixels of the image within the file.
+    var size : CGSize = .zero
+    
+    /// The initial pivot point of the image.
     var pivot: CGPoint = DEFAULT_PIVOT
     
+    /// The name of the file asset itself, stripped of the folder prefix.  (The asset catalog will not include the folder prefix.)
     var assetName : String {
         get {
             return NSString(string: name).lastPathComponent
         }
     }
     
-    var size : CGSize {
-        get {
-            return CGSize(width: self.width, height: self.height)
-        }
-    }
-    
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCON parser.
+    /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
         
         guard let id = data.value(forKey: "id") as? Int,
@@ -49,8 +53,8 @@ struct SpriterFile: SpriterParseable {
         
         self.id = id
         self.name = name
-        self.width = width
-        self.height = height
+        self.size.width = width
+        self.size.height = height
     
         if let pivotX = data.value(forKey: "pivot_x") as? CGFloat {
             self.pivot.x = pivotX
@@ -61,6 +65,9 @@ struct SpriterFile: SpriterParseable {
         }
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCML parser.
+    /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
         guard let id = attributes["id"],
               let name = attributes["name"],
@@ -71,8 +78,8 @@ struct SpriterFile: SpriterParseable {
         
         self.id = id.intValue()
         self.name = name
-        self.width = width.CGFloatValue()
-        self.height = height.CGFloatValue()
+        self.size.width = width.CGFloatValue()
+        self.size.height = height.CGFloatValue()
     
         if let pivotX = attributes["pivot_x"] {
             self.pivot.x = pivotX.CGFloatValue()

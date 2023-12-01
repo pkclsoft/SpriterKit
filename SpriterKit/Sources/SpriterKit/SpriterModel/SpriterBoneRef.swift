@@ -14,18 +14,26 @@ import Foundation
 
 struct SpriterBoneRef: SpriterParseable {
     
+    /// The ID of the bone.  It's worth noting that this ID can change and should not be trusted.
     var id: Int
-    var parentID: Int = NO_PARENT
-    var timelineID: Int
-    var timeline: SpriterTimeline?
-    var keyID: Int
-    var timelineKey: SpriterTimelineKey?
     
+    /// The ID of the parent bone, if any.
+    var parentID: Int = NO_PARENT
+    
+    /// The ID of the timeline that manages the position, scale, rotation of the bone.
+    var timelineID: Int
+    
+    // The ID of the key within the timeline this BoneRef represents.
+    var keyID: Int
+    
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCON parser.
+    /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
         guard let id = data.value(forKey: "id") as? Int,
-            let timelineID = data.value(forKey: "timeline") as? Int,
-            let keyID = data.value(forKey: "key") as? Int else {
-                return nil
+              let timelineID = data.value(forKey: "timeline") as? Int,
+              let keyID = data.value(forKey: "key") as? Int else {
+            return nil
         }
         
         self.id = id
@@ -38,11 +46,14 @@ struct SpriterBoneRef: SpriterParseable {
         
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCML parser.
+    /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
         guard let id = attributes["id"],
               let timelineID = attributes["timeline"],
               let keyID = attributes["key"] else {
-                return nil
+            return nil
         }
         
         self.id = id.intValue()

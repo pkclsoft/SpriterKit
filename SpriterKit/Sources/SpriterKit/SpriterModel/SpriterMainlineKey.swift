@@ -14,18 +14,28 @@ import Foundation
 
 struct SpriterMainlineKey: SpriterParseable {
     
+    /// Th ID for this key.
     var id: Int
+    
+    /// The time in seconds at which the key should be triggered in the animation.  If the key within the project has
+    /// no time specified, then this defaults to zero.
     var time: TimeInterval = 0
-    var objectRefs: [SpriterObjectRef] = []
+    
+    /// An array of the bone references defined for this key.
     var boneRefs: [SpriterBoneRef] = []
     
-    // SpriterMainlineKey will take precedence
-    // over SpriterTimelineKey, but this should be optional
+    /// An array of the object references defined for this key.
+    var objectRefs: [SpriterObjectRef] = []
+    
+    /// The timing curve defined for this key.
     var curveType: SpriterCurveType?
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCON parser.
+    /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
         guard let id = data.value(forKey: "id") as? Int else {
-                return nil
+            return nil
         }
         
         self.id = id
@@ -34,52 +44,15 @@ struct SpriterMainlineKey: SpriterParseable {
             self.time = time / 1000.0
         }
         
-        var c1: CGFloat = 0.0
-        var c2: CGFloat = 0.0
-        var c3: CGFloat = 0.0
-        var c4: CGFloat = 0.0
-
-        if let c1Value = data.value(forKey: "c1") as? CGFloat {
-            c1 = c1Value
-        }
-        
-        if let c2Value = data.value(forKey: "c2") as? CGFloat {
-            c2 = c2Value
-        }
-        
-        if let c3Value = data.value(forKey: "c3") as? CGFloat {
-            c3 = c3Value
-        }
-        
-        if let c4Value = data.value(forKey: "c4") as? CGFloat {
-            c4 = c4Value
-        }
-        
-        if let curveTypeInt = data.value(forKey: "curve_type") as? Int {
-            switch curveTypeInt {
-                case 0:
-                    self.curveType = .instant
-                case 1:
-                    self.curveType = .linear
-                case 2:
-                    self.curveType = .quadratic(c1: c1)
-                case 3:
-                    self.curveType = .cubic(c1: c1, c2: c2)
-                case 4:
-                    self.curveType = .quartic(c1: c1, c2: c2, c3: c3)
-                case 5:
-                    self.curveType = .quintic(c1: c1, c2: c2, c3: c3, c4: c4)
-                case 6:
-                    self.curveType = .bezier(c1: c1, c2: c2, c3: c3, c4: c4)
-                default:
-                    break
-            }
-        }
+        self.curveType = SpriterCurveType(data: data)
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCML parser.
+    /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
         guard let id = attributes["id"] else {
-                return nil
+            return nil
         }
         
         self.id = id.intValue()
@@ -88,47 +61,7 @@ struct SpriterMainlineKey: SpriterParseable {
             self.time = time.timeIntervalValue()
         }
         
-        var c1: CGFloat = 0.0
-        var c2: CGFloat = 0.0
-        var c3: CGFloat = 0.0
-        var c4: CGFloat = 0.0
-        
-        if let c1Value = attributes["c1"] {
-            c1 = c1Value.CGFloatValue()
-        }
-        
-        if let c2Value = attributes["c2"] {
-            c2 = c2Value.CGFloatValue()
-        }
-        
-        if let c3Value = attributes["c3"] {
-            c3 = c3Value.CGFloatValue()
-        }
-        
-        if let c4Value = attributes["c4"] {
-            c4 = c4Value.CGFloatValue()
-        }
-        
-        if let curveTypeStr = attributes["curve_type"] {
-            switch curveTypeStr {
-                case "instant":
-                    self.curveType = .instant
-                case "linear":
-                    self.curveType = .linear
-                case "quadratic":
-                    self.curveType = .quadratic(c1: c1)
-                case "cubic":
-                    self.curveType = .cubic(c1: c1, c2: c2)
-                case "quartic":
-                    self.curveType = .quartic(c1: c1, c2: c2, c3: c3)
-                case "quintic":
-                    self.curveType = .quintic(c1: c1, c2: c2, c3: c3, c4: c4)
-                case "bezier":
-                    self.curveType = .bezier(c1: c1, c2: c2, c3: c3, c4: c4)
-                default:
-                    break
-            }
-        }
+        self.curveType = SpriterCurveType(withAttributes: attributes)
     }
-
+    
 }

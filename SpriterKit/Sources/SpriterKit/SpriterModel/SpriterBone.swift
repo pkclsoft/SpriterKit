@@ -19,32 +19,38 @@ struct SpriterBone: SpriterParseable {
     /// The position of the bone within it's parent space.
     var position: CGPoint = .zero
     
-    #if DEBUG
+#if DEBUG
     /// The size of the bone according to the `bone_info`.  This is added by the parser as it is not available
     /// in the `bone_ref`.  You only really need this if you want to display the bones.
     var size: CGSize = .zero
-    #endif
+#endif
     
+    /// The angle or zRotation of the bone in radians.
     var angle: CGFloat = 0.0
-    var scaleX: CGFloat = DEFAULT_SCALE
-    var scaleY: CGFloat = DEFAULT_SCALE
+    
+    /// The xScale of the bone.
+    var xScale: CGFloat = DEFAULT_SCALE
+    
+    /// The yScale of the bone.
+    var yScale: CGFloat = DEFAULT_SCALE
+    
+    /// The alpha component of the bone.
     var alpha: CGFloat = 1.0
+    
+    /// The spin direction to be applied when rotating a bone.
     var spin: SpriterSpinType = .clockwise
-
+    
     /// The combined scales are the result of applying the scale of each parent node to that of their children.
     /// In a traditional Spriter implementation, this would simply be applied to the scale property however since
     /// SpriteKit is being used to manage the combined scale of nodes in the node tree, this combined scale
     /// needs to be managed separately.
     ///
-    var combinedScaleX: CGFloat = DEFAULT_SCALE
-    var combinedScaleY: CGFloat = DEFAULT_SCALE
+    var xScaleCombined: CGFloat = DEFAULT_SCALE
+    var yScaleCombined: CGFloat = DEFAULT_SCALE
     
-    var scale : CGPoint {
-        get {
-            return CGPoint(x: scaleX, y: scaleY)
-        }
-    }
-    
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCON parser.
+    /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
         if let x = data.value(forKey: "x") as? CGFloat {
             self.position.x = x
@@ -59,13 +65,13 @@ struct SpriterBone: SpriterParseable {
         }
         
         if let scaleX = data.value(forKey: "scale_x") as? CGFloat {
-            self.scaleX = scaleX
-            self.combinedScaleX = scaleX
+            self.xScale = scaleX
+            self.xScaleCombined = scaleX
         }
         
         if let scaleY = data.value(forKey: "scale_y") as? CGFloat {
-            self.scaleY = scaleY
-            self.combinedScaleY = scaleY
+            self.yScale = scaleY
+            self.yScaleCombined = scaleY
         }
         
         if let alpha = data.value(forKey: "a") as? CGFloat {
@@ -73,6 +79,9 @@ struct SpriterBone: SpriterParseable {
         }
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCML parser.
+    /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
         if let x = attributes["x"] {
             self.position.x = x.CGFloatValue()
@@ -87,13 +96,13 @@ struct SpriterBone: SpriterParseable {
         }
         
         if let scaleX = attributes["scale_x"] {
-            self.scaleX = scaleX.CGFloatValue()
-            self.combinedScaleX = self.scaleX
+            self.xScale = scaleX.CGFloatValue()
+            self.xScaleCombined = self.xScale
         }
         
         if let scaleY = attributes["scale_y"] {
-            self.scaleY = scaleY.CGFloatValue()
-            self.combinedScaleY = self.scaleY
+            self.yScale = scaleY.CGFloatValue()
+            self.yScaleCombined = self.yScale
         }
         
         if let alpha = attributes["a"] {
@@ -113,13 +122,13 @@ struct SpriterBone: SpriterParseable {
         
         result.position = result.position.lerp(toB: other.position, alpha: percent)
         
-        result.scaleX = result.scaleX.lerp(toB: other.scaleX, alpha: percent)
-        result.scaleY = result.scaleY.lerp(toB: other.scaleY, alpha: percent)
-
-        result.combinedScaleX = result.combinedScaleX.lerp(toB: other.combinedScaleX, alpha: percent)
-        result.combinedScaleY = result.combinedScaleY.lerp(toB: other.combinedScaleY, alpha: percent)
-
+        result.xScale = result.xScale.lerp(toB: other.xScale, alpha: percent)
+        result.yScale = result.yScale.lerp(toB: other.yScale, alpha: percent)
+        
+        result.xScaleCombined = result.xScaleCombined.lerp(toB: other.xScaleCombined, alpha: percent)
+        result.yScaleCombined = result.yScaleCombined.lerp(toB: other.yScaleCombined, alpha: percent)
+        
         return result
     }
-
+    
 }

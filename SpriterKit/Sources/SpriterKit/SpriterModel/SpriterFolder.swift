@@ -16,7 +16,7 @@ import Foundation
 import SpriteKit
 
 /// A SpriterFolder is a folder containing one or more art assets, each of which is represented by a SpriterFile.
-/// In this library, I've chosen to assume that the sprite assets are added to an AssetCatalog within Xcode.  Inside
+/// In this library, the sprite assets are assumed to have been added to an Asset Catalog within Xcode.  Inside
 /// the asset catalog, there should be one folder for each of the SpriterFolders defined within the SCML/SCON
 /// file exported by Spriter.
 ///
@@ -25,7 +25,7 @@ import SpriteKit
 ///
 struct SpriterFolder: SpriterParseable {
     
-    var id: Int = -1
+    var id: Int
     var name: String = ""
     var files: [SpriterFile] = []
     
@@ -36,25 +36,39 @@ struct SpriterFolder: SpriterParseable {
         }
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCON parser.
+    /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
+        guard let id = data.value(forKey: "id") as? Int else {
+            return nil
+        }
+        
+        self.id = id
+        
+        // Note that not all folders have names in a Spriter project.  These folders get a default
+        // name of "unnamed".  The shell script that builds te asset catalog from the Spriter project
+        // makes this same assumption.
         if let name = data.value(forKey: "name") as? String {
             self.name = name
         } else {
             self.name = "unnamed"
         }
-        
-        if let id = data.value(forKey: "id") as? Int {
-            self.id = id
-        }
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCML parser.
+    /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
         guard let id = attributes["id"] else {
-                return nil
+            return nil
         }
-
+        
         self.id = id.intValue()
         
+        // Note that not all folders have names in a Spriter project.  These folders get a default
+        // name of "unnamed".  The shell script that builds te asset catalog from the Spriter project
+        // makes this same assumption.
         if let name = attributes["name"] {
             self.name = name
         } else {
@@ -83,7 +97,7 @@ struct SpriterFolder: SpriterParseable {
             } else {
                 fileName = "\(self.name)_\(file.assetName)"
             }
-                        
+            
             return self.atlas.textureNamed(fileName)
         } else {
             print("unable to identify texture for: \(self), file: \(object.fileID)")

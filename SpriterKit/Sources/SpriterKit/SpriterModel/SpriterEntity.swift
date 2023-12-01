@@ -14,36 +14,44 @@ import Foundation
 
 struct SpriterEntity: SpriterParseable {
     
+    /// The ID of the entity.
     var id: Int = 0
+    
+    /// The name of the entity.
     var name: String
+    
+    // The animations applicable to this entity.
     var animations: [SpriterAnimation] = []
-        
+    
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCON parser.
+    /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
-        guard let name = data.value(forKey: "name") as? String else {
-                return nil
+        guard let name = data.value(forKey: "name") as? String,
+              let id = data.value(forKey: "id") as? Int else {
+            return nil
         }
         
         self.name = name
-        
-        if let id = data.value(forKey: "id") as? Int {
-            self.id = id
-        }
+        self.id = id
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCML parser.
+    /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
-        guard let id = attributes["id"] else {
-                return nil
+        guard let id = attributes["id"],
+              let name = attributes["name"] else {
+            return nil
         }
-
-        self.id = id.intValue()
         
-        if let name = attributes["name"] {
-            self.name = name
-        } else {
-            self.name = "undefined"
-        }
+        self.id = id.intValue()
+        self.name = name
     }
-
+    
+    /// Retrieves the animation information for the specified ID.
+    /// - Parameter id: The ID of the animation being requested.
+    /// - Returns: A `SpriterAnimation` or nil if the ID is invalid.
     func animation(withID id: Int) -> SpriterAnimation? {
         return self.animations.first { animation in
             return animation.id == id

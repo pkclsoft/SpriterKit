@@ -14,16 +14,26 @@ import Foundation
 
 struct SpriterMainline: SpriterParseable {
     
+    /// The keys defined for this SpriterMainline.  Access these via `key(forTimeInterval)`.
     var keys: [SpriterMainlineKey] = []
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCON parser.
+    /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
         
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCML parser.
+    /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
         
     }
     
+    /// Scans all of the keys associated with this mainline and returns an array of the times at which they should trigger.
+    /// - Returns: An array of `TimeInterval`s representing the key or frame times in the animation described by this
+    /// mainline.
     func keyTimes() -> [TimeInterval] {
         var result : [TimeInterval] = []
         

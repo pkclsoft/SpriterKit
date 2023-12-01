@@ -14,12 +14,22 @@ import Foundation
 
 struct SpriterTimelineKey: SpriterParseable {
     
+    /// The ID of the key.
     var id: Int
-    var time: TimeInterval = 0
-    var spin: SpriterSpinType = .clockwise
-    var curveType: SpriterCurveType = .linear
-    var isBone : Bool = false
     
+    /// The time in seconds for this timeline key frame.
+    var time: TimeInterval = 0
+    
+    /// The spin direction to be applied when rotating the bone or object.
+    var spin: SpriterSpinType = .clockwise
+    
+    /// The timing curve defined for this key.
+    var curveType: SpriterCurveType = .linear
+    
+    /// An internal indicator of whether this timeline relates to a bone or an object.
+    private var isBone : Bool = false
+    
+    /// For timeline keys associated with objects, this is the associated object.
     var object: SpriterObject? {
         didSet {
             if object != nil {
@@ -28,6 +38,7 @@ struct SpriterTimelineKey: SpriterParseable {
         }
     }
     
+    /// For timeline keys associated with bones, this is the associated bone.
     var bone: SpriterBone? {
         didSet {
             if bone != nil {
@@ -36,9 +47,12 @@ struct SpriterTimelineKey: SpriterParseable {
         }
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCON parser.
+    /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
         guard let id = data.value(forKey: "id") as? Int else {
-                return nil
+            return nil
         }
         
         self.id = id
@@ -48,56 +62,21 @@ struct SpriterTimelineKey: SpriterParseable {
         }
         
         if let spinInt = data.value(forKey: "spin") as? Int,
-            let spin = SpriterSpinType(rawValue: spinInt) {
+           let spin = SpriterSpinType(rawValue: spinInt) {
             self.spin = spin
         }
         
-        var c1: CGFloat = 0.0
-        var c2: CGFloat = 0.0
-        var c3: CGFloat = 0.0
-        var c4: CGFloat = 0.0
-
-        if let c1Value = data.value(forKey: "c1") as? CGFloat {
-            c1 = c1Value
-        }
-        
-        if let c2Value = data.value(forKey: "c2") as? CGFloat {
-            c2 = c2Value
-        }
-        
-        if let c3Value = data.value(forKey: "c3") as? CGFloat {
-            c3 = c3Value
-        }
-        
-        if let c4Value = data.value(forKey: "c4") as? CGFloat {
-            c4 = c4Value
-        }
-        
-        if let curveTypeInt = data.value(forKey: "curve_type") as? Int {
-            switch curveTypeInt {
-                case 0:
-                    self.curveType = .instant
-                case 1:
-                    self.curveType = .linear
-                case 2:
-                    self.curveType = .quadratic(c1: c1)
-                case 3:
-                    self.curveType = .cubic(c1: c1, c2: c2)
-                case 4:
-                    self.curveType = .quartic(c1: c1, c2: c2, c3: c3)
-                case 5:
-                    self.curveType = .quintic(c1: c1, c2: c2, c3: c3, c4: c4)
-                case 6:
-                    self.curveType = .bezier(c1: c1, c2: c2, c3: c3, c4: c4)
-                default:
-                    break
-            }
+        if let curve = SpriterCurveType(data: data) {
+            self.curveType = curve
         }
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCML parser.
+    /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
         guard let id = attributes["id"] else {
-                return nil
+            return nil
         }
         
         self.id = id.intValue()
@@ -106,64 +85,43 @@ struct SpriterTimelineKey: SpriterParseable {
             self.time = time.timeIntervalValue()
         }
         if let spinInt = attributes["spin"]?.intValue(),
-            let spin = SpriterSpinType(rawValue: spinInt) {
+           let spin = SpriterSpinType(rawValue: spinInt) {
             self.spin = spin
         }
         
-        var c1: CGFloat = 0.0
-        var c2: CGFloat = 0.0
-        var c3: CGFloat = 0.0
-        var c4: CGFloat = 0.0
-        
-        if let c1Value = attributes["c1"] {
-            c1 = c1Value.CGFloatValue()
-        }
-        
-        if let c2Value = attributes["c2"] {
-            c2 = c2Value.CGFloatValue()
-        }
-        
-        if let c3Value = attributes["c3"] {
-            c3 = c3Value.CGFloatValue()
-        }
-        
-        if let c4Value = attributes["c4"] {
-            c4 = c4Value.CGFloatValue()
-        }
-        
-        if let curveTypeStr = attributes["curve_type"] {
-            switch curveTypeStr {
-                case "instant":
-                    self.curveType = .instant
-                case "linear":
-                    self.curveType = .linear
-                case "quadratic":
-                    self.curveType = .quadratic(c1: c1)
-                case "cubic":
-                    self.curveType = .cubic(c1: c1, c2: c2)
-                case "quartic":
-                    self.curveType = .quartic(c1: c1, c2: c2, c3: c3)
-                case "quintic":
-                    self.curveType = .quintic(c1: c1, c2: c2, c3: c3, c4: c4)
-                case "bezier":
-                    self.curveType = .bezier(c1: c1, c2: c2, c3: c3, c4: c4)
-                default:
-                    break
-            }
+        if let curve = SpriterCurveType(withAttributes: attributes) {
+            self.curveType = curve
         }
     }
     
+    /// Computes a tween from `self` to `keyB` where keyB starts at `nextKeyTime` and the current time is `currentTime`.
+    ///
+    /// This has been ported from: https://github.com/loudoweb/SpriterHaxeEngine/blob/master/spriter/definitions/TimelineKey.hx
+    ///
+    /// - Parameters:
+    ///   - to: the destination key.
+    ///   - nextKeyTime: the time at which keyB starts
+    ///   - currentTime: the time "now"
+    /// - Returns: The tweened key.
     func tween(to: SpriterTimelineKey, at nextKeyTime: TimeInterval, currentTime: TimeInterval) -> SpriterTimelineKey {
         return linearKey(keyB: to, t: getTWithNextKey(at: nextKeyTime, currentTime: currentTime))
     }
-
+    
+    /// Using the curve type specified for `self`, computes an adjusted time value.
+    ///
+    /// This has been ported from: https://github.com/loudoweb/SpriterHaxeEngine/blob/master/spriter/definitions/TimelineKey.hx
+    ///
+    /// - Parameters:
+    ///   - nextKeyTime: the start time of the next key.
+    ///   - currentTime: the unadjusted current time
+    /// - Returns: the adjusted current time.
     func getTWithNextKey(at nextKeyTime: TimeInterval, currentTime: TimeInterval)  -> TimeInterval {
         if curveType == .instant || time == nextKeyTime {
             return 0
         }
         
         var result: TimeInterval = (currentTime - time) / (nextKeyTime - time);
-
+        
         switch (curveType) {
             case SpriterCurveType.instant:
                 result = 0.0
@@ -183,8 +141,15 @@ struct SpriterTimelineKey: SpriterParseable {
         
         return result
     }
-
     
+    /// Computes a tween from `self` to keyB at time `t`.
+    ///
+    /// This has been ported from: https://github.com/loudoweb/SpriterHaxeEngine/blob/master/spriter/definitions/TimelineKey.hx
+    ///
+    /// - Parameters:
+    ///   - keyB: the destination key frame
+    ///   - t: the time between now and keyB at which to interpolate or tween.
+    /// - Returns: A tweened value of `self` towards keyB.
     func linearKey(keyB: SpriterTimelineKey, t: TimeInterval) -> SpriterTimelineKey {
         var result = self
         
@@ -204,5 +169,5 @@ struct SpriterTimelineKey: SpriterParseable {
         
         return result
     }
-
+    
 }

@@ -35,12 +35,12 @@ public class SKSpriterObject : SKSpriteNode {
     }
     
     func update(withParent parent: SKSpriterBone) {
-        self.reference.scaleX *= parent.reference.combinedScaleX
-        self.reference.scaleY *= parent.reference.combinedScaleY
-        self.reference.position.x *= parent.reference.combinedScaleX
-        self.reference.position.y *= parent.reference.combinedScaleY
+        self.reference.xScale *= parent.reference.xScaleCombined
+        self.reference.yScale *= parent.reference.yScaleCombined
+        self.reference.position.x *= parent.reference.xScaleCombined
+        self.reference.position.y *= parent.reference.yScaleCombined
         
-        if parent.reference.combinedScaleX * parent.reference.combinedScaleY < 0.0 {
+        if parent.reference.xScaleCombined * parent.reference.yScaleCombined < 0.0 {
             self.reference.angle *= -1.0
         }
 
@@ -62,9 +62,9 @@ public class SKSpriterObject : SKSpriteNode {
         
         self.position = updateReference.position
 
-        self.xScale = updateReference.scaleX
+        self.xScale = updateReference.xScale
 
-        self.yScale = updateReference.scaleY
+        self.yScale = updateReference.yScale
 
         self.zRotation = updateReference.angle
         

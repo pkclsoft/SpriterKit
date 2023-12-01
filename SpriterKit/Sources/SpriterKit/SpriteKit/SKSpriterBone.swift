@@ -63,15 +63,15 @@ public class SKSpriterBone : SKNode {
     func updated(bone: SpriterBone, withParent parent: SKSpriterBone) -> SpriterBone {
         var result = bone
         
-        result.combinedScaleX = result.scaleX * parent.reference.combinedScaleX
-        result.combinedScaleY = result.scaleY * parent.reference.combinedScaleY
+        result.xScaleCombined = result.xScale * parent.reference.xScaleCombined
+        result.yScaleCombined = result.yScale * parent.reference.yScaleCombined
         
-        if parent.reference.combinedScaleX * parent.reference.combinedScaleY < 0.0 {
+        if parent.reference.xScaleCombined * parent.reference.yScaleCombined < 0.0 {
             result.angle *= -1.0
         }
         
-        result.position.x *= parent.reference.combinedScaleX
-        result.position.y *= parent.reference.combinedScaleY
+        result.position.x *= parent.reference.xScaleCombined
+        result.position.y *= parent.reference.yScaleCombined
 
         return result
     }
@@ -94,16 +94,16 @@ public class SKSpriterBone : SKNode {
         self.zRotation = updateReference.angle
 
         #if DEBUG
-        let endPoint : CGPoint = CGPoint.zero.pointOnCircle(withRadius: updateReference.size.width * updateReference.combinedScaleX,
+        let endPoint : CGPoint = CGPoint.zero.pointOnCircle(withRadius: updateReference.size.width * updateReference.xScaleCombined,
                                                             atRadians: 0.0)
 
         if let bone = boneJoint.childNode(withName: BONE_VISUALISATION_NAME) {
             bone.removeFromParent()
         }
                         
-        let boneVisualisation = SKShapeNode(rectOf: CGSize(width: updateReference.size.width * updateReference.combinedScaleX,
-                                                           height: updateReference.size.height * updateReference.combinedScaleY),
-                                                           cornerRadius: updateReference.size.height / 2.0 * updateReference.combinedScaleY)
+        let boneVisualisation = SKShapeNode(rectOf: CGSize(width: updateReference.size.width * updateReference.xScaleCombined,
+                                                           height: updateReference.size.height * updateReference.yScaleCombined),
+                                                           cornerRadius: updateReference.size.height / 2.0 * updateReference.yScaleCombined)
         
         boneVisualisation.position = CGPoint.midpoint(betweenStart: .zero, andEnd: endPoint)
         boneVisualisation.fillColor = .white

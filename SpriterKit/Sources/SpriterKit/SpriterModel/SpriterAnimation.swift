@@ -22,12 +22,15 @@ struct SpriterAnimation: SpriterParseable {
     var mainline: SpriterMainline?
     var timelines: [SpriterTimeline] = []
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCON parser.
+    /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
         guard let id = data.value(forKey: "id") as? Int,
               let name = data.value(forKey: "name") as? String,
               let length = data.value(forKey: "length") as? String,
               let interval = data.value(forKey: "interval") as? String else {
-                return nil
+            return nil
         }
         
         self.id = id
@@ -42,7 +45,9 @@ struct SpriterAnimation: SpriterParseable {
         self.mainline = nil
     }
     
-    
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCML parser.
+    /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
         guard let id = attributes["id"],
               let name = attributes["name"],
@@ -50,7 +55,7 @@ struct SpriterAnimation: SpriterParseable {
               let interval = attributes["interval"] else {
             return nil
         }
-
+        
         self.id = id.intValue()
         self.name = name
         self.length = length.timeIntervalValue()
@@ -62,7 +67,7 @@ struct SpriterAnimation: SpriterParseable {
         
         self.mainline = nil
     }
-
+    
     func timeline(forTimeLineID timelineID: Int) -> SpriterTimeline? {
         return timelines.first(where: { timeline in
             return timeline.id == timelineID
@@ -122,5 +127,5 @@ struct SpriterAnimation: SpriterParseable {
             throw SpriterAnimationError.UnknownTimelineKey
         }
     }
-
+    
 }

@@ -16,22 +16,42 @@ import SpriteKit
 
 struct SpriterObject: SpriterParseable {
     
+    /// The folder ID of the folder containing the file displayed by this object.
     var folderID: Int
+    
+    /// The file containing the image for this object.
     var fileID: Int
+    
+    /// The position within the object parents space.
     var position: CGPoint = .zero
+    
+    /// The angle or zRotation of the object in radians.
     var angle: CGFloat = 0.0
-    var scaleX: CGFloat = 1.0
-    var scaleY: CGFloat = 1.0
+    
+    /// The xScale of the object.
+    var xScale: CGFloat = DEFAULT_SCALE
+    
+    /// The yScale of the object.
+    var yScale: CGFloat = DEFAULT_SCALE
+    
+    /// The pivot point of the object.
     var pivot: CGPoint = DEFAULT_PIVOT
+    
+    /// The alpha of the object.
     var alpha: CGFloat = 1.0
+    
+    /// The spin direction to be applied when rotating the object.
     var spin: SpriterSpinType = .clockwise
     
-    // this is not provided at parsing time; it is provided during animation as
-    // an object reference is used because that is where Spriter provides a
-    // possible change in the zIndex.
-    //
+    /// this is not provided at parsing time; it is provided during animation as
+    /// an object reference is used because that is where Spriter provides a
+    /// possible change in the zIndex.
+    ///
     var zIndex: Int? = 0
 
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCON parser.
+    /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
         guard let folderID = data.value(forKey: "folder") as? Int,
             let fileID = data.value(forKey: "file") as? Int else {
@@ -54,11 +74,11 @@ struct SpriterObject: SpriterParseable {
         }
         
         if let scaleX = data.value(forKey: "scale_x") as? CGFloat {
-            self.scaleX = scaleX
+            self.xScale = scaleX
         }
         
         if let scaleY = data.value(forKey: "scale_y") as? CGFloat {
-            self.scaleY = scaleY
+            self.yScale = scaleY
         }
         
         if let pivotX = data.value(forKey: "pivot_x") as? CGFloat {
@@ -74,6 +94,9 @@ struct SpriterObject: SpriterParseable {
         }
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCML parser.
+    /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
         guard let folderID = attributes["folder"],
             let fileID = attributes["file"] else {
@@ -96,11 +119,11 @@ struct SpriterObject: SpriterParseable {
         }
         
         if let scaleX = attributes["scale_x"] {
-            self.scaleX = scaleX.CGFloatValue()
+            self.xScale = scaleX.CGFloatValue()
         }
         
         if let scaleY = attributes["scale_y"] {
-            self.scaleY = scaleY.CGFloatValue()
+            self.yScale = scaleY.CGFloatValue()
         }
         
         if let pivotX = attributes["pivot_x"] {
@@ -130,8 +153,8 @@ struct SpriterObject: SpriterParseable {
         
         result.pivot = result.pivot.lerp(toB: other.pivot, alpha: percent)
         
-        result.scaleX = result.scaleX.lerp(toB: other.scaleX, alpha: percent)
-        result.scaleY = result.scaleY.lerp(toB: other.scaleY, alpha: percent)
+        result.xScale = result.xScale.lerp(toB: other.xScale, alpha: percent)
+        result.yScale = result.yScale.lerp(toB: other.yScale, alpha: percent)
         
         result.alpha = result.alpha.lerp(toB: other.alpha, alpha: percent)
 

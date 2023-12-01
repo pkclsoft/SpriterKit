@@ -26,6 +26,99 @@ enum SpriterCurveType : Equatable {
     case quintic(c1: CGFloat, c2: CGFloat, c3: CGFloat, c4: CGFloat)
     case bezier(c1: CGFloat, c2: CGFloat, c3: CGFloat, c4: CGFloat)
     
+    init?(data: AnyObject) {
+        var c1: CGFloat = 0.0
+        var c2: CGFloat = 0.0
+        var c3: CGFloat = 0.0
+        var c4: CGFloat = 0.0
+
+        if let c1Value = data.value(forKey: "c1") as? CGFloat {
+            c1 = c1Value
+        }
+        
+        if let c2Value = data.value(forKey: "c2") as? CGFloat {
+            c2 = c2Value
+        }
+        
+        if let c3Value = data.value(forKey: "c3") as? CGFloat {
+            c3 = c3Value
+        }
+        
+        if let c4Value = data.value(forKey: "c4") as? CGFloat {
+            c4 = c4Value
+        }
+        
+        if let curveTypeInt = data.value(forKey: "curve_type") as? Int {
+            switch curveTypeInt {
+                case 0:
+                    self = .instant
+                case 1:
+                    self = .linear
+                case 2:
+                    self = .quadratic(c1: c1)
+                case 3:
+                    self = .cubic(c1: c1, c2: c2)
+                case 4:
+                    self = .quartic(c1: c1, c2: c2, c3: c3)
+                case 5:
+                    self = .quintic(c1: c1, c2: c2, c3: c3, c4: c4)
+                case 6:
+                    self = .bezier(c1: c1, c2: c2, c3: c3, c4: c4)
+                default:
+                    return nil
+            }
+        } else {
+            return nil
+        }
+    }
+    
+    init?(withAttributes attributes: [String: String]) {
+        var c1: CGFloat = 0.0
+        var c2: CGFloat = 0.0
+        var c3: CGFloat = 0.0
+        var c4: CGFloat = 0.0
+        
+        if let c1Value = attributes["c1"] {
+            c1 = c1Value.CGFloatValue()
+        }
+        
+        if let c2Value = attributes["c2"] {
+            c2 = c2Value.CGFloatValue()
+        }
+        
+        if let c3Value = attributes["c3"] {
+            c3 = c3Value.CGFloatValue()
+        }
+        
+        if let c4Value = attributes["c4"] {
+            c4 = c4Value.CGFloatValue()
+        }
+        
+        if let curveTypeStr = attributes["curve_type"] {
+            switch curveTypeStr {
+                case "instant":
+                    self = .instant
+                case "linear":
+                    self = .linear
+                case "quadratic":
+                    self = .quadratic(c1: c1)
+                case "cubic":
+                    self = .cubic(c1: c1, c2: c2)
+                case "quartic":
+                    self = .quartic(c1: c1, c2: c2, c3: c3)
+                case "quintic":
+                    self = .quintic(c1: c1, c2: c2, c3: c3, c4: c4)
+                case "bezier":
+                    self = .bezier(c1: c1, c2: c2, c3: c3, c4: c4)
+                default:
+                    return nil
+            }
+        } else {
+            return nil
+        }
+
+    }
+    
     init?(string: String) {
         switch string.lowercased() {
             case "instant": self = .instant

@@ -14,13 +14,25 @@ import Foundation
 
 struct SpriterObjectRef: SpriterParseable {
     
+    /// The ID of the object being referenced.
     var id: Int
+    
+    /// The ID of the parent bone to which the referenced object should be attached.  Note that a Spriter project can renumber the bones
+    /// with each key frame.  It's important that the in-memory structures handle this.
     var parentID: Int = NO_PARENT
+    
+    /// The ID of the timeline that controls how this object moves with relation to it's bone.
     var timelineID: Int
+    
+    /// The ID of the key within the timeline that controls how this object moves with relation to it's bone.
     var keyID: Int
+    
+    /// The optional zPosition of the object.
     var zIndex: Int?
 
-
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCON parser.
+    /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
         guard let id = data.value(forKey: "id") as? Int,
             let timelineString = data.value(forKey: "timeline") as? String,
@@ -44,6 +56,9 @@ struct SpriterObjectRef: SpriterParseable {
         }
     }
     
+    /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
+    /// expected to be used by the SCML parser.
+    /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
         guard let id = attributes["id"],
               let timeline = attributes["timeline"],
