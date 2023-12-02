@@ -19,11 +19,9 @@ struct SpriterBone: SpriterParseable {
     /// The position of the bone within it's parent space.
     var position: CGPoint = .zero
     
-#if DEBUG
     /// The size of the bone according to the `bone_info`.  This is added by the parser as it is not available
     /// in the `bone_ref`.  You only really need this if you want to display the bones.
     var size: CGSize = .zero
-#endif
     
     /// The angle or zRotation of the bone in radians.
     var angle: CGFloat = 0.0
@@ -61,7 +59,7 @@ struct SpriterBone: SpriterParseable {
         }
         
         if let angle = data.value(forKey: "angle") as? CGFloat {
-            self.angle = angle
+            self.angle = CGFloat(GLKMathDegreesToRadians(Float(angle)))
         }
         
         if let scaleX = data.value(forKey: "scale_x") as? CGFloat {

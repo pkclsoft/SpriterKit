@@ -10,16 +10,16 @@ import SpriteKit
 import GLKit
 
 /// A SpriteKit node that provides a real bone implementation that can be inserted into the node tree, and be used as a
-/// container for other bones and objects.  A SKSpriterBone uses the functions and features of SpriteKit to achieve a lot
+/// container for other bones and objects.  A `SKSpriterBone` uses the functions and features of SpriteKit to achieve a lot
 /// of the math required to move it's children (and respectively, their children and so on).  A bone need only be given a
 /// position and rotation.
 ///
-/// Children should be positioned within the node space, applying the instructions embedded within a SpriterBone
+/// Children should be positioned within the node space, applying the instructions embedded within a `SpriterBone`
 /// instance via a call to `update(fromReference)`.
 ///
-/// A SKSpriterBone maintains two internal SpriterBone objects that provide the previous and current keyframe data.
+/// A `SKSpriterBone` maintains two internal SpriterBone objects that provide the previous and current keyframe data.
 ///
-/// When compiled in a Debug environment, a SKSpriterBone can also provide a visualisation of the bone position,
+/// When compiled in a Debug environment, a `SKSpriterBone` can also provide a visualisation of the bone position,
 /// size and orientation.
 ///
 public class SKSpriterBone : SKNode {
@@ -83,41 +83,36 @@ public class SKSpriterBone : SKNode {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// Computes and returns a SpriterBone, applying any instructions from the specified parent.
-    /// - Parameters:
-    ///   - bone: the starting point, and the SpriterBone that will be adjusted by the parent to become the new reference for this bone.
-    ///   - parent: the parent used to apply scale to this bone.
-    /// - Returns: The updated SpriterBone
-    func updated(bone: SpriterBone, withParent parent: SKSpriterBone) -> SpriterBone {
-        var result = bone
-        
-        // We only need to apply scale from the parent.
-        //
-        result.xScaleCombined = result.xScale * parent.reference.xScaleCombined
-        result.yScaleCombined = result.yScale * parent.reference.yScaleCombined
-        
-        if parent.reference.xScaleCombined * parent.reference.yScaleCombined < 0.0 {
-            result.angle *= -1.0
-        }
-        
-        // finally, scale the position with the parents scale.
-        result.position.x *= parent.reference.xScaleCombined
-        result.position.y *= parent.reference.yScaleCombined
-
-        return result
-    }
-    
     /// Updates this nodes reference with instructions from the specified parent bone.
     /// - Parameter parent: the parent bone.
     func update(withParent parent: SKSpriterBone) {
-        self.reference = updated(bone: self.reference, withParent: parent)
+        // Compute our combined scale by combining our raw scale (that from the proect)
+        // with that of the parents combined scale.
+        //
+        self.reference.xScaleCombined = self.reference.xScale * parent.reference.xScaleCombined
+        self.reference.yScaleCombined = self.reference.yScale * parent.reference.yScaleCombined
+
+        // if either of the parent scales are negatice then flip the rotation.
+        if parent.reference.xScaleCombined * parent.reference.yScaleCombined < 0.0 {
+            self.reference.angle *= -1.0
+        }
         
+        // finally, scale the position with the parents combined scale.
+        //
+        self.reference.position.x *= parent.reference.xScaleCombined
+        self.reference.position.y *= parent.reference.yScaleCombined
+        
+        // if this bone has no parent in the (SpriteKit) node tree, then add it to the specified
+        // parent.
+        //
         if self.parent == nil {
             self.prevReference = self.reference
                         
             parent.addChild(self)
         }
         
+        // Now update the bone using the computed reference.
+        //
         self.update(fromReference: self.reference)
     }
     

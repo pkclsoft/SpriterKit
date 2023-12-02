@@ -22,6 +22,9 @@ public class SconParser: NSObject, SpriterParser {
     public var generatorVersion: String?
     public var spriterData: SpriterData?
         
+    /// Initialises the parser to parse the named file, and then parses it.
+    /// If any errors occur during parsing then nil is returned.
+    /// - Parameter fileName: the name of the file to be parsed.
     public init?(fileName: String) {
         self.fileName = fileName
         
@@ -34,17 +37,9 @@ public class SconParser: NSObject, SpriterParser {
             return nil
         }
     }
-    
-    public init?(data: Data) {
-        super.init()
-        
-        do {
-            try parse(fileContent: data)
-        } catch {
-            print("Error: \(error)")
-            return nil
-        }
-    }
+
+    /// Temporary container for all folders whilst parsing.
+    private var folders : [SpriterFolder] = []
 
     public func parse(fileContent: Data) throws {
         
@@ -54,26 +49,13 @@ public class SconParser: NSObject, SpriterParser {
         self.generator = dict["generator"] as? String
         self.generatorVersion = dict["generator_version"] as? String
         
-        let folders = self.parseFolders(dict["folder"] as AnyObject)
+        self.folders = self.parseFolders(dict["folder"] as AnyObject)
         
         let entities = self.parseEntities(dict["entity"] as AnyObject)
                 
-        self.spriterData = SpriterData(folders: folders, entities: entities)
-    }
-    
-    func parseAtlases(_ dicts: AnyObject) -> [String]? {
-        if let atlasDicts = dicts as? [JsonDict] {
-            var atlases = [String]()
-            for atlasDict in atlasDicts {
-                if let name = atlasDict["name"] as? String {
-                    atlases.append(name)
-                }
-            }
-            if atlases.count > 0 {
-                return atlases
-            }
-        }
-        return nil
+        self.spriterData = SpriterData(folders: self.folders, entities: entities)
+        
+        self.folders.removeAll()
     }
     
     func parseFolders(_ dicts: AnyObject) -> [SpriterFolder] {
@@ -90,17 +72,26 @@ public class SconParser: NSObject, SpriterParser {
     
     func parseEntities(_ dicts: AnyObject) -> [SpriterEntity] {
         let items = self.parseItems(dicts) { (entity: inout SpriterEntity, entityDict: JsonDict) in
-            entity.animations = self.parseAnimations(entityDict["animation"] as AnyObject)
-            } as [SpriterEntity]
+            // it's important to parse the object infos first because we need
+            // to be able to use them when parsing the animations.
+            //
+            entity.objectInfos = self.parseObjInfos(entityDict["obj_info"] as AnyObject)
+            
+            entity.animations = self.parseAnimations(entityDict["animation"] as AnyObject, withinEntity: entity)
+        } as [SpriterEntity]
         
         return items
     }
     
-    
-    func parseAnimations(_ dicts: AnyObject) -> [SpriterAnimation] {
+    func parseObjInfos(_ dicts: AnyObject) -> [SpriterObjectInfo] {
+        let items = self.parseItems(dicts) as [SpriterObjectInfo]
+        return items
+    }
+
+    func parseAnimations(_ dicts: AnyObject, withinEntity entity: SpriterEntity) -> [SpriterAnimation] {
         let items = self.parseItems(dicts, dataBlock: { (animation: inout SpriterAnimation, animDict: JsonDict) in
             animation.mainline = self.parseMainline(animDict["mainline"] as AnyObject)
-            animation.timelines = self.parseTimelines(animDict["timeline"] as AnyObject)
+            animation.timelines = self.parseTimelines(animDict["timeline"] as AnyObject, withinEntity: entity)
         }) as [SpriterAnimation]
         return items
     }
@@ -130,17 +121,42 @@ public class SconParser: NSObject, SpriterParser {
         return items
     }
     
-    func parseTimelines(_ dicts: AnyObject) -> [SpriterTimeline] {
+    func parseTimelines(_ dicts: AnyObject, withinEntity entity: SpriterEntity) -> [SpriterTimeline] {
         let items = self.parseItems(dicts, dataBlock: { (timeline: inout SpriterTimeline, timelineDict: JsonDict) in
-            timeline.keys = self.parseTimelineKeys(timelineDict["key"] as AnyObject)
+            timeline.keys = self.parseTimelineKeys(timelineDict["key"] as AnyObject, withinEntity: entity, andTimeline: timeline)
         }) as [SpriterTimeline]
         return items
     }
     
-    func parseTimelineKeys(_ dicts: AnyObject) -> [SpriterTimelineKey] {
+    func parseTimelineKeys(_ dicts: AnyObject, withinEntity entity: SpriterEntity, andTimeline timeline: SpriterTimeline) -> [SpriterTimelineKey] {
         let items = self.parseItems(dicts, dataBlock: {(key: inout SpriterTimelineKey, keyDict: JsonDict) in
-            key.object = self.parseObject(keyDict["object"] as AnyObject)
-            key.bone = self.parseBone(keyDict["bone"] as AnyObject)
+            
+            if var object = self.parseObject(keyDict["object"] as AnyObject) {
+                object.spin = key.spin
+                
+                // if the object has a default pivot, then adopt the pivot from the file in case it
+                // is not a default value.
+                //
+                if object.pivot == DEFAULT_PIVOT,
+                   let folder = self.folders.first(where: { folder in
+                       return folder.id == object.folderID
+                   }),
+                   let file = folder.file(withID: object.fileID) {
+                    object.pivot = file.pivot
+                }
+
+                key.object = object
+            }
+            
+            if var bone = self.parseBone(keyDict["bone"] as AnyObject) {
+                bone.spin = key.spin
+
+                if let info = entity.objectInfo(withName: timeline.name) {
+                    bone.size = info.size
+                }
+
+                key.bone = bone
+            }
         }) as [SpriterTimelineKey]
         return items
     }

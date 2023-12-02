@@ -8,13 +8,13 @@
 import Foundation
 import SpriteKit
 
-/// An entity is essentailly one or more sprites that can be joined and connected by bones.  Each bone and each sprite can be
+/// An entity is essentailly one or more sprites that can be joined and connected by bones.  Each bone and each sprite (object) can be
 /// animated independently within the entity via a collection of fields that specify the bone/sprites current position, scale, rotation, and alpha.
 ///
 /// These fields are provided via `SpriterTimelineKey` instances, and these are reached via an animation on the entity.
 ///
-/// So to animate the entity, it must first be constructed as a hierarchy of `SKNode` and `SKSpriteNode` objects, where `SKNode` represents a
-/// bone, and `SKSpriteNode` represents a sprite.
+/// So to animate the entity, it must first be constructed as a hierarchy of `SKNode` and `SKSpriteNode` objects, where `SKSpriterBone` represents a
+/// bone, and `SKSpriterObject` represents a sprite.
 ///
 /// The hierarchy is determined by first traversing the list of `SpriterBoneRef` in an animation to build a skeleton of bones.  The sprites then flesh
 /// out the skeleton as they are added to the bones that define their parents.
@@ -27,7 +27,8 @@ import SpriteKit
 ///
 public class SKSpriterEntity : SKNode {
     
-    enum EventTarget {
+    /// This simple enumeration provides a convenient mechanism to assist with naming nodes in the SpriteKit node tree.
+    enum SpriterNodeType {
         case bone
         case object
     }
@@ -58,13 +59,34 @@ public class SKSpriterEntity : SKNode {
     ///
     var keyIndex : Int = 0
     
+    /// This structure is here to support those (hopefully) rare situations where a bone is added or removed
+    /// from the hierarchy within at the start of a frame.  For whatever reason, Spriter does not keep the
+    /// bone IDs consistent across the entire animation, and it becomes difficult to keep the node tree intact.
+    ///
+    /// So when bones are first created (normally in the zeroth frame), their timelines are stored in this dictionary.
+    /// Timeline IDs remain consistent across the animation for a given bone, even when their bone IDs do not.
+    ///
+    /// So storing the timeline ID like this allows bones and objects which only know their parents by bone ID, to
+    /// lookup the timeline of the bone using the parent ID (which is a bone ID), to reference the correct bone.
+    ///
+    var timelinePerBone : [Int : Int] = [:]
+    
     /// Has the entity been initialised yet?  If not then the first frame will take 0 milliseconds.
     ///
     var initialised : Bool = false
     
-    /// This is used to slow down the animation during debugging.
+    /// Set to true to enable tweened animations.
+    ///
+    var animate : Bool = true
+    
+#if DEBUG
+    /// This can be used to slow down the animation during debugging.  A larger number means a slower animation.
     ///
     let debugTimeFactor = 1.0
+    
+    /// If true then a text label showing timing information is added to the node tree.
+    ///
+    var showDebugLabel : Bool = false
     
     /// A label with which to add debug info during the animation.
     ///
@@ -77,10 +99,7 @@ public class SKSpriterEntity : SKNode {
     /// If  `true`, then bones are shown as well.
     ///
     public var showBones : Bool = true
-    
-    /// Set to true to enable tweened animations.
-    ///
-    var animate : Bool = true
+#endif
     
     /// Returns a string used to name a node.  Use this for all nodes to be added to the tree so that
     /// searches will return consistent results.
@@ -88,12 +107,12 @@ public class SKSpriterEntity : SKNode {
     ///   - id: the id associated with the node
     ///   - target: the node type (bone or object)
     /// - Returns: A node name.
-    static func nodeName(forID id: Int, andTarget target: EventTarget) -> String {
+    static func nodeName(forID id: Int, andTarget target: SpriterNodeType) -> String {
         return "\(target)_\(id)"
     }
     
-    // This will be the root node of the tree, and act as the container for the rest of the nodes.
-    //
+    /// This will be the root node of the tree, and act as the container for the rest of the nodes.
+    ///
     var nodeTree : SKNode = SKNode()
     
     /// Initialises a new `SKSpriterEntity` for display on the screen, with the specified animation ready to start as soon as the
@@ -110,6 +129,7 @@ public class SKSpriterEntity : SKNode {
         
         self.addChild(nodeTree)
         
+#if DEBUG
         // This is just a debug tool to show the centre of the root node of the entity.
         // Some spriter models are not centred.
         let circle = SKShapeNode(circleOfRadius: 50.0)
@@ -120,16 +140,15 @@ public class SKSpriterEntity : SKNode {
         nodeTree.addChild(circle)
         
         // place the debug label down the bottom.
-        debugLabel.fontColor = .yellow
-        debugLabel.fontSize = 60.0
-        debugLabel.position = CGPoint(x: 0.0, y: -900.0)
-        debugLabel.zPosition = 10000.0
-        
-        nodeTree.addChild(debugLabel)
-        
-        // reduce the size for now whilst we debug.
-        //
-        nodeTree.setScale(0.25)
+        if showDebugLabel {
+            debugLabel.fontColor = .yellow
+            debugLabel.fontSize = 60.0
+            debugLabel.position = CGPoint(x: 0.0, y: -900.0)
+            debugLabel.zPosition = 10000.0
+            
+            nodeTree.addChild(debugLabel)
+        }
+#endif
         
         // find the entity and start the specified animation.
         if let entity = spriterData.entity(withEntityID: entityID) {
@@ -138,14 +157,6 @@ public class SKSpriterEntity : SKNode {
             self.startAnimation(withID: animationID)
         }
     }
-    
-    // MARK: - Bone Node Hierarchy Manipulation
-    
-    // This structure is here to support those (hopefully) rare situations where a bone is added or removed
-    // from the hierarchy within at the start of a frame.  For whatever reason, Spriter does not keep the
-    // bone IDs consistent across the entire animation, and it becomes difficult to keep the node tree intact.
-    //
-    var timelinePerBone : [Int : Int] = [:]
     
     // MARK: - Animation engine
     
@@ -158,17 +169,19 @@ public class SKSpriterEntity : SKNode {
             // Having found the animation, save it.
             self.animation = animation
             
-            // Now traverse the mainline, adding nodes to the `nodeTree`, respecting the hierarchy defined there.
+            // Now grab the mainline, and kick things off.
             //
             if let mainline = animation.mainline {
-                // grab the key times.
+                // grab the key times for the mainline.
                 self.keyTimes = mainline.keyTimes()
                 
                 // start with the first key.
                 self.keyIndex = 0
                 
+#if DEBUG
                 // initialise the animation timer.
                 self.debugTime = Date.timeIntervalSinceReferenceDate
+#endif
                 
                 // kick off the animation.
                 self.updateToNextKey()
@@ -194,6 +207,7 @@ public class SKSpriterEntity : SKNode {
         if let times = self.keyTimes {
             return duration(followingTime: times[self.keyIndex])
         } else {
+            // this should never happen.
             return 0.0
         }
     }
@@ -219,6 +233,7 @@ public class SKSpriterEntity : SKNode {
         }
     }
     
+#if DEBUG
     /// A simple utility for formatting floating point numbers for debugging.
     /// - Parameters:
     ///   - of: the number to be formatted
@@ -228,6 +243,8 @@ public class SKSpriterEntity : SKNode {
         return String(format: "%03.\(digits)f", of)
     }
     
+    /// Useful method of dumping details about all of the Spriter nodes in the node tree starting at a specific node (by name).
+    /// - Parameter startingWith: the name of the node at the top of the tree to be traced.
     func traceNodeTree(startingWith: String) {
         if let existingNode = self.nodeTree.childNode(withName: ".//\(startingWith)") as? SKSpriterBone {
             print("\(existingNode.name!):  \(existingNode.reference)")
@@ -241,125 +258,137 @@ public class SKSpriterEntity : SKNode {
             }
         }
     }
+#endif
     
-    /// This is the guts of the animation mechanism.  It traverses the model for the animation of the entity, and for the initial frame, creates
-    /// the nodes that represent the bones and objects in the model.  Successive frames result in animatiion sequences that tween the
+    /// This is the guts of the animation mechanism.  It traverses the model for the animation of the entity, building out (for the initial frame) and updating
+    /// (for successive frames) the SpriteKit node tree representation of the Spriter project.  Successive frames result in animatiion sequences that tween the
     /// entity from one frame to the next, following the instructions in the model.
     func updateToNextKey() {
         if let animation = self.animation,
            let mainline = animation.mainline {
             let mainlineKeyTime = self.keyTimes![self.keyIndex]
+            
+            // Get the mainline key which contains all of the bone and object references.
             let key = mainline.key(forTimeInterval: mainlineKeyTime)
             
             // determine the duration of this frame.
-            let duration : TimeInterval
+            var duration : TimeInterval
             
             // if this is the first time, then it needs to be instantaneous.
             if !initialised {
                 duration = 0.0
                 initialised = true
             } else {
-                duration = nextDuration()  * debugTimeFactor
+                duration = nextDuration()
             }
             
+#if DEBUG
+            duration *= debugTimeFactor
             self.debugLabel.text = "frame time: \(numStr(of: key.time))"
+#endif
             
-            // Now traverse all of the bone references and build up the node tree representing the bones.
+            // Now traverse all of the bone references and build up or update the node tree representing the bones.
             //
             key.boneRefs.forEach { boneRef in
-                if let animation = self.animation {
-                    do {
-                        var boneNode : SKSpriterBone
-                        let newNode : Bool
+                do {
+                    var boneNode : SKSpriterBone
+                    let newNode : Bool
+                    
+                    // for this bone, find the mapped timeline.
+                    let keyFrame = try animation.key(inTimeLineWithID: boneRef.timelineID, andKey: boneRef.keyID, newTime: key.time)
+                    
+                    // assuming we found one...
+                    if let bone = keyFrame.bone {
+                        // see if the node already exists in the tree.
+                        let boneName = SKSpriterEntity.nodeName(forID: boneRef.timelineID, andTarget: .bone)
                         
-                        // for this bone, find the mapped timeline.
-                        let keyFrame = try animation.key(inTimeLineWithID: boneRef.timelineID, andKey: boneRef.keyID, newTime: key.time)
-                        
-                        // assuming we found one...
-                        if let bone = keyFrame.bone {
-                            // see if the node already exists in the tree.
-                            let boneName = SKSpriterEntity.nodeName(forID: boneRef.timelineID, andTarget: .bone)
+                        // Doing a search by name for the bone.  (this may need to be optimised)
+                        //
+                        if let existingNode = self.nodeTree.childNode(withName: ".//\(boneName)") as? SKSpriterBone {
+                            boneNode = existingNode
                             
-                            if let existingNode = self.nodeTree.childNode(withName: ".//\(boneName)") as? SKSpriterBone {
-                                boneNode = existingNode
-                                
-                                if existingNode.timelineID == boneRef.timelineID {
-                                    // it does so preserve the previous frame reference as prevReference, and initialise the new
-                                    // reference from this timelineKey
-                                    //
-                                    boneNode.prevReference = boneNode.reference
-                                    boneNode.reference = bone
-                                }
-                                
-                                newNode = false
-                            } else {
-                                // not in the tree so create it anew.
-                                //
-                                boneNode = SKSpriterBone(withBone: bone, initialTimelineID: boneRef.timelineID)
-                                boneNode.name = boneName
-                                newNode = true
-                                
-                                if timelinePerBone[boneRef.id] == nil {
-                                    timelinePerBone[boneRef.id] = boneRef.timelineID
-                                }
-                            }
-                            
-                            #if DEBUG
-                            boneNode.showBones = self.showBones
-                            #endif
-                            
-                            // if the parent exists already (which it should if there is a parent)...
-                            if boneRef.parentID != NO_PARENT {
-                                if let parent = boneNode.parent as? SKSpriterBone {
-                                    // update the bone using information from the parent bone.
-                                    //
-                                    boneNode.update(withParent: parent)
-                                } else {
-                                    // get the name of the bones parent (if any).
-                                    if let parentTimelineID = timelinePerBone[boneRef.parentID] {
-                                        let parentName = SKSpriterEntity.nodeName(forID: parentTimelineID, andTarget: .bone)
-                                        
-                                        if let parent = nodeTree.childNode(withName: ".//\(parentName)") as? SKSpriterBone {
-                                            // update the bone using information from the parent bone.
-                                            //
-                                            boneNode.update(withParent: parent)
-                                        }
-                                    }
-                                }
-                                
-                            } else if boneRef.parentID == NO_PARENT {
-                                // the bone is a top level bone, so add it to the tree.
-                                //
-                                if newNode {
-                                    nodeTree.addChild(boneNode)
-                                }
-                                
-                                // update it to reflect it's reference data.
-                                //
-                                boneNode.update(fromReference: boneNode.reference)
-                            }
-                            
-                            // This is where, for this bone, we animate the current frame.
+                            // does this bone use the same timeline ID as it has in the past?  It should.  SpriterKit doesn't yet
+                            // handle bones that get inserted mid-animation that steal bone IDs.
                             //
-                            if self.animate {
-                                boneNode.run(.customAction(withDuration: duration, actionBlock: { node, elapsed in
-                                    let percent = elapsed / duration
-                                    
-                                    if let bone = node as? SKSpriterBone {
-                                        let tween = bone.tween(forPercent: percent)
-                                        
-                                        bone.update(fromReference: tween)
-                                    }
-                                }))
+                            if existingNode.timelineID == boneRef.timelineID {
+                                // it does so preserve the previous frame reference as prevReference, and initialise the new
+                                // reference from this timelineKey
+                                //
+                                boneNode.prevReference = boneNode.reference
+                                boneNode.reference = bone
+                            }
+                            
+                            newNode = false
+                        } else {
+                            // not in the tree so create it anew.
+                            //
+                            boneNode = SKSpriterBone(withBone: bone, initialTimelineID: boneRef.timelineID)
+                            boneNode.name = boneName
+                            newNode = true
+                            
+                            // Store the timeline ID for this bone (if this is the first bone to exist with the specified
+                            // bone ID.
+                            //
+                            if timelinePerBone[boneRef.id] == nil {
+                                timelinePerBone[boneRef.id] = boneRef.timelineID
                             }
                         }
-                    } catch {
-                        // this should not be possible.
+                        
+#if DEBUG
+                        boneNode.showBones = self.showBones
+#endif
+                        
+                        // does the bone have a parent?
+                        if boneRef.parentID != NO_PARENT {
+                            // if the parent exists already (which it should if there is a parent)...
+                            if let parent = boneNode.parent as? SKSpriterBone {
+                                // update the bone using information from the parent bone.
+                                //
+                                boneNode.update(withParent: parent)
+                            } else {
+                                // get the name of the bones parent (if any).
+                                if let parentTimelineID = timelinePerBone[boneRef.parentID] {
+                                    let parentName = SKSpriterEntity.nodeName(forID: parentTimelineID, andTarget: .bone)
+                                    
+                                    if let parent = nodeTree.childNode(withName: ".//\(parentName)") as? SKSpriterBone {
+                                        // update the bone using information from the parent bone.
+                                        //
+                                        boneNode.update(withParent: parent)
+                                    }
+                                }
+                            }
+                        } else if boneRef.parentID == NO_PARENT {
+                            // the bone is a top level bone, so add it to the tree.
+                            //
+                            if newNode {
+                                nodeTree.addChild(boneNode)
+                            }
+                            
+                            // update it to reflect it's reference data.
+                            //
+                            boneNode.update(fromReference: boneNode.reference)
+                        }
+                        
+                        // This is where, for this bone, we animate the current frame.
+                        //
+                        if self.animate {
+                            boneNode.run(.customAction(withDuration: duration, actionBlock: { node, elapsed in
+                                let percent = elapsed / duration
+                                
+                                if let bone = node as? SKSpriterBone {
+                                    let tween = bone.tween(forPercent: percent)
+                                    
+                                    bone.update(fromReference: tween)
+                                }
+                            }))
+                        }
                     }
+                } catch {
+                    // this should not be possible.
                 }
             }
             
-            // by the time we get here, all of the bones should have been updated.
+            // by the time we get here, all of the bones should have been updated (and their SKActions kicked into gear).
             //
             
             // Now, iterate through the objects, and add those to the node tree as appropriate.  It's also important to note
@@ -376,85 +405,87 @@ public class SKSpriterEntity : SKNode {
                 // no good for this, as Spriter plays with the order and numbering when objects change z_index and/or sprite asset.
                 //
                 // So from what I can see, the easiest way to uniquely identify an object consistently for an entire animation is
-                // to use the parentID and timelineID.  Below we combine these to form a hash that gives us what we need.
+                // to use the timelineID.
                 //
                 let objectName = SKSpriterEntity.nodeName(forID: objectRef.timelineID, andTarget: .object)
                 
+                // flag the object as active for this frame.
                 activeObject[objectName] = true
                 
-                if let animation = self.animation {
-                    do {
-                        let timelineKey = try animation.key(inTimeLineWithID: objectRef.timelineID, andKey: objectRef.keyID, newTime: key.time)
+                do {
+                    // for this object, find the mapped timeline.
+                    let timelineKey = try animation.key(inTimeLineWithID: objectRef.timelineID, andKey: objectRef.keyID, newTime: key.time)
+                    
+                    if var object = timelineKey.object {
+                        // update the zIndex in the object from the reference.
+                        object.zIndex = objectRef.zIndex
                         
-                        if var object = timelineKey.object {
-                            object.zIndex = objectRef.zIndex
+                        // this will be the SpriteKit node for the object.
+                        var sprite : SKSpriterObject
+                        
+                        // if the node already exists...
+                        if let spriteInTree = self.nodeTree.childNode(withName: ".//\(objectName)") as? SKSpriterObject {
+                            sprite = spriteInTree
                             
-                            var sprite : SKSpriterObject
-                            
-                            // if the node already exists...
-                            if let spriteInTree = self.nodeTree.childNode(withName: ".//\(objectName)") as? SKSpriterObject {
-                                sprite = spriteInTree
-                                
-                                // it does so preserve the previous frame reference as prevReference, and initialise the new
-                                // reference from this timelineKey
-                                //
-                                sprite.prevReference = sprite.reference
-                                sprite.reference = object
-                            } else {
-                                sprite = SKSpriterObject(forSpriterObject: object, usingSpriterModel: self.model, andName: objectName)
-                            }
-                            
-                            if objectRef.parentID != NO_PARENT {
-                                // now see if there is a parent (objects should always have bone as a parent...)
-                                //
-                                if let parent = sprite.parent as? SKSpriterBone {
-                                    // the sprite is already in the node tree.  save time by not having to search...
-                                    
-                                    // update the object using parameters from the parent...
-                                    //
-                                    sprite.update(withParent: parent)
-                                } else {
-                                    if let parentTimelineID = timelinePerBone[objectRef.parentID] {
-                                        let parentName = SKSpriterEntity.nodeName(forID: parentTimelineID, andTarget: .bone)
-                                        
-                                        if let parent = nodeTree.childNode(withName: ".//\(parentName)") as? SKSpriterBone {
-                                            // found the parent...
-                                            
-                                            // update the object using parameters from the parent...
-                                            //
-                                            sprite.update(withParent: parent)
-                                        }
-                                    }
-                                }
-                            } else {
-                                // The object has no parent bone, so it becomes a child of the root node.
-                                //
-                                sprite.update(fromReference: sprite.reference)
-                                
-                                if sprite.parent == nil {
-                                    self.nodeTree.addChild(sprite)
-                                }
-                            }
-                            
-                            // This is where, for this object, we animate the current frame.
+                            // it does so preserve the previous frame reference as prevReference, and initialise the new
+                            // reference from this timelineKey
                             //
-                            if self.animate {
-                                sprite.run(.customAction(withDuration: duration, actionBlock: { node, elapsed in
-                                    let percent = elapsed / duration
+                            sprite.prevReference = sprite.reference
+                            sprite.reference = object
+                        } else {
+                            sprite = SKSpriterObject(forSpriterObject: object, usingSpriterModel: self.model, andName: objectName)
+                        }
+                        
+                        if objectRef.parentID != NO_PARENT {
+                            // now see if there is a parent (objects should always have bone as a parent...)
+                            //
+                            if let parent = sprite.parent as? SKSpriterBone {
+                                // the sprite is already in the node tree.  save time by not having to search...
+                                
+                                // update the object using parameters from the parent...
+                                //
+                                sprite.update(withParent: parent)
+                            } else {
+                                if let parentTimelineID = timelinePerBone[objectRef.parentID] {
+                                    let parentName = SKSpriterEntity.nodeName(forID: parentTimelineID, andTarget: .bone)
                                     
-                                    if let sprite = node as? SKSpriterObject {
-                                        let tween = sprite.tween(forPercent: percent)
+                                    if let parent = nodeTree.childNode(withName: ".//\(parentName)") as? SKSpriterBone {
+                                        // found the parent...
                                         
-                                        sprite.update(fromReference: tween)
+                                        // update the object using parameters from the parent...
+                                        //
+                                        sprite.update(withParent: parent)
                                     }
-                                }))
+                                }
+                            }
+                        } else {
+                            // The object has no parent bone, so it becomes a child of the root node.
+                            //
+                            sprite.update(fromReference: sprite.reference)
+                            
+                            if sprite.parent == nil {
+                                self.nodeTree.addChild(sprite)
                             }
                         }
-                    } catch {
-                        print("this should not be possible")
+                        
+                        // This is where, for this object, we animate the current frame.
+                        //
+                        if self.animate {
+                            sprite.run(.customAction(withDuration: duration, actionBlock: { node, elapsed in
+                                let percent = elapsed / duration
+                                
+                                if let sprite = node as? SKSpriterObject {
+                                    let tween = sprite.tween(forPercent: percent)
+                                    
+                                    sprite.update(fromReference: tween)
+                                }
+                            }))
+                        }
                     }
-                    
+                } catch {
+                    print("ERROR: timeline is referenced by ObjectRef however it contains a Bone.")
                 }
+                
             }
             
             // now if there are any objects listed in activeObjects that have their flag set to
@@ -476,48 +507,66 @@ public class SKSpriterEntity : SKNode {
                 activeObject.removeValue(forKey: key)
             }
             
-            //            self.traceNodeTree(startingWith: "bone_9")
-            
             // this is the overall animation "manager".  All it does is wait for the duration of the current
             // key frame, increment the index, and then start the next key frame animation.
             //
             if self.animate {
-                self.run(.sequence([
-                    // this is all that we need
-                    //                .wait(forDuration: duration)
-                    // but whilst we debug, this gives us timing on screen...
-                    .customAction(withDuration: duration, actionBlock: { node, elapsed in
-                        let animationTime = (Date.timeIntervalSinceReferenceDate - self.debugTime) / self.debugTimeFactor * 1000.0
-                        
-                        let inFrameTime = elapsed / self.debugTimeFactor * 1000.0
-                        
-                        self.debugLabel.text = "frame: \(self.numStr(of: inFrameTime)), animation: \(self.numStr(of: animationTime))"
-                    }),
-                    .run {
-                        self.keyIndex = self.nextKeyIndex()
-                        
-                        if self.keyIndex == 0 {
-                            if let animation = self.animation,
-                               animation.isLooping {
-                                self.debugTime = Date.timeIntervalSinceReferenceDate
-                                
-                                self.updateToNextKey()
-                            }
-                        } else {
+                // This action does the work of triggering the next frame animation.
+                let commenceNextFrame = SKAction.run {
+                    self.keyIndex = self.nextKeyIndex()
+                    
+                    if self.keyIndex == 0 {
+                        if let animation = self.animation,
+                           animation.isLooping {
+#if DEBUG
+                            self.debugTime = Date.timeIntervalSinceReferenceDate
+#endif
                             self.updateToNextKey()
                         }
+                    } else {
+                        self.updateToNextKey()
                     }
+                }
+                
+                // At this point we schedule, on the root node for the entity, an action that first waits for the
+                // duration of this frame to expire, and then to kick off the next frame (if there is one).
+                //
+                // This debug version of the action continuously updates the debugLabel with the timing information
+                // so that you can screen record it to see what it happening in slow-mo.
+                //
+#if DEBUG
+                
+                self.run(.sequence([
+                    .customAction(withDuration: duration, actionBlock: { node, elapsed in
+                        let animationTime = ((Date.timeIntervalSinceReferenceDate - self.debugTime) / self.debugTimeFactor).millisecondIntValue()
+                        
+                        let inFrameTime = (TimeInterval(elapsed) / self.debugTimeFactor).millisecondIntValue()
+                        
+                        self.debugLabel.text = "frame: \(inFrameTime), animation: \(animationTime))"
+                    }),
+                    commenceNextFrame
                 ]))
+#else
+                // This is the real action when not runing in DEBUG mode.
+                self.run(.sequence([
+                    .wait(forDuration: duration),
+                    commenceNextFrame
+                ]))
+#endif
             }
         }
     }
     
+    /// Typically only used within a debugging environment, this can be used in conjunction with the animate property being set to false
+    /// to see what each keyframe looks like without the tweening.  Useful if you want to compare with what Spriter itself says.
     public func showNextKeyFrame() {
         self.keyIndex = self.nextKeyIndex()
         
+        #if DEBUG
         if self.keyIndex == 0 {
             self.debugTime = Date.timeIntervalSinceReferenceDate
         }
+        #endif
         
         self.updateToNextKey()
     }

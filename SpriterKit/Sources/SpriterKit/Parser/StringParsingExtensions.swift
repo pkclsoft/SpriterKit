@@ -22,13 +22,6 @@ public extension String {
         return Int(self) ?? 0
     }
     
-    /// Returns a TimeInterval representation of self.  Input values are assumed to be in milliseconds as an Int
-    /// and are converted to seconds as per the TimeInterval type.
-    /// - Returns: A TimeInterval value in seconds.
-    func timeIntervalValue() -> TimeInterval {
-        return TimeInterval(Double(self) ?? 0.0) / 1000.0
-    }
-    
     /// Returns a CGFloat representation of the String.
     /// - Returns: A CGFloat.
     func CGFloatValue() -> CGFloat {

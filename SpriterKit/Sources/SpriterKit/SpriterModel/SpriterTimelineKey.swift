@@ -57,8 +57,8 @@ struct SpriterTimelineKey: SpriterParseable {
         
         self.id = id
         
-        if let time = data.value(forKey: "time") as? String {
-            self.time = time.timeIntervalValue()
+        if let time = data.value(forKey: "time") as? Int {
+            self.time = TimeInterval(milliseconds: time)
         }
         
         if let spinInt = data.value(forKey: "spin") as? Int,
@@ -82,7 +82,7 @@ struct SpriterTimelineKey: SpriterParseable {
         self.id = id.intValue()
         
         if let time = attributes["time"] {
-            self.time = time.timeIntervalValue()
+            self.time = TimeInterval(millisecondsLiteral: time)
         }
         if let spinInt = attributes["spin"]?.intValue(),
            let spin = SpriterSpinType(rawValue: spinInt) {

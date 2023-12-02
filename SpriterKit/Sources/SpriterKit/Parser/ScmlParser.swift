@@ -11,12 +11,17 @@ import Foundation
 /// An SCML parser for Spriter projects.
 public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
     
+    typealias XMLDict = [String: AnyObject]
+
     public var fileName: String?
     public var fileVersion: String?
     public var generator: String?
     public var generatorVersion: String?
     public var spriterData: SpriterData?
-        
+    
+    /// Initialises the parser to parse the named file, and then parses it.
+    /// If any errors occur during parsing then nil is returned.
+    /// - Parameter fileName: the name of the file to be parsed.
     public init?(fileName: String) {
         self.fileName = fileName
         
@@ -29,18 +34,7 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
             return nil
         }
     }
-    
-    public init?(data: Data) {
-        super.init()
         
-        do {
-            try parse(fileContent: data)
-        } catch {
-            print("Error: \(error)")
-            return nil
-        }
-    }
-    
     public func parse(fileContent: Data) throws {
         
         let parser = XMLParser(data: fileContent)
@@ -48,24 +42,24 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
         
         if parser.parse() {
             self.spriterData = SpriterData(folders: self.folders, entities: self.entities)
+            
+            self.entities.removeAll()
+            self.folders.removeAll()
         }
     }
     
     // MARK: - XMLParserDelegate
-    
-    typealias XMLDict = [String: AnyObject]
 
+    /// Temporary container for all entities whilst parsing.
     private var entities : [SpriterEntity] = []
+    /// Temporary container for all folders whilst parsing.
     private var folders : [SpriterFolder] = []
-    private var atlasNames : [String] = []
     
-    #if DEBUG
-    /// These are needed from the `bone_info` elements of the project if we are going to be able to display
-    /// bones.
-    private var boneSizes : [String: CGSize] = [:]
-    #endif
-    
+    /// A type to assist the parser in managing the state of the parsing process.
+    ///
     enum ParsingState : Equatable {
+        
+        /// Each state represents a different part of the Spriter project file.
         case none
         case spriterData
         case folder
@@ -85,6 +79,8 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
         case object
         case bone
         
+        /// Mapping each state to an XML element name.  The comments indicate the level at which
+        /// each is expected to be found.
         var elementTag : String {
             get {
                 switch self {
@@ -162,6 +158,12 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
             }
         }
         
+        /// Initialises the parsing state using the XML element name, and in some cases the
+        /// previous parsing state because some XML elements are used in more than one
+        /// place.
+        /// - Parameters:
+        ///   - tag: The XML element name / tag
+        ///   - previousState: the previous parsing state.
         init(withElementTag tag: String, withPreviousState previousState: ParsingState) {
             if tag == ParsingState.spriterData.elementTag {
                 self = .spriterData
@@ -204,6 +206,9 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
             }
         }
         
+        /// For the current parsing state (self), returns an array of the parsing states that are valid
+        /// sub elements.
+        /// - Returns: An array of parsing states that are valid sub-elements of self.
         func validSubElements() -> [ParsingState] {
             switch self {
                 case .none:
@@ -231,6 +236,9 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
             }
         }
         
+        /// Returns the parsing state representing the state which is considered a parent of self.  Root
+        /// level states will have `.none` as their parent.
+        /// - Returns: A parsing state which it the parent of self, or `.none`.
         func parentState() -> ParsingState {
             switch self {
                 case .none:
@@ -273,6 +281,7 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
         }
     }
     
+    /// The current parsing state.
     var parsingState : ParsingState = .none
     
     public func parser(
@@ -298,6 +307,7 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                     self.fileVersion = attributeDict["scml_version"]
                     self.generator = attributeDict["generator"]
                     self.generatorVersion = attributeDict["generator_version"]
+                    
                 case .folder:
                     if let folder = SpriterFolder(withAttributes: attributeDict) {
                         self.folders.append(folder)
@@ -317,15 +327,11 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                         self.entities[lastEntity].animations.append(animation)
                     }
                 case .objInfo:
-                    #if DEBUG
-                    if let width = attributeDict["w"],
-                       let height = attributeDict["h"],
-                       let name = attributeDict["name"] {
-                        boneSizes[name] = CGSize(width: width.CGFloatValue(), height: height.CGFloatValue())
+                    if let objInfo = SpriterObjectInfo(withAttributes: attributeDict) {
+                        let lastEntity = self.entities.endIndex-1
+                        
+                        self.entities[lastEntity].objectInfos.append(objInfo)
                     }
-                    #else
-                    break
-                    #endif
                     
                 case .characterMap:
                     break
@@ -446,11 +452,9 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                             .timelines[lastTimelineIndex]
                         let lastKey = timeline.keys.endIndex-1
                         
-                        #if DEBUG
-                        if let size = boneSizes[timeline.name] {
-                            bone.size = size
+                        if let info = self.entities[lastEntity].objectInfo(withName: timeline.name) {
+                            bone.size = info.size
                         }
-                        #endif
 
                         bone.spin = self.entities[lastEntity]
                             .animations[lastAnimation]

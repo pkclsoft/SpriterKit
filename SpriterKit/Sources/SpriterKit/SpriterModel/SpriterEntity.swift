@@ -20,8 +20,11 @@ struct SpriterEntity: SpriterParseable {
     /// The name of the entity.
     var name: String
     
-    // The animations applicable to this entity.
+    /// The animations applicable to this entity.
     var animations: [SpriterAnimation] = []
+    
+    /// The object infos in the entity.
+    var objectInfos : [SpriterObjectInfo] = []
     
     /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
     /// expected to be used by the SCON parser.
@@ -55,6 +58,15 @@ struct SpriterEntity: SpriterParseable {
     func animation(withID id: Int) -> SpriterAnimation? {
         return self.animations.first { animation in
             return animation.id == id
+        }
+    }
+    
+    /// Retrieves the object information for the specified name.
+    /// - Parameter name: The name of the object info being requested.
+    /// - Returns: A `SpriterObjectInfo` or nil if the name is invalid.
+    func objectInfo(withName name: String) -> SpriterObjectInfo? {
+        return self.objectInfos.first { info in
+            return info.name == name
         }
     }
 }

@@ -40,8 +40,8 @@ struct SpriterMainlineKey: SpriterParseable {
         
         self.id = id
         
-        if let time = data.value(forKey: "time") as? TimeInterval {
-            self.time = time / 1000.0
+        if let time = data.value(forKey: "time") as? Int {
+            self.time = TimeInterval(milliseconds: time)
         }
         
         self.curveType = SpriterCurveType(data: data)
@@ -58,7 +58,7 @@ struct SpriterMainlineKey: SpriterParseable {
         self.id = id.intValue()
         
         if let time = attributes["time"] {
-            self.time = time.timeIntervalValue()
+            self.time = TimeInterval(millisecondsLiteral: time)
         }
         
         self.curveType = SpriterCurveType(withAttributes: attributes)

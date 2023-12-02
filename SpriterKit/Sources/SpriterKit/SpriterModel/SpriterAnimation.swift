@@ -28,15 +28,15 @@ struct SpriterAnimation: SpriterParseable {
     init?(data: AnyObject) {
         guard let id = data.value(forKey: "id") as? Int,
               let name = data.value(forKey: "name") as? String,
-              let length = data.value(forKey: "length") as? String,
-              let interval = data.value(forKey: "interval") as? String else {
+              let length = data.value(forKey: "length") as? Int,
+              let interval = data.value(forKey: "interval") as? Int else {
             return nil
         }
         
         self.id = id
         self.name = name
-        self.length = length.timeIntervalValue()
-        self.interval = interval.timeIntervalValue()
+        self.length = TimeInterval(milliseconds: length)
+        self.interval = TimeInterval(milliseconds: interval)
         
         if let loopingString = data.value(forKey: "looping") as? String {
             self.isLooping = loopingString.boolValue()
@@ -58,9 +58,9 @@ struct SpriterAnimation: SpriterParseable {
         
         self.id = id.intValue()
         self.name = name
-        self.length = length.timeIntervalValue()
-        self.interval = interval.timeIntervalValue()
-        
+        self.length = TimeInterval(millisecondsLiteral: length)
+        self.interval = TimeInterval(millisecondsLiteral: interval)
+
         if let isLooping = attributes["isLooping"] {
             self.isLooping = isLooping.boolValue()
         }
