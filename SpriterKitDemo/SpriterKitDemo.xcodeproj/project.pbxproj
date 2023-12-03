@@ -28,14 +28,13 @@
 		D0E0E6D42B1BD7C2000A06BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */; };
 		D0E0E6D52B1BD7C2000A06BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */; };
 		D0E0E6E32B1BD880000A06BE /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0E0E6E22B1BD880000A06BE /* SpriterKit */; };
-		D0E0E6E62B1BD8B9000A06BE /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0E0E6E52B1BD8B9000A06BE /* SpriterKit */; };
-		D0E0E6E82B1BD8BE000A06BE /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0E0E6E72B1BD8BE000A06BE /* SpriterKit */; };
 		D0E0E6EB2B1BDA4E000A06BE /* GreyGuy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */; };
 		D0E0E6EC2B1BDA4E000A06BE /* GreyGuy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */; };
 		D0E0E6ED2B1BDA4E000A06BE /* GreyGuy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */; };
 		D0E0E6EE2B1BDA4E000A06BE /* GreyGuy.scml in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */; };
 		D0E0E6EF2B1BDA4E000A06BE /* GreyGuy.scml in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */; };
 		D0E0E6F02B1BDA4E000A06BE /* GreyGuy.scml in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */; };
+		D0F74E792B1D2AC40044C100 /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0F74E782B1D2AC40044C100 /* SpriterKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,7 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0E0E6E82B1BD8BE000A06BE /* SpriterKit in Frameworks */,
+				D0F74E792B1D2AC40044C100 /* SpriterKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +73,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0E0E6E62B1BD8B9000A06BE /* SpriterKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,7 +178,7 @@
 			);
 			name = "SpriterKitDemo iOS";
 			packageProductDependencies = (
-				D0E0E6E72B1BD8BE000A06BE /* SpriterKit */,
+				D0F74E782B1D2AC40044C100 /* SpriterKit */,
 			);
 			productName = "SpriterKitDemo iOS";
 			productReference = D0E0E69F2B1BD7C2000A06BE /* SpriterKitDemo.app */;
@@ -200,7 +198,6 @@
 			);
 			name = "SpriterKitDemo tvOS";
 			packageProductDependencies = (
-				D0E0E6E52B1BD8B9000A06BE /* SpriterKit */,
 			);
 			productName = "SpriterKitDemo tvOS";
 			productReference = D0E0E6B02B1BD7C2000A06BE /* SpriterKitDemo.app */;
@@ -257,7 +254,7 @@
 			);
 			mainGroup = D0E0E6912B1BD7C0000A06BE;
 			packageReferences = (
-				D0E0E6E12B1BD880000A06BE /* XCLocalSwiftPackageReference "../SpriterKit" */,
+				D0F74E772B1D2AC40044C100 /* XCLocalSwiftPackageReference ".." */,
 			);
 			productRefGroup = D0E0E6A02B1BD7C2000A06BE /* Products */;
 			projectDirPath = "";
@@ -720,9 +717,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		D0E0E6E12B1BD880000A06BE /* XCLocalSwiftPackageReference "../SpriterKit" */ = {
+		D0F74E772B1D2AC40044C100 /* XCLocalSwiftPackageReference ".." */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../SpriterKit;
+			relativePath = ..;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -731,14 +728,8 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = SpriterKit;
 		};
-		D0E0E6E52B1BD8B9000A06BE /* SpriterKit */ = {
+		D0F74E782B1D2AC40044C100 /* SpriterKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = D0E0E6E12B1BD880000A06BE /* XCLocalSwiftPackageReference "../SpriterKit" */;
-			productName = SpriterKit;
-		};
-		D0E0E6E72B1BD8BE000A06BE /* SpriterKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D0E0E6E12B1BD880000A06BE /* XCLocalSwiftPackageReference "../SpriterKit" */;
 			productName = SpriterKit;
 		};
 /* End XCSwiftPackageProductDependency section */
