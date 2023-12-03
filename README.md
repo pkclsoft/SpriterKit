@@ -15,7 +15,7 @@ The library itself has no specific OS version requirements at this time other th
 
 ## Installation
 
-SwiftSpriter is available as a Swift Package via SPM. To install, simply add the package reference to your project.
+SpriterKit is available as a Swift Package via SPM. To install, simply add the package reference to your project.
 
 ## Features
 
@@ -23,7 +23,7 @@ Unlike the projects SpriterKit was inspired by, SpriterKit supports both SCML an
 
 All curve types are supported.
 
-An additional scripte under the Scripts folder can be used to migrate all of the sprite assets from your Spriter project into an Xcode asset catalog.  SpriterKit assumes that the image assets are located and available this way.
+An additional script under the Scripts folder can be used to migrate all of the sprite assets from your Spriter project into an Xcode asset catalog.  SpriterKit assumes that the image assets are located and available this way.
 
 ## Author
 
@@ -33,4 +33,4 @@ Peter Easdown @ pkclsoft (i#n#f#o@p#k#c#l#s#o#f#t#.#c#o#m)
 
 Some parts of SpriterKit have been ported or migrated from SwiftSpriter and for those I refer to the license in that project.
  
-SpriterKit is available under the GNU GENERAL PUBLIC LICENSE. See the LICENSE file for more info.
+SpriterKit is available under the GNU GENERAL PUBLIC LICENSE v3. See the LICENSE file for more info.
