@@ -166,7 +166,7 @@ public class SKSpriterEntity : SKNode {
     
     /// Finds and starts the specified animation for the entity.
     /// - Parameter id: the animation ID
-    func startAnimation(withID id: Int) {
+    public func startAnimation(withID id: Int) {
         if let entity = self.entity,
            let animation = entity.animation(withID: id) {
             

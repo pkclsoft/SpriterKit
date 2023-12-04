@@ -46,8 +46,8 @@ class GameScene: SKScene {
             
             let ggSize = tggRect.size
             
-            let numberAcross = CGFloat(10.0)
-            let numberDown = CGFloat(6.0)
+            let numberAcross = CGFloat(20.0)
+            let numberDown = CGFloat(13.0)
 
             // We want to fill most of the screen with him, say 10 x 6
             //
