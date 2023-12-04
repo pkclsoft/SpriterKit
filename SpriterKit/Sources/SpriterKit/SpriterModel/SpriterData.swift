@@ -25,7 +25,7 @@ public struct SpriterData {
     /// Retrieves the entity with the specified ID.
     /// - Parameter entityID: the ID of the entity being requested.
     /// - Returns: A `SpriterEntity` or `nil` if the entity can't be found.
-    func entity(withEntityID entityID: Int) -> SpriterEntity? {
+    public func entity(withEntityID entityID: Int) -> SpriterEntity? {
         return self.entities.first { entity in
             return entity.id == entityID
         }
@@ -34,7 +34,7 @@ public struct SpriterData {
     /// Retrieves the folder with the specified ID.
     /// - Parameter folderID: the ID of the folder being requested.
     /// - Returns: A `SpriterFolder` or `nil` if the folder can't be found.
-    func folder(withFolderID folderID: Int) -> SpriterFolder? {
+    public func folder(withFolderID folderID: Int) -> SpriterFolder? {
         return self.folders.first { folder in
             return folder.id == folderID
         }

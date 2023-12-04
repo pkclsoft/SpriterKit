@@ -12,7 +12,7 @@
 
 import Foundation
 
-struct SpriterEntity: SpriterParseable {
+public struct SpriterEntity: SpriterParseable {
     
     /// The ID of the entity.
     var id: Int = 0

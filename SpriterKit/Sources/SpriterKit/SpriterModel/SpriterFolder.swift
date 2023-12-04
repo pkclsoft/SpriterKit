@@ -23,7 +23,7 @@ import SpriteKit
 /// Accessing a sprite within a SpriterFolder should be as easy as callng `SpriterFolder.atlas.textureNamed()`
 /// where the name passed in is the `SpriterFile.assetName` property.
 ///
-struct SpriterFolder: SpriterParseable {
+public struct SpriterFolder: SpriterParseable {
     
     var id: Int
     var name: String = ""

@@ -18,7 +18,7 @@ import Foundation
 ///  (typically a PNG) as written to a project/folder within the Spriter project.  This repository provides a bash script that can be
 ///  used to build an Xcode asset catalog from that export.
 ///
-struct SpriterFile: SpriterParseable {
+public struct SpriterFile: SpriterParseable {
     
     /// The ID of the file within it's folder.
     var id: Int
