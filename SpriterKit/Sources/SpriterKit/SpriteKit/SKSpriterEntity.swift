@@ -87,6 +87,10 @@ public class SKSpriterEntity : SKNode {
     ///
     var animate : Bool = true
     
+    /// Set to true to enable tweening between frames.
+    ///
+    var tweenFrames : Bool = true
+    
 #if DEBUG
     /// This can be used to slow down the animation during debugging.  A larger number means a slower animation.
     ///
@@ -375,7 +379,7 @@ public class SKSpriterEntity : SKNode {
                         
                         // This is where, for this bone, we animate the current frame.
                         //
-                        if self.animate {
+                        if self.animate && self.tweenFrames {
                             boneNode.run(.customAction(withDuration: duration, actionBlock: { node, elapsed in
                                 let percent = elapsed / duration
                                 
@@ -476,7 +480,7 @@ public class SKSpriterEntity : SKNode {
                         
                         // This is where, for this object, we animate the current frame.
                         //
-                        if self.animate {
+                        if self.animate && self.tweenFrames {
                             sprite.run(.customAction(withDuration: duration, actionBlock: { node, elapsed in
                                 let percent = elapsed / duration
                                 

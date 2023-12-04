@@ -118,7 +118,7 @@ public class SKSpriterObject : SKSpriteNode {
     func changeTexture(using reference: SpriterObject) {
         if let folder = self.spriterModel.folder(withFolderID: reference.folderID),
            let file = folder.file(withID: reference.fileID) {
-            if let modelTexture = folder.texture(ofObject: reference) {
+            if let modelTexture = folder.texture(ofObject: reference, fromBundle: self.spriterModel.resourceBundle) {
                 self.texture = modelTexture
                 self.size = file.size
                 

@@ -19,11 +19,14 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
     public var generatorVersion: String?
     public var spriterData: SpriterData?
     
+    public var resourceBundle : Bundle
+    
     /// Initialises the parser to parse the named file, and then parses it.
     /// If any errors occur during parsing then nil is returned.
     /// - Parameter fileName: the name of the file to be parsed.
-    public init?(fileName: String) {
+    public init?(fileName: String, usingBundle bundle: Bundle = Bundle.main) {
         self.fileName = fileName
+        self.resourceBundle = bundle
         
         super.init()
         
@@ -34,14 +37,31 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
             return nil
         }
     }
+    
+    /// Initialises the parser to parse the file specified by the url, and then parses it.
+    /// If any errors occur during parsing then nil is returned.
+    /// - Parameter url: the url of the file to be parsed.
+    public init?(url: URL, usingBundle bundle: Bundle = Bundle.main) {
+        self.fileName = url.lastPathComponent
+        self.resourceBundle = bundle
+
+        super.init()
         
+        do {
+            try parse(url: url)
+        } catch {
+            print("Error \(error)")
+            return nil
+        }
+    }
+
     public func parse(fileContent: Data) throws {
         
         let parser = XMLParser(data: fileContent)
         parser.delegate = self
         
         if parser.parse() {
-            self.spriterData = SpriterData(folders: self.folders, entities: self.entities)
+            self.spriterData = SpriterData(folders: self.folders, entities: self.entities, resourceBundle: self.resourceBundle)
             
             self.entities.removeAll()
             self.folders.removeAll()

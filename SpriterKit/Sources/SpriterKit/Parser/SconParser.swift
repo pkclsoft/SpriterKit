@@ -22,16 +22,36 @@ public class SconParser: NSObject, SpriterParser {
     public var generatorVersion: String?
     public var spriterData: SpriterData?
         
+    public var resourceBundle : Bundle
+
     /// Initialises the parser to parse the named file, and then parses it.
     /// If any errors occur during parsing then nil is returned.
     /// - Parameter fileName: the name of the file to be parsed.
-    public init?(fileName: String) {
+    public init?(fileName: String, usingBundle bundle: Bundle = Bundle.main) {
         self.fileName = fileName
+        self.resourceBundle = bundle
         
         super.init()
         
         do {
             try parse(fileName: fileName)
+        } catch {
+            print("Error \(error)")
+            return nil
+        }
+    }
+    
+    /// Initialises the parser to parse the file specified by the url, and then parses it.
+    /// If any errors occur during parsing then nil is returned.
+    /// - Parameter url: the url of the file to be parsed.
+    public init?(url: URL, usingBundle bundle: Bundle = Bundle.main) {
+        self.fileName = url.lastPathComponent
+        self.resourceBundle = bundle
+        
+        super.init()
+        
+        do {
+            try parse(url: url)
         } catch {
             print("Error \(error)")
             return nil
@@ -53,7 +73,7 @@ public class SconParser: NSObject, SpriterParser {
         
         let entities = self.parseEntities(dict["entity"] as AnyObject)
                 
-        self.spriterData = SpriterData(folders: self.folders, entities: entities)
+        self.spriterData = SpriterData(folders: self.folders, entities: entities, resourceBundle: self.resourceBundle)
         
         self.folders.removeAll()
     }

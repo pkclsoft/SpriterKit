@@ -35,8 +35,10 @@ public protocol SpriterParser {
     
     /// The data, once parsed from the project file that represents each of the entities within the project.
     var spriterData: SpriterData? { get set }
-        
     
+    /// The bundle from which all resources will be loaded.
+    var resourceBundle : Bundle { get set }
+
     /// Parses the specified file, assuming it can be found within the applications main bundle.
     /// - Parameter fileName: the name of the file to load/parse.
     func parse(fileName: String) throws
@@ -49,12 +51,21 @@ public protocol SpriterParser {
 extension SpriterParser {
     
     /// Provides a basic interface to load the specified file from the main bundle of the application and parse it.
-    /// - Parameter fileName: <#fileName description#>
+    /// - Parameter fileName: the name of the file (only works when the file is in the main bundle)
     public func parse(fileName: String) throws {
         
-        let filePath = Bundle.main.path(forResource: fileName, ofType: "")
+        let filePath = self.resourceBundle.path(forResource: fileName, ofType: "")
         let fileURL = URL(fileURLWithPath: filePath!)
-        let data = try Data(contentsOf: fileURL)
+        
+        try self.parse(url: fileURL)
+        
+    }
+    
+    /// Provides a basic interface to load the specified file from the specified URL.
+    /// - Parameter url: the full URL of the file to load
+    public func parse(url: URL) throws {
+        
+        let data = try Data(contentsOf: url)
         
         try self.parse(fileContent: data)
         

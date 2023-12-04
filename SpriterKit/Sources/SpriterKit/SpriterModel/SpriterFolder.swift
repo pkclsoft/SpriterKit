@@ -15,6 +15,10 @@
 import Foundation
 import SpriteKit
 
+#if canImport(UIKit)
+import UIKit
+#endif
+
 /// A SpriterFolder is a folder containing one or more art assets, each of which is represented by a SpriterFile.
 /// In this library, the sprite assets are assumed to have been added to an Asset Catalog within Xcode.  Inside
 /// the asset catalog, there should be one folder for each of the SpriterFolders defined within the SCML/SCON
@@ -23,23 +27,17 @@ import SpriteKit
 /// Accessing a sprite within a SpriterFolder should be as easy as callng `SpriterFolder.atlas.textureNamed()`
 /// where the name passed in is the `SpriterFile.assetName` property.
 ///
-public struct SpriterFolder: SpriterParseable {
+public class SpriterFolder: SpriterParseable {
     
     var id: Int
     var name: String = ""
     var files: [SpriterFile] = []
-    
-    /// The sprite atlas that represents, and contains all of the assets for the SpriterFile objects in this SpriterFolder
-    var atlas: SKTextureAtlas {
-        get {
-            return SKTextureAtlas(named: name)
-        }
-    }
+    var images: [String: SKTexture] = [:]
     
     /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
     /// expected to be used by the SCON parser.
     /// - Parameter data: an object containing one or more elements used to populate the new instance.
-    init?(data: AnyObject) {
+    required init?(data: AnyObject) {
         guard let id = data.value(forKey: "id") as? Int else {
             return nil
         }
@@ -59,7 +57,7 @@ public struct SpriterFolder: SpriterParseable {
     /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
     /// expected to be used by the SCML parser.
     /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
-    init?(withAttributes attributes: [String: String]) {
+    required init?(withAttributes attributes: [String: String]) {
         guard let id = attributes["id"] else {
             return nil
         }
@@ -85,10 +83,24 @@ public struct SpriterFolder: SpriterParseable {
         }
     }
     
+    #if canImport(UIKit)
+    func preload(fileName : String, fromBundle bundle: Bundle = Bundle.main) {
+        if let image = UIImage(named: fileName, in: bundle, compatibleWith: nil) {
+            self.images[fileName] = SKTexture(image: image)
+        }
+    }
+    #elseif canImport(AppKit)
+    func preload(fileName : String, fromBundle bundle: Bundle = Bundle.main) {
+        if let image = bundle.image(forResource: fileName) {
+            self.images[fileName] = SKTexture(image: image)
+        }
+    }
+    #endif
+    
     /// Returns the `SKTexture` corresponding to the specified `SpriterFile` ID.
     /// - Parameter ofObject: the file ID of the texture to seach for
     /// - Returns: The requested texture, `nil` if it is not found.
-    func texture(ofObject object: SpriterObject) -> SKTexture? {
+    func texture(ofObject object: SpriterObject, fromBundle bundle: Bundle = Bundle.main) -> SKTexture? {
         if let file = file(withID: object.fileID) {
             let fileName : String
             
@@ -97,8 +109,12 @@ public struct SpriterFolder: SpriterParseable {
             } else {
                 fileName = "\(self.name)_\(file.assetName)"
             }
+
+            if self.images[fileName] == nil {
+                preload(fileName: fileName, fromBundle: bundle)
+            }
             
-            return self.atlas.textureNamed(fileName)
+            return self.images[fileName]
         } else {
             print("unable to identify texture for: \(self), file: \(object.fileID)")
         }

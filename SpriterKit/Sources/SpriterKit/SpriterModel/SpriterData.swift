@@ -22,6 +22,9 @@ public struct SpriterData {
     /// An array of the entities as specifier within the project.
     var entities: [SpriterEntity]
     
+    /// The bundle from which all resources will be loaded.
+    var resourceBundle : Bundle
+
     /// Retrieves the entity with the specified ID.
     /// - Parameter entityID: the ID of the entity being requested.
     /// - Returns: A `SpriterEntity` or `nil` if the entity can't be found.
