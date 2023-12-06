@@ -159,7 +159,7 @@ function moveAsset {
 #
 # $1 = the path of the directory containing the assets to be added to the atlas.
 # $2 = the path of the directory that is the new asset catalog
-# $3 = the name of the atlas to whih the asset is being added
+# $3 = the name of the atlas to which the asset is being added
 function moveAtlas {
     ASSETS=`find "${1}" -iname \*.png`
     

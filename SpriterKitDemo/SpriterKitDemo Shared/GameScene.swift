@@ -56,9 +56,11 @@ class GameScene: SKScene {
             let fullWidth = numberAcross * ggSize.width * ggScale
             let fullHeight = numberDown * ggSize.height * ggScale
             
+            var animation = 0
+            
             for x in 0 ..< Int(numberAcross) {
                 for y in 0 ..< Int(numberDown) {
-                    if let greyGuy = entity(withID: 0, usingAnimationID: 1) {
+                    if let greyGuy = entity(withID: 0, usingAnimationID: animation) {
                         greyGuy.setScale(ggScale)
                         
                         greyGuy.position = CGPoint(x: CGFloat(x) * ggSize.width * ggScale + 0.5 * ggSize.width * ggScale - (fullWidth / 2.0),
@@ -67,6 +69,12 @@ class GameScene: SKScene {
                         
                         scene.addChild(greyGuy)
                     }
+                }
+                
+                animation = animation + 1
+                
+                if animation > 8 {
+                    animation = 0
                 }
             }
         }
