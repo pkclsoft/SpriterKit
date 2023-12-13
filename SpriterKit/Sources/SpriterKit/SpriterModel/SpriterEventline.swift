@@ -43,4 +43,19 @@ struct SpriterEventline: SpriterParseable {
         self.id = id.intValue()
         self.name = name
     }
+    
+    /// Searches the array of keys in this event line and returns `true` if any have a matching time.
+    /// - Parameter time: the time to be matched
+    /// - Returns: `true` is any key has a matching time.
+    func hasKey(atTime time: TimeInterval) -> Bool {
+        var result : Bool = false
+        
+        self.keys.forEach { key in
+            if key.time == time {
+                result = true
+            }
+        }
+        
+        return result
+    }
 }

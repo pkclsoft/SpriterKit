@@ -97,11 +97,11 @@ public class SKSpriterEntity : SKNode {
 #if DEBUG
     /// This can be used to slow down the animation during debugging.  A larger number means a slower animation.
     ///
-    let debugTimeFactor = 1.0
+    public let debugTimeFactor = 1.0
     
     /// If true then a text label showing timing information is added to the node tree.
     ///
-    var showDebugLabel : Bool = false
+    public var showDebugLabel : Bool = false
     
     /// A label with which to add debug info during the animation.
     ///
@@ -427,9 +427,7 @@ public class SKSpriterEntity : SKNode {
                         objectIsPoint = true
                     }
                 }
-                
-                if let eventline = animation.eventline(forEventlineID: <#T##Int#>)
-                
+                                
                 // flag the object as active for this frame.
                 activeObject[objectName] = true
                 
@@ -441,17 +439,23 @@ public class SKSpriterEntity : SKNode {
                         // update the zIndex in the object from the reference.
                         object.zIndex = objectRef.zIndex
                         
+                        // if the object is actually a trigger point, then there is nothing to animate.  Inform the delegate (if there
+                        // is one) of the point and angle for the point.
+                        //
                         if objectIsPoint {
                             if let del = self.delegate,
-                               let parent = self.parent {
+                               let parent = self.parent,
+                               timelineKey.time == mainlineKeyTime {
                                 // to make the position useful to the delegate, convert it to be a position in the
                                 // parents coordinate space.
                                 //
                                 let parentPos = parent.convert(object.position, from: self)
                                 
-                                del.point(updatedWithPosition: parentPos, andAngle: CGFloat(GLKMathDegreesToRadians(Float(object.angle))))
+                                del.point(updatedWithPosition: parentPos, andAngle:object.angle)
                             }
                         } else {
+                            // otherwise, we are looking at an object that is actually a sprite...
+                            
                             // this will be the SpriteKit node for the object.
                             var sprite : SKSpriterObject
                             
@@ -541,6 +545,15 @@ public class SKSpriterEntity : SKNode {
             toRemove.forEach { key in
                 activeObject.removeValue(forKey: key)
                 objects.removeValue(forKey: key)
+            }
+            
+            // Now see if there are any time based events for this frame time that need to fire off.
+            //
+            if let del = self.delegate,
+               let events = animation.eventlines(atTime: mainlineKeyTime) {
+                events.forEach { eventline in
+                    del.event(reachedWithName: eventline.name)
+                }
             }
             
             // this is the overall animation "manager".  All it does is wait for the duration of the current

@@ -75,10 +75,16 @@ struct SpriterAnimation: SpriterParseable {
         })
     }
     
-    func key(inEventlineID eventlineID: Int, andTime time: TimeInterval) -> SpriterEventline? {
-        return eventlines.first(where: { eventline in
-            return eventline.id == timelineID
-        })
+    func eventlines(atTime time: TimeInterval) -> [SpriterEventline]? {
+        var result = eventlines.filter { eventline in
+            return eventline.hasKey(atTime: time)
+        }
+        
+        if result.count > 0 {
+            return result
+        }
+        
+        return nil
     }
 
     enum SpriterAnimationError : Error {
