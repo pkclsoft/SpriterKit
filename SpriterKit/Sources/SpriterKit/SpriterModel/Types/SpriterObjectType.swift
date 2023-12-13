@@ -19,10 +19,12 @@ enum SpriterObjectType: String {
     case sprite
     case bone
     case entity
+    
+    // support added in v1.0.1
+    case point
 
     // The following types are currently unsupported by SpriterKit
     case box
-    case point
     case sound
     case variable
 }

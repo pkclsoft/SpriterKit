@@ -17,10 +17,10 @@ import SpriteKit
 struct SpriterObject: SpriterParseable {
     
     /// The folder ID of the folder containing the file displayed by this object.
-    var folderID: Int
+    var folderID: Int?
     
     /// The file containing the image for this object.
-    var fileID: Int
+    var fileID: Int?
     
     /// The position within the object parents space.
     var position: CGPoint = .zero
@@ -53,13 +53,13 @@ struct SpriterObject: SpriterParseable {
     /// expected to be used by the SCON parser.
     /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
-        guard let folderID = data.value(forKey: "folder") as? Int,
-            let fileID = data.value(forKey: "file") as? Int else {
-                return nil
+        if let folderID = data.value(forKey: "folder") as? Int {
+            self.folderID = folderID
         }
         
-        self.folderID = folderID
-        self.fileID = fileID
+        if let fileID = data.value(forKey: "file") as? Int {
+            self.fileID = fileID
+        }
         
         if let x = data.value(forKey: "x") as? CGFloat {
             self.position.x = x
@@ -98,14 +98,14 @@ struct SpriterObject: SpriterParseable {
     /// expected to be used by the SCML parser.
     /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
-        guard let folderID = attributes["folder"],
-            let fileID = attributes["file"] else {
-                return nil
+        if let folderID = attributes["folder"] {
+            self.folderID = folderID.intValue()
         }
-        
-        self.folderID = folderID.intValue()
-        self.fileID = fileID.intValue()
-        
+
+        if let fileID = attributes["file"] {
+            self.fileID = fileID.intValue()
+        }
+                
         if let x = attributes["x"] {
             self.position.x = x.CGFloatValue()
         }

@@ -18,9 +18,10 @@ struct SpriterAnimation: SpriterParseable {
     var name: String
     var length: TimeInterval
     var interval: TimeInterval
-    var isLooping: Bool = true
+    var isLooping: Bool = false
     var mainline: SpriterMainline?
     var timelines: [SpriterTimeline] = []
+    var eventlines: [SpriterEventline] = []
     
     /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
     /// expected to be used by the SCON parser.
@@ -74,6 +75,12 @@ struct SpriterAnimation: SpriterParseable {
         })
     }
     
+    func key(inEventlineID eventlineID: Int, andTime time: TimeInterval) -> SpriterEventline? {
+        return eventlines.first(where: { eventline in
+            return eventline.id == timelineID
+        })
+    }
+
     enum SpriterAnimationError : Error {
         /// When retrieving a key for a timeline, if the specified timeline ID is invalid, this exception is thrown.
         case UnknownTimelineKey

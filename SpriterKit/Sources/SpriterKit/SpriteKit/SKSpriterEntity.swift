@@ -44,6 +44,9 @@ public class SKSpriterEntity : SKNode {
     ///
     var animation : SpriterAnimation?
     
+    /// This delegate can be used by the application to monitor events that occur during the animation o the entity.
+    public var delegate : SKSpriterEntityDelegate?
+    
     /// Each time a frame is started, this is populated with all of the object names that are active for the
     /// frame.  when the next frame starts, it is reset to all false, and then as each object is updated, the
     /// individual flags are set to `true`.  At the end of that loop, if any are still `false` then the nodes
@@ -417,6 +420,16 @@ public class SKSpriterEntity : SKNode {
                 //
                 let objectName = SKSpriterEntity.nodeName(forID: objectRef.timelineID, andTarget: .object)
                 
+                var objectIsPoint : Bool = false
+                
+                if let timeline = animation.timeline(forTimeLineID: objectRef.timelineID) {
+                    if timeline.objectType == .point {
+                        objectIsPoint = true
+                    }
+                }
+                
+                if let eventline = animation.eventline(forEventlineID: <#T##Int#>)
+                
                 // flag the object as active for this frame.
                 activeObject[objectName] = true
                 
@@ -428,68 +441,80 @@ public class SKSpriterEntity : SKNode {
                         // update the zIndex in the object from the reference.
                         object.zIndex = objectRef.zIndex
                         
-                        // this will be the SpriteKit node for the object.
-                        var sprite : SKSpriterObject
-                        
-                        // if the node already exists...
-                        if let spriteInTree = objects[objectName] {
-                            sprite = spriteInTree
-                            
-                            // it does so preserve the previous frame reference as prevReference, and initialise the new
-                            // reference from this timelineKey
-                            //
-                            sprite.prevReference = sprite.reference
-                            sprite.reference = object
-                        } else {
-                            sprite = SKSpriterObject(forSpriterObject: object, usingSpriterModel: self.model, andName: objectName)
-                            
-                            objects[objectName] = sprite
-                        }
-                        
-                        if objectRef.parentID != NO_PARENT {
-                            // now see if there is a parent (objects should always have bone as a parent...)
-                            //
-                            if let parent = sprite.parent as? SKSpriterBone {
-                                // the sprite is already in the node tree.  save time by not having to search...
-                                
-                                // update the object using parameters from the parent...
+                        if objectIsPoint {
+                            if let del = self.delegate,
+                               let parent = self.parent {
+                                // to make the position useful to the delegate, convert it to be a position in the
+                                // parents coordinate space.
                                 //
-                                sprite.update(withParent: parent)
+                                let parentPos = parent.convert(object.position, from: self)
+                                
+                                del.point(updatedWithPosition: parentPos, andAngle: CGFloat(GLKMathDegreesToRadians(Float(object.angle))))
+                            }
+                        } else {
+                            // this will be the SpriteKit node for the object.
+                            var sprite : SKSpriterObject
+                            
+                            // if the node already exists...
+                            if let spriteInTree = objects[objectName] {
+                                sprite = spriteInTree
+                                
+                                // it does so preserve the previous frame reference as prevReference, and initialise the new
+                                // reference from this timelineKey
+                                //
+                                sprite.prevReference = sprite.reference
+                                sprite.reference = object
                             } else {
-                                if let parentTimelineID = timelinePerBone[objectRef.parentID] {
-                                    let parentName = SKSpriterEntity.nodeName(forID: parentTimelineID, andTarget: .bone)
+                                sprite = SKSpriterObject(forSpriterObject: object, usingSpriterModel: self.model, andName: objectName)
+                                
+                                objects[objectName] = sprite
+                            }
+                            
+                            if objectRef.parentID != NO_PARENT {
+                                // now see if there is a parent (objects should always have bone as a parent...)
+                                //
+                                if let parent = sprite.parent as? SKSpriterBone {
+                                    // the sprite is already in the node tree.  save time by not having to search...
                                     
-                                    if let parent = bones[parentName] {
-                                        // found the parent...
+                                    // update the object using parameters from the parent...
+                                    //
+                                    sprite.update(withParent: parent)
+                                } else {
+                                    if let parentTimelineID = timelinePerBone[objectRef.parentID] {
+                                        let parentName = SKSpriterEntity.nodeName(forID: parentTimelineID, andTarget: .bone)
                                         
-                                        // update the object using parameters from the parent...
-                                        //
-                                        sprite.update(withParent: parent)
+                                        if let parent = bones[parentName] {
+                                            // found the parent...
+                                            
+                                            // update the object using parameters from the parent...
+                                            //
+                                            sprite.update(withParent: parent)
+                                        }
                                     }
                                 }
-                            }
-                        } else {
-                            // The object has no parent bone, so it becomes a child of the root node.
-                            //
-                            sprite.update(fromReference: sprite.reference)
-                            
-                            if sprite.parent == nil {
-                                self.nodeTree.addChild(sprite)
-                            }
-                        }
-                        
-                        // This is where, for this object, we animate the current frame.
-                        //
-                        if self.animate && self.tweenFrames {
-                            sprite.run(.customAction(withDuration: duration, actionBlock: { node, elapsed in
-                                let percent = elapsed / duration
+                            } else {
+                                // The object has no parent bone, so it becomes a child of the root node.
+                                //
+                                sprite.update(fromReference: sprite.reference)
                                 
-                                if let sprite = node as? SKSpriterObject {
-                                    let tween = sprite.tween(forPercent: percent)
-                                    
-                                    sprite.update(fromReference: tween)
+                                if sprite.parent == nil {
+                                    self.nodeTree.addChild(sprite)
                                 }
-                            }))
+                            }
+                            
+                            // This is where, for this object, we animate the current frame.
+                            //
+                            if self.animate && self.tweenFrames {
+                                sprite.run(.customAction(withDuration: duration, actionBlock: { node, elapsed in
+                                    let percent = elapsed / duration
+                                    
+                                    if let sprite = node as? SKSpriterObject {
+                                        let tween = sprite.tween(forPercent: percent)
+                                        
+                                        sprite.update(fromReference: tween)
+                                    }
+                                }))
+                            }
                         }
                     }
                 } catch {

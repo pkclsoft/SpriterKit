@@ -1,30 +1,22 @@
 //
-//  SpriterTimeline.swift
+//  SpriterEventline.swift
 //  SpriterKit
 //
-//  Originally sourced within SwiftSpriter @ https://github.com/lumenlunae/SwiftSpriter
-//
-//  Created by Matt on 8/27/16.
-//  Copyright © 2016 BiminiRoad. All rights reserved.
-//
-//  Changed to work within SpriterKit by Peter on 30/11/24
+//  Created by Peter Easdown on 12/12/2023.
 //
 
 import Foundation
 
-struct SpriterTimeline: SpriterParseable {
+struct SpriterEventline: SpriterParseable {
     
-    /// The ID of the timeline.
+    /// The ID of the eventline.
     var id: Int
     
-    /// The name of the timeline.
+    /// The name of the eventline.
     var name: String
     
-    /// The object type of the timeline.  This always seems to be "Bone"
-    var objectType: SpriterObjectType?
-    
-    /// An array of the keys associated with this timeline.
-    var keys: [SpriterTimelineKey] = []
+    /// An array of the keys associated with this eventline.
+    var keys: [SpriterEventlineKey] = []
     
     /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
     /// expected to be used by the SCON parser.
@@ -37,11 +29,6 @@ struct SpriterTimeline: SpriterParseable {
         
         self.id = id
         self.name = name
-        
-        if let type = data.value(forKey: "object_type") as? String,
-            let objectType = SpriterObjectType(rawValue: type) {
-            self.objectType = objectType
-        }
     }
     
     /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
@@ -55,10 +42,5 @@ struct SpriterTimeline: SpriterParseable {
         
         self.id = id.intValue()
         self.name = name
-        
-        if let type = attributes["object_type"],
-            let objectType = SpriterObjectType(rawValue: type) {
-            self.objectType = objectType
-        }
     }
 }

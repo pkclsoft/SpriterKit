@@ -87,6 +87,8 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
         case entity
         case objInfo
         case characterMap
+        case frames
+        case i
         case map
         case animation
         case gline
@@ -96,6 +98,8 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
         case boneRef
         case timeline
         case timelineKey
+        case eventline
+        case eventlineKey
         case object
         case bone
         
@@ -135,6 +139,14 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                     case .characterMap:
                         return "character_map"
                         
+                        // 3nd level
+                    case .frames:
+                        return "frames"
+
+                        // 4th level
+                    case .i:
+                        return "i"
+                        
                         // 3rd level
                     case .map:
                         return "map"
@@ -167,6 +179,14 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                     case .timelineKey:
                         return "key"
                         
+                        // 3rd level
+                    case .eventline:
+                        return "eventline"
+                        
+                        // 4th level
+                    case .eventlineKey:
+                        return "key"
+
                         // 5th level
                     case .object:
                         return "object"
@@ -197,6 +217,10 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                 self = .objInfo
             } else if tag == ParsingState.characterMap.elementTag {
                 self = .characterMap
+            } else if tag == ParsingState.frames.elementTag {
+                self = .frames
+            } else if tag == ParsingState.i.elementTag {
+                self = .i
             } else if tag == ParsingState.map.elementTag {
                 self = .map
             } else if tag == ParsingState.animation.elementTag {
@@ -217,6 +241,11 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
             } else if tag == ParsingState.timelineKey.elementTag &&
                         previousState == .timeline {
                 self = .timelineKey
+            } else if tag == ParsingState.eventline.elementTag {
+                self = .eventline
+            } else if tag == ParsingState.eventlineKey.elementTag &&
+                        previousState == .eventline {
+                self = .eventlineKey
             } else if tag == ParsingState.object.elementTag {
                 self = .object
             } else if tag == ParsingState.bone.elementTag {
@@ -242,7 +271,7 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                 case .characterMap:
                     return [.map]
                 case .animation:
-                    return [.mainline, .timeline, .gline]
+                    return [.mainline, .timeline, .gline, .eventline]
                 case .mainline:
                     return [.mainlineKey]
                 case .mainlineKey:
@@ -251,7 +280,13 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                     return [.timelineKey]
                 case .timelineKey:
                     return [.object, .bone]
-                case .file, .objectRef, .boneRef, .object, .bone, .objInfo, .map, .gline:
+                case .objInfo:
+                    return [.frames]
+                case .frames:
+                    return [.i]
+                case .eventline:
+                    return [.eventlineKey]
+                case .file, .objectRef, .boneRef, .object, .bone, .i, .map, .gline, .eventlineKey:
                     return []
             }
         }
@@ -275,6 +310,10 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                     return .entity
                 case .characterMap:
                     return .entity
+                case .frames:
+                    return .objInfo
+                case .i:
+                    return .frames
                 case .map:
                     return .characterMap
                 case .animation:
@@ -293,6 +332,10 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                     return .animation
                 case .timelineKey:
                     return .timeline
+                case .eventline:
+                    return .animation
+                case .eventlineKey:
+                    return .eventline
                 case .object:
                     return .timelineKey
                 case .bone:
@@ -354,6 +397,10 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                     }
                     
                 case .characterMap:
+                    break
+                case .frames:
+                    break
+                case .i:
                     break
                 case .map:
                     break
@@ -427,6 +474,28 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                             .timelines[lastTimeline]
                             .keys.append(timelineKey)
                     }
+                case .eventline:
+                    if let eventline = SpriterEventline(withAttributes: attributeDict) {
+                        let lastEntity = self.entities.endIndex-1
+                        let lastAnimation = self.entities[lastEntity].animations.endIndex-1
+
+                        self.entities[lastEntity]
+                            .animations[lastAnimation]
+                            .eventlines.append(eventline)
+                    }
+                case .eventlineKey:
+                    if let eventlineKey = SpriterEventlineKey(withAttributes: attributeDict) {
+                        let lastEntity = self.entities.endIndex-1
+                        let lastAnimation = self.entities[lastEntity].animations.endIndex-1
+                        let lastEventline = self.entities[lastEntity]
+                            .animations[lastAnimation]
+                            .eventlines.endIndex-1
+
+                        self.entities[lastEntity]
+                            .animations[lastAnimation]
+                            .eventlines[lastEventline]
+                            .keys.append(eventlineKey)
+                    }
                 case .object:
                     if var object = SpriterObject(withAttributes: attributeDict) {
                         let lastEntity = self.entities.endIndex-1
@@ -442,10 +511,12 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                         // is not a default value.
                         //
                         if object.pivot == DEFAULT_PIVOT,
+                           let folderID = object.folderID,
+                           let fileID = object.fileID,
                            let folder = self.folders.first(where: { folder in
-                               return folder.id == object.folderID
+                               return folder.id == folderID
                            }),
-                           let file = folder.file(withID: object.fileID) {
+                           let file = folder.file(withID: fileID) {
                             object.pivot = file.pivot
                         }
                         
@@ -453,7 +524,7 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                             .animations[lastAnimation]
                             .timelines[lastTimeline]
                             .keys[lastKey].spin
-
+                        
                         self.entities[lastEntity]
                             .animations[lastAnimation]
                             .timelines[lastTimeline]

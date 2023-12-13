@@ -101,7 +101,8 @@ public class SpriterFolder: SpriterParseable {
     /// - Parameter ofObject: the file ID of the texture to seach for
     /// - Returns: The requested texture, `nil` if it is not found.
     func texture(ofObject object: SpriterObject, fromBundle bundle: Bundle = Bundle.main) -> SKTexture? {
-        if let file = file(withID: object.fileID) {
+        if let fileID = object.fileID,
+           let file = file(withID: fileID) {
             let fileName : String
             
             if self.name == "unnamed" {
@@ -116,7 +117,7 @@ public class SpriterFolder: SpriterParseable {
             
             return self.images[fileName]
         } else {
-            print("unable to identify texture for: \(self), file: \(object.fileID)")
+            print("unable to identify texture for: \(self), via object: \(object)")
         }
         
         return nil

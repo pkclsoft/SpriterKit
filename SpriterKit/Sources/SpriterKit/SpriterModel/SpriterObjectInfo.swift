@@ -15,6 +15,9 @@ struct SpriterObjectInfo: SpriterParseable {
     
     /// The size in pixels of the image within the file.
     var size : CGSize = .zero
+    
+    /// The type of the object.  This always seems to be "bone" or "sprite"
+    var type: SpriterObjectType?
 
     /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
     /// expected to be used by the SCON parser.
@@ -28,6 +31,11 @@ struct SpriterObjectInfo: SpriterParseable {
 
         self.name = name
         self.size = CGSize(width: CGFloat(width), height: CGFloat(height))
+        
+        if let typeStr = data.value(forKey: "type") as? String,
+            let type = SpriterObjectType(rawValue: typeStr) {
+            self.type = type
+        }
     }
     
     /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
@@ -42,5 +50,10 @@ struct SpriterObjectInfo: SpriterParseable {
 
         self.name = name
         self.size = CGSize(width: width.CGFloatValue(), height: height.CGFloatValue())
+        
+        if let type = attributes["type"],
+            let type = SpriterObjectType(rawValue: type) {
+            self.type = type
+        }
     }
 }

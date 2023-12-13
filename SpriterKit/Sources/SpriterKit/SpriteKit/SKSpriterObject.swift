@@ -116,8 +116,10 @@ public class SKSpriterObject : SKSpriteNode {
     /// Load the sprite texture using the folder/file IDs specified in the input SpriterObject.
     /// - Parameter reference: The spriter object specifying the visualisation of the object.
     func changeTexture(using reference: SpriterObject) {
-        if let folder = self.spriterModel.folder(withFolderID: reference.folderID),
-           let file = folder.file(withID: reference.fileID) {
+        if let folderID = reference.folderID,
+           let fileID = reference.fileID,
+           let folder = self.spriterModel.folder(withFolderID: folderID),
+           let file = folder.file(withID: fileID) {
             if let modelTexture = folder.texture(ofObject: reference, fromBundle: self.spriterModel.resourceBundle) {
                 self.texture = modelTexture
                 self.size = file.size

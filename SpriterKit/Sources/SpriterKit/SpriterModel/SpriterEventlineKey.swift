@@ -1,5 +1,5 @@
 //
-//  SpriterTimeline.swift
+//  SpriterEventlineKey.swift
 //  SpriterKit
 //
 //  Originally sourced within SwiftSpriter @ https://github.com/lumenlunae/SwiftSpriter
@@ -12,35 +12,26 @@
 
 import Foundation
 
-struct SpriterTimeline: SpriterParseable {
+struct SpriterEventlineKey: SpriterParseable {
     
-    /// The ID of the timeline.
+    /// The ID of the key.
     var id: Int
     
-    /// The name of the timeline.
-    var name: String
-    
-    /// The object type of the timeline.  This always seems to be "Bone"
-    var objectType: SpriterObjectType?
-    
-    /// An array of the keys associated with this timeline.
-    var keys: [SpriterTimelineKey] = []
-    
+    /// The time in seconds for this Eventline key frame.
+    var time: TimeInterval = 0
+        
     /// Creates and populates a new instance using properties retrieved from the provided object.  This constructor is
     /// expected to be used by the SCON parser.
     /// - Parameter data: an object containing one or more elements used to populate the new instance.
     init?(data: AnyObject) {
-        guard let id = data.value(forKey: "id") as? Int,
-            let name = data.value(forKey: "name") as? String else {
-                return nil
+        guard let id = data.value(forKey: "id") as? Int else {
+            return nil
         }
         
         self.id = id
-        self.name = name
         
-        if let type = data.value(forKey: "object_type") as? String,
-            let objectType = SpriterObjectType(rawValue: type) {
-            self.objectType = objectType
+        if let time = data.value(forKey: "time") as? Int {
+            self.time = TimeInterval(milliseconds: time)
         }
     }
     
@@ -48,17 +39,14 @@ struct SpriterTimeline: SpriterParseable {
     /// expected to be used by the SCML parser.
     /// - Parameter attributes: a Dictionary containing one or more items used to populate the new instance.
     init?(withAttributes attributes: [String: String]) {
-        guard let id = attributes["id"],
-            let name = attributes["name"] else {
-                return nil
+        guard let id = attributes["id"] else {
+            return nil
         }
         
         self.id = id.intValue()
-        self.name = name
         
-        if let type = attributes["object_type"],
-            let objectType = SpriterObjectType(rawValue: type) {
-            self.objectType = objectType
+        if let time = attributes["time"] {
+            self.time = TimeInterval(millisecondsLiteral: time)
         }
     }
 }

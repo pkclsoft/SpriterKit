@@ -112,6 +112,7 @@ public class SconParser: NSObject, SpriterParser {
         let items = self.parseItems(dicts, dataBlock: { (animation: inout SpriterAnimation, animDict: JsonDict) in
             animation.mainline = self.parseMainline(animDict["mainline"] as AnyObject)
             animation.timelines = self.parseTimelines(animDict["timeline"] as AnyObject, withinEntity: entity)
+            animation.eventlines = self.parseEventlines(animDict["eventline"] as AnyObject, withinEntity: entity)
         }) as [SpriterAnimation]
         return items
     }
@@ -158,10 +159,12 @@ public class SconParser: NSObject, SpriterParser {
                 // is not a default value.
                 //
                 if object.pivot == DEFAULT_PIVOT,
+                   let folderID = object.folderID,
+                   let fileID = object.fileID,
                    let folder = self.folders.first(where: { folder in
-                       return folder.id == object.folderID
+                       return folder.id == folderID
                    }),
-                   let file = folder.file(withID: object.fileID) {
+                   let file = folder.file(withID: fileID) {
                     object.pivot = file.pivot
                 }
 
@@ -181,6 +184,19 @@ public class SconParser: NSObject, SpriterParser {
         return items
     }
     
+    func parseEventlines(_ dicts: AnyObject, withinEntity entity: SpriterEntity) -> [SpriterEventline] {
+        let items = self.parseItems(dicts, dataBlock: { (eventline: inout SpriterEventline, eventlineDict: JsonDict) in
+            eventline.keys = self.parseEventlineKeys(eventlineDict["key"] as AnyObject, withinEntity: entity, andEventline: eventline)
+        }) as [SpriterEventline]
+        return items
+    }
+    
+    func parseEventlineKeys(_ dicts: AnyObject, withinEntity entity: SpriterEntity, andEventline eventline: SpriterEventline) -> [SpriterEventlineKey] {
+        let items = self.parseItems(dicts, dataBlock: {(key: inout SpriterEventlineKey, keyDict: JsonDict) in
+        }) as [SpriterEventlineKey]
+        return items
+    }
+
     func parseObject(_ dict: AnyObject) -> SpriterObject? {
         let item = self.parseItem(dict as AnyObject) as SpriterObject?
         return item
