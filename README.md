@@ -2,11 +2,19 @@
 
 This is an implementation of [Spriter](https://www.brashmonkey.com) using Apple's SpriteKit.
 
-It is inspired (and helped a little) by some of [SwiftSpriter](https://github.com/lumenlunae/SwiftSpriter).
+It is inspired (and helped a little) by some of [SwiftSpriter](https://github.com/lumenlunae/SwiftSpriter) and [SpriterHaxeEngine](https://github.com/loudoweb/SpriterHaxeEngine.git).
 
 ## Example
 
+### Demo (non Events)
+This is a simple-ish demo app fills the screen with 260 entities, all animating, showing both the performance and the ease with which the library can be used.
+
 To run the example project, clone the repo, load up the SpriterKitDemo project and run it on the target of your choice.  The demo works on iOS, macOS and tvOS.
+
+### Demo (Events)
+This additional demo app shows the use of the events and point trigger mechanisms added (at some point) to the Spriter project specification.
+
+This was built by reverse engineering a project file kindly shared by the people at BrashMonkeys in their forums at: (Small Example Spriter (scml) files for the metadata features](https://brashmonkey.com/forum/index.php?/topic/4087-small-example-spriter-scml-files-for-the-metadata-features/).
 
 ## Requirements
 SpriteKit
