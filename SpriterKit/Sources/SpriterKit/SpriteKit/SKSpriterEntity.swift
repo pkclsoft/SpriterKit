@@ -451,7 +451,7 @@ public class SKSpriterEntity : SKNode {
                                 //
                                 let parentPos = parent.convert(object.position, from: self)
                                 
-                                del.point(updatedWithPosition: parentPos, andAngle:object.angle)
+                                del.entity(self, pointTriggeredAt: parentPos, withAngle:object.angle)
                             }
                         } else {
                             // otherwise, we are looking at an object that is actually a sprite...
@@ -552,7 +552,7 @@ public class SKSpriterEntity : SKNode {
             if let del = self.delegate,
                let events = animation.eventlines(atTime: mainlineKeyTime) {
                 events.forEach { eventline in
-                    del.event(reachedWithName: eventline.name)
+                    del.entity(self, reachedEventWithName: eventline.name)
                 }
             }
             

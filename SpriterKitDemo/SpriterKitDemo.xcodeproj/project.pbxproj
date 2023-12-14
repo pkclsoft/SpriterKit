@@ -7,6 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D042BF4D2B2A5BD3004B441A /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D042BF472B2A5BD3004B441A /* SpriterKit */; };
+		D042BF532B2A5BD3004B441A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */; };
+		D042BF642B2A5BEC004B441A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */; };
+		D042BF712B2A5BFC004B441A /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D042BF6B2B2A5BFC004B441A /* SpriterKit */; };
+		D042BF772B2A5BFC004B441A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */; };
+		D042BF7C2B2A5C0C004B441A /* gunner_player_smaller_head.scml in Resources */ = {isa = PBXBuildFile; fileRef = D042BF3E2B2A5BA6004B441A /* gunner_player_smaller_head.scml */; };
+		D042BF7D2B2A5C0C004B441A /* pointsTriggers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D042BF3F2B2A5BA6004B441A /* pointsTriggers.xcassets */; };
+		D042BF7E2B2A5C0D004B441A /* gunner_player_smaller_head.scml in Resources */ = {isa = PBXBuildFile; fileRef = D042BF3E2B2A5BA6004B441A /* gunner_player_smaller_head.scml */; };
+		D042BF7F2B2A5C0D004B441A /* pointsTriggers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D042BF3F2B2A5BA6004B441A /* pointsTriggers.xcassets */; };
+		D042BF802B2A5C0D004B441A /* gunner_player_smaller_head.scml in Resources */ = {isa = PBXBuildFile; fileRef = D042BF3E2B2A5BA6004B441A /* gunner_player_smaller_head.scml */; };
+		D042BF812B2A5C0D004B441A /* pointsTriggers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D042BF3F2B2A5BA6004B441A /* pointsTriggers.xcassets */; };
+		D042BF822B2A5D9C004B441A /* GreyGuy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */; };
+		D042BF832B2A5D9C004B441A /* GreyGuy.scml in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */; };
+		D042BF842B2A5D9D004B441A /* GreyGuy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */; };
+		D042BF852B2A5D9D004B441A /* GreyGuy.scml in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */; };
+		D042BF862B2A5D9D004B441A /* GreyGuy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */; };
+		D042BF872B2A5D9D004B441A /* GreyGuy.scml in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */; };
+		D042BF9C2B2A5E2B004B441A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BF952B2A5E13004B441A /* AppDelegate.swift */; };
+		D042BF9D2B2A5E2B004B441A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BF902B2A5E13004B441A /* GameViewController.swift */; };
+		D042BFA02B2A5E74004B441A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D042BF912B2A5E13004B441A /* LaunchScreen.storyboard */; };
+		D042BFA12B2A5E79004B441A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D042BF932B2A5E13004B441A /* Main.storyboard */; };
+		D042BFA22B2A5E92004B441A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BF982B2A5E13004B441A /* GameViewController.swift */; };
+		D042BFA32B2A5E97004B441A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BF9B2B2A5E13004B441A /* AppDelegate.swift */; };
+		D042BFA42B2A5E9C004B441A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D042BF992B2A5E13004B441A /* Main.storyboard */; };
+		D042BFA52B2A5EF0004B441A /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BF892B2A5E13004B441A /* GameViewController.swift */; };
+		D042BFA62B2A5EFA004B441A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D042BF8C2B2A5E13004B441A /* Main.storyboard */; };
+		D042BFA72B2A5EFA004B441A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D042BF8A2B2A5E13004B441A /* LaunchScreen.storyboard */; };
+		D042BFA82B2A5EFE004B441A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BF8E2B2A5E13004B441A /* AppDelegate.swift */; };
+		D042BFAD2B2A5F68004B441A /* GameSceneEvents.sks in Resources */ = {isa = PBXBuildFile; fileRef = D042BFA92B2A5F63004B441A /* GameSceneEvents.sks */; };
+		D042BFAE2B2A5F68004B441A /* GameSceneEvents.sks in Resources */ = {isa = PBXBuildFile; fileRef = D042BFA92B2A5F63004B441A /* GameSceneEvents.sks */; };
+		D042BFAF2B2A5F68004B441A /* GameSceneEvents.sks in Resources */ = {isa = PBXBuildFile; fileRef = D042BFA92B2A5F63004B441A /* GameSceneEvents.sks */; };
+		D042BFB42B2A5F7C004B441A /* GameSceneEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */; };
+		D042BFB52B2A5F7D004B441A /* GameSceneEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */; };
+		D042BFB62B2A5F7D004B441A /* GameSceneEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */; };
 		D0E0E6A32B1BD7C2000A06BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E0E6A22B1BD7C2000A06BE /* AppDelegate.swift */; };
 		D0E0E6A52B1BD7C2000A06BE /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E0E6A42B1BD7C2000A06BE /* GameViewController.swift */; };
 		D0E0E6A82B1BD7C2000A06BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6A62B1BD7C2000A06BE /* Main.storyboard */; };
@@ -28,16 +62,29 @@
 		D0E0E6D42B1BD7C2000A06BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */; };
 		D0E0E6D52B1BD7C2000A06BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */; };
 		D0E0E6E32B1BD880000A06BE /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0E0E6E22B1BD880000A06BE /* SpriterKit */; };
-		D0E0E6EB2B1BDA4E000A06BE /* GreyGuy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */; };
-		D0E0E6EC2B1BDA4E000A06BE /* GreyGuy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */; };
-		D0E0E6ED2B1BDA4E000A06BE /* GreyGuy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */; };
-		D0E0E6EE2B1BDA4E000A06BE /* GreyGuy.scml in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */; };
-		D0E0E6EF2B1BDA4E000A06BE /* GreyGuy.scml in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */; };
-		D0E0E6F02B1BDA4E000A06BE /* GreyGuy.scml in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */; };
 		D0F74E792B1D2AC40044C100 /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0F74E782B1D2AC40044C100 /* SpriterKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D042BF3E2B2A5BA6004B441A /* gunner_player_smaller_head.scml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = gunner_player_smaller_head.scml; sourceTree = "<group>"; };
+		D042BF3F2B2A5BA6004B441A /* pointsTriggers.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = pointsTriggers.xcassets; sourceTree = "<group>"; };
+		D042BF582B2A5BD3004B441A /* SpriterKitDemo Events iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpriterKitDemo Events iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D042BF692B2A5BEC004B441A /* SpriterKitDemo Events tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpriterKitDemo Events tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D042BF7B2B2A5BFC004B441A /* SpriterKitDemo Events macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpriterKitDemo Events macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D042BF892B2A5E13004B441A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		D042BF8B2B2A5E13004B441A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D042BF8D2B2A5E13004B441A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D042BF8E2B2A5E13004B441A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D042BF902B2A5E13004B441A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		D042BF922B2A5E13004B441A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D042BF942B2A5E13004B441A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D042BF952B2A5E13004B441A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D042BF972B2A5E13004B441A /* SpriterKitDemo_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpriterKitDemo_macOS.entitlements; sourceTree = "<group>"; };
+		D042BF982B2A5E13004B441A /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		D042BF9A2B2A5E13004B441A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D042BF9B2B2A5E13004B441A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D042BFA92B2A5F63004B441A /* GameSceneEvents.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneEvents.sks; sourceTree = "<group>"; };
+		D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneEvents.swift; sourceTree = "<group>"; };
 		D0E0E6982B1BD7C1000A06BE /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		D0E0E6992B1BD7C1000A06BE /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -61,6 +108,29 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D042BF4C2B2A5BD3004B441A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D042BF4D2B2A5BD3004B441A /* SpriterKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D042BF5E2B2A5BEC004B441A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D042BF702B2A5BFC004B441A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D042BF712B2A5BFC004B441A /* SpriterKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0E0E69C2B1BD7C2000A06BE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -87,9 +157,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D042BF882B2A5E13004B441A /* SpriterKitDemo Events tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				D042BF892B2A5E13004B441A /* GameViewController.swift */,
+				D042BF8A2B2A5E13004B441A /* LaunchScreen.storyboard */,
+				D042BF8C2B2A5E13004B441A /* Main.storyboard */,
+				D042BF8E2B2A5E13004B441A /* AppDelegate.swift */,
+			);
+			path = "SpriterKitDemo Events tvOS";
+			sourceTree = "<group>";
+		};
+		D042BF8F2B2A5E13004B441A /* SpriterKitDemo Events iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D042BF902B2A5E13004B441A /* GameViewController.swift */,
+				D042BF912B2A5E13004B441A /* LaunchScreen.storyboard */,
+				D042BF932B2A5E13004B441A /* Main.storyboard */,
+				D042BF952B2A5E13004B441A /* AppDelegate.swift */,
+			);
+			path = "SpriterKitDemo Events iOS";
+			sourceTree = "<group>";
+		};
+		D042BF962B2A5E13004B441A /* SpriterKitDemo Events macOS */ = {
+			isa = PBXGroup;
+			children = (
+				D042BF972B2A5E13004B441A /* SpriterKitDemo_macOS.entitlements */,
+				D042BF982B2A5E13004B441A /* GameViewController.swift */,
+				D042BF992B2A5E13004B441A /* Main.storyboard */,
+				D042BF9B2B2A5E13004B441A /* AppDelegate.swift */,
+			);
+			path = "SpriterKitDemo Events macOS";
+			sourceTree = "<group>";
+		};
 		D0E0E6912B1BD7C0000A06BE = {
 			isa = PBXGroup;
 			children = (
+				D042BF8F2B2A5E13004B441A /* SpriterKitDemo Events iOS */,
+				D042BF962B2A5E13004B441A /* SpriterKitDemo Events macOS */,
+				D042BF882B2A5E13004B441A /* SpriterKitDemo Events tvOS */,
 				D0E0E6962B1BD7C1000A06BE /* SpriterKitDemo Shared */,
 				D0E0E6A12B1BD7C2000A06BE /* SpriterKitDemo iOS */,
 				D0E0E6B12B1BD7C2000A06BE /* SpriterKitDemo tvOS */,
@@ -102,10 +208,14 @@
 		D0E0E6962B1BD7C1000A06BE /* SpriterKitDemo Shared */ = {
 			isa = PBXGroup;
 			children = (
+				D042BF3E2B2A5BA6004B441A /* gunner_player_smaller_head.scml */,
+				D042BF3F2B2A5BA6004B441A /* pointsTriggers.xcassets */,
 				D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */,
 				D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */,
 				D0E0E6982B1BD7C1000A06BE /* GameScene.sks */,
+				D042BFA92B2A5F63004B441A /* GameSceneEvents.sks */,
 				D0E0E6992B1BD7C1000A06BE /* GameScene.swift */,
+				D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */,
 				D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */,
 			);
 			path = "SpriterKitDemo Shared";
@@ -117,6 +227,9 @@
 				D0E0E69F2B1BD7C2000A06BE /* SpriterKitDemo.app */,
 				D0E0E6B02B1BD7C2000A06BE /* SpriterKitDemo.app */,
 				D0E0E6C02B1BD7C2000A06BE /* SpriterKitDemo.app */,
+				D042BF582B2A5BD3004B441A /* SpriterKitDemo Events iOS.app */,
+				D042BF692B2A5BEC004B441A /* SpriterKitDemo Events tvOS.app */,
+				D042BF7B2B2A5BFC004B441A /* SpriterKitDemo Events macOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -164,6 +277,65 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D042BF462B2A5BD3004B441A /* SpriterKitDemo Events iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D042BF552B2A5BD3004B441A /* Build configuration list for PBXNativeTarget "SpriterKitDemo Events iOS" */;
+			buildPhases = (
+				D042BF482B2A5BD3004B441A /* Sources */,
+				D042BF4C2B2A5BD3004B441A /* Frameworks */,
+				D042BF4E2B2A5BD3004B441A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SpriterKitDemo Events iOS";
+			packageProductDependencies = (
+				D042BF472B2A5BD3004B441A /* SpriterKit */,
+			);
+			productName = "SpriterKitDemo iOS";
+			productReference = D042BF582B2A5BD3004B441A /* SpriterKitDemo Events iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D042BF592B2A5BEC004B441A /* SpriterKitDemo Events tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D042BF662B2A5BEC004B441A /* Build configuration list for PBXNativeTarget "SpriterKitDemo Events tvOS" */;
+			buildPhases = (
+				D042BF5A2B2A5BEC004B441A /* Sources */,
+				D042BF5E2B2A5BEC004B441A /* Frameworks */,
+				D042BF5F2B2A5BEC004B441A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SpriterKitDemo Events tvOS";
+			packageProductDependencies = (
+			);
+			productName = "SpriterKitDemo tvOS";
+			productReference = D042BF692B2A5BEC004B441A /* SpriterKitDemo Events tvOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D042BF6A2B2A5BFC004B441A /* SpriterKitDemo Events macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D042BF782B2A5BFC004B441A /* Build configuration list for PBXNativeTarget "SpriterKitDemo Events macOS" */;
+			buildPhases = (
+				D042BF6C2B2A5BFC004B441A /* Sources */,
+				D042BF702B2A5BFC004B441A /* Frameworks */,
+				D042BF722B2A5BFC004B441A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SpriterKitDemo Events macOS";
+			packageProductDependencies = (
+				D042BF6B2B2A5BFC004B441A /* SpriterKit */,
+			);
+			productName = "SpriterKitDemo macOS";
+			productReference = D042BF7B2B2A5BFC004B441A /* SpriterKitDemo Events macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		D0E0E69E2B1BD7C2000A06BE /* SpriterKitDemo iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0E0E6D82B1BD7C2000A06BE /* Build configuration list for PBXNativeTarget "SpriterKitDemo iOS" */;
@@ -263,21 +435,62 @@
 				D0E0E69E2B1BD7C2000A06BE /* SpriterKitDemo iOS */,
 				D0E0E6AF2B1BD7C2000A06BE /* SpriterKitDemo tvOS */,
 				D0E0E6BF2B1BD7C2000A06BE /* SpriterKitDemo macOS */,
+				D042BF462B2A5BD3004B441A /* SpriterKitDemo Events iOS */,
+				D042BF592B2A5BEC004B441A /* SpriterKitDemo Events tvOS */,
+				D042BF6A2B2A5BFC004B441A /* SpriterKitDemo Events macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D042BF4E2B2A5BD3004B441A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D042BFA12B2A5E79004B441A /* Main.storyboard in Resources */,
+				D042BF7C2B2A5C0C004B441A /* gunner_player_smaller_head.scml in Resources */,
+				D042BFA02B2A5E74004B441A /* LaunchScreen.storyboard in Resources */,
+				D042BFAD2B2A5F68004B441A /* GameSceneEvents.sks in Resources */,
+				D042BF532B2A5BD3004B441A /* Assets.xcassets in Resources */,
+				D042BF7D2B2A5C0C004B441A /* pointsTriggers.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D042BF5F2B2A5BEC004B441A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D042BF7E2B2A5C0D004B441A /* gunner_player_smaller_head.scml in Resources */,
+				D042BF642B2A5BEC004B441A /* Assets.xcassets in Resources */,
+				D042BF7F2B2A5C0D004B441A /* pointsTriggers.xcassets in Resources */,
+				D042BFAE2B2A5F68004B441A /* GameSceneEvents.sks in Resources */,
+				D042BFA72B2A5EFA004B441A /* LaunchScreen.storyboard in Resources */,
+				D042BFA62B2A5EFA004B441A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D042BF722B2A5BFC004B441A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D042BF812B2A5C0D004B441A /* pointsTriggers.xcassets in Resources */,
+				D042BFA42B2A5E9C004B441A /* Main.storyboard in Resources */,
+				D042BFAF2B2A5F68004B441A /* GameSceneEvents.sks in Resources */,
+				D042BF802B2A5C0D004B441A /* gunner_player_smaller_head.scml in Resources */,
+				D042BF772B2A5BFC004B441A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0E0E69D2B1BD7C2000A06BE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D0E0E6CD2B1BD7C2000A06BE /* GameScene.sks in Resources */,
-				D0E0E6EB2B1BDA4E000A06BE /* GreyGuy.xcassets in Resources */,
+				D042BF822B2A5D9C004B441A /* GreyGuy.xcassets in Resources */,
 				D0E0E6A82B1BD7C2000A06BE /* Main.storyboard in Resources */,
 				D0E0E6AB2B1BD7C2000A06BE /* LaunchScreen.storyboard in Resources */,
 				D0E0E6D32B1BD7C2000A06BE /* Assets.xcassets in Resources */,
-				D0E0E6EE2B1BDA4E000A06BE /* GreyGuy.scml in Resources */,
+				D042BF832B2A5D9C004B441A /* GreyGuy.scml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,11 +499,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0E0E6CE2B1BD7C2000A06BE /* GameScene.sks in Resources */,
-				D0E0E6EC2B1BDA4E000A06BE /* GreyGuy.xcassets in Resources */,
+				D042BF842B2A5D9D004B441A /* GreyGuy.xcassets in Resources */,
 				D0E0E6B82B1BD7C2000A06BE /* Main.storyboard in Resources */,
 				D0E0E6BB2B1BD7C2000A06BE /* LaunchScreen.storyboard in Resources */,
 				D0E0E6D42B1BD7C2000A06BE /* Assets.xcassets in Resources */,
-				D0E0E6EF2B1BDA4E000A06BE /* GreyGuy.scml in Resources */,
+				D042BF852B2A5D9D004B441A /* GreyGuy.scml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,8 +511,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0E0E6ED2B1BDA4E000A06BE /* GreyGuy.xcassets in Resources */,
-				D0E0E6F02B1BDA4E000A06BE /* GreyGuy.scml in Resources */,
+				D042BF862B2A5D9D004B441A /* GreyGuy.xcassets in Resources */,
+				D042BF872B2A5D9D004B441A /* GreyGuy.scml in Resources */,
 				D0E0E6C82B1BD7C2000A06BE /* Main.storyboard in Resources */,
 				D0E0E6CF2B1BD7C2000A06BE /* GameScene.sks in Resources */,
 				D0E0E6D52B1BD7C2000A06BE /* Assets.xcassets in Resources */,
@@ -309,6 +522,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D042BF482B2A5BD3004B441A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D042BFB42B2A5F7C004B441A /* GameSceneEvents.swift in Sources */,
+				D042BF9D2B2A5E2B004B441A /* GameViewController.swift in Sources */,
+				D042BF9C2B2A5E2B004B441A /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D042BF5A2B2A5BEC004B441A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D042BFB52B2A5F7D004B441A /* GameSceneEvents.swift in Sources */,
+				D042BFA82B2A5EFE004B441A /* AppDelegate.swift in Sources */,
+				D042BFA52B2A5EF0004B441A /* GameViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D042BF6C2B2A5BFC004B441A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D042BFB62B2A5F7D004B441A /* GameSceneEvents.swift in Sources */,
+				D042BFA32B2A5E97004B441A /* AppDelegate.swift in Sources */,
+				D042BFA22B2A5E92004B441A /* GameViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0E0E69B2B1BD7C2000A06BE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -342,6 +585,46 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		D042BF8A2B2A5E13004B441A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D042BF8B2B2A5E13004B441A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D042BF8C2B2A5E13004B441A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D042BF8D2B2A5E13004B441A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D042BF912B2A5E13004B441A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D042BF922B2A5E13004B441A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D042BF932B2A5E13004B441A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D042BF942B2A5E13004B441A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D042BF992B2A5E13004B441A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D042BF9A2B2A5E13004B441A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		D0E0E6A62B1BD7C2000A06BE /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -385,6 +668,182 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D042BF562B2A5BD3004B441A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pkclsoft.SpriterKitDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D042BF572B2A5BD3004B441A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pkclsoft.SpriterKitDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D042BF672B2A5BEC004B441A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pkclsoft.SpriterKitDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
+			};
+			name = Debug;
+		};
+		D042BF682B2A5BEC004B441A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pkclsoft.SpriterKitDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D042BF792B2A5BFC004B441A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SpriterKitDemo macOS/SpriterKitDemo_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pkclsoft.SpriterKitDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D042BF7A2B2A5BFC004B441A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SpriterKitDemo macOS/SpriterKitDemo_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pkclsoft.SpriterKitDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		D0E0E6D62B1BD7C2000A06BE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -678,6 +1137,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D042BF552B2A5BD3004B441A /* Build configuration list for PBXNativeTarget "SpriterKitDemo Events iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D042BF562B2A5BD3004B441A /* Debug */,
+				D042BF572B2A5BD3004B441A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D042BF662B2A5BEC004B441A /* Build configuration list for PBXNativeTarget "SpriterKitDemo Events tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D042BF672B2A5BEC004B441A /* Debug */,
+				D042BF682B2A5BEC004B441A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D042BF782B2A5BFC004B441A /* Build configuration list for PBXNativeTarget "SpriterKitDemo Events macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D042BF792B2A5BFC004B441A /* Debug */,
+				D042BF7A2B2A5BFC004B441A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D0E0E6952B1BD7C0000A06BE /* Build configuration list for PBXProject "SpriterKitDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -724,6 +1210,14 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D042BF472B2A5BD3004B441A /* SpriterKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SpriterKit;
+		};
+		D042BF6B2B2A5BFC004B441A /* SpriterKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SpriterKit;
+		};
 		D0E0E6E22B1BD880000A06BE /* SpriterKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SpriterKit;
