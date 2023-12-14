@@ -110,15 +110,13 @@ class GameSceneEvents: SKScene, SKSpriterEntityDelegate {
     }
     
     func entity(_ entity: SpriterKit.SKSpriterEntity, reachedEventWithName name: String) {
-        if let scene = self.scene {
-            let eventLabel = SKLabelNode(text: name)
-            eventLabel.fontColor = .green
-            eventLabel.position = CGPoint(x: entity.position.x, y: eventY)
-            
-            self.addChild(eventLabel)
-            
-            eventY -= 30.0
-        }
+        let eventLabel = SKLabelNode(text: name)
+        eventLabel.fontColor = .green
+        eventLabel.position = CGPoint(x: entity.position.x, y: eventY)
+        
+        self.addChild(eventLabel)
+        
+        eventY -= 30.0
     }
 
 }

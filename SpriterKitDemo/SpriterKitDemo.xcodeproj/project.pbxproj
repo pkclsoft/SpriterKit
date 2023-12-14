@@ -41,6 +41,8 @@
 		D042BFB42B2A5F7C004B441A /* GameSceneEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */; };
 		D042BFB52B2A5F7D004B441A /* GameSceneEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */; };
 		D042BFB62B2A5F7D004B441A /* GameSceneEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */; };
+		D0E04AEF2B2BBB1300B8B796 /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0E04AEE2B2BBB1300B8B796 /* SpriterKit */; };
+		D0E04AF12B2BBB2900B8B796 /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0E04AF02B2BBB2900B8B796 /* SpriterKit */; };
 		D0E0E6A32B1BD7C2000A06BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E0E6A22B1BD7C2000A06BE /* AppDelegate.swift */; };
 		D0E0E6A52B1BD7C2000A06BE /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E0E6A42B1BD7C2000A06BE /* GameViewController.swift */; };
 		D0E0E6A82B1BD7C2000A06BE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6A62B1BD7C2000A06BE /* Main.storyboard */; };
@@ -120,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0E04AF12B2BBB2900B8B796 /* SpriterKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0E04AEF2B2BBB1300B8B796 /* SpriterKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,6 +315,7 @@
 			);
 			name = "SpriterKitDemo Events tvOS";
 			packageProductDependencies = (
+				D0E04AF02B2BBB2900B8B796 /* SpriterKit */,
 			);
 			productName = "SpriterKitDemo tvOS";
 			productReference = D042BF692B2A5BEC004B441A /* SpriterKitDemo Events tvOS.app */;
@@ -370,6 +375,7 @@
 			);
 			name = "SpriterKitDemo tvOS";
 			packageProductDependencies = (
+				D0E04AEE2B2BBB1300B8B796 /* SpriterKit */,
 			);
 			productName = "SpriterKitDemo tvOS";
 			productReference = D0E0E6B02B1BD7C2000A06BE /* SpriterKitDemo.app */;
@@ -1215,6 +1221,14 @@
 			productName = SpriterKit;
 		};
 		D042BF6B2B2A5BFC004B441A /* SpriterKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SpriterKit;
+		};
+		D0E04AEE2B2BBB1300B8B796 /* SpriterKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SpriterKit;
+		};
+		D0E04AF02B2BBB2900B8B796 /* SpriterKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SpriterKit;
 		};
