@@ -18,7 +18,7 @@ struct SpriterAnimation: SpriterParseable {
     var name: String
     var length: TimeInterval
     var interval: TimeInterval
-    var isLooping: Bool = false
+    var isLooping: Bool = true
     var mainline: SpriterMainline?
     var timelines: [SpriterTimeline] = []
     var eventlines: [SpriterEventline] = []
@@ -62,7 +62,7 @@ struct SpriterAnimation: SpriterParseable {
         self.length = TimeInterval(millisecondsLiteral: length)
         self.interval = TimeInterval(millisecondsLiteral: interval)
 
-        if let isLooping = attributes["isLooping"] {
+        if let isLooping = attributes["looping"] {
             self.isLooping = isLooping.boolValue()
         }
         
@@ -76,7 +76,7 @@ struct SpriterAnimation: SpriterParseable {
     }
     
     func eventlines(atTime time: TimeInterval) -> [SpriterEventline]? {
-        var result = eventlines.filter { eventline in
+        let result = eventlines.filter { eventline in
             return eventline.hasKey(atTime: time)
         }
         
