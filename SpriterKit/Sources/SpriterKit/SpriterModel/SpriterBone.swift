@@ -13,6 +13,7 @@
 import Foundation
 import GLKit
 import SpriteKit
+import CGExtKit
 
 struct SpriterBone: SpriterParseable {
     
