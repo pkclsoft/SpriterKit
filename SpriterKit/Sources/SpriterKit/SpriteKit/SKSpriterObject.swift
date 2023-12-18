@@ -109,7 +109,21 @@ public class SKSpriterObject : SKSpriteNode {
         self.alpha = updateReference.alpha
         
         if let newZ = updateReference.zIndex {
-            self.zPosition = CGFloat(newZ)
+            // Because SpriteKit apps quite often optimize performance by using the ignoresSiblingOrder
+            // property on the SKView, the zIndex needs to be turned into a fraction and added to
+            // the zPosition of the parents so that the Spriter animation fits in with the rest of
+            // the SpriteKit presentation.
+            //
+            let relativeZPosition = CGFloat(newZ) / 1000.0
+            
+            if let parent = self.parent {
+                self.zPosition = parent.zPosition + relativeZPosition
+            } else {
+                // if there is no parent, then just ensure that the components of this entity respect
+                // the zIndex.
+                //
+                self.zPosition = relativeZPosition
+            }
         }
     }
     
