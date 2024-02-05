@@ -562,6 +562,13 @@ public class SKSpriterEntity : SKNode {
             if self.animate {
                 // This action does the work of triggering the next frame animation.
                 let commenceNextFrame = SKAction.run {
+                    if self.nextKeyIndex() == 0 {
+                        if let times = self.keyTimes {
+                            let prevTime = times[self.keyIndex]
+                            duration = (animation.length - prevTime) + duration
+                        }
+                    }
+                    
                     self.keyIndex = self.nextKeyIndex()
                     
                     if self.keyIndex == 0 {
