@@ -560,17 +560,6 @@ public class SKSpriterEntity : SKNode {
             // key frame, increment the index, and then start the next key frame animation.
             //
             if self.animate {
-                // if the next index is 0 (meaning we are at the end of the animation whether looping or not),
-                // then the duration needs to include the time gap from the end of this frame to the complete
-                // animation length.
-                //
-                if self.nextKeyIndex() == 0 {
-                    if let times = self.keyTimes {
-                        let prevTime = times[self.keyIndex]
-                        duration = (animation.length - prevTime) + duration
-                    }
-                }
-                
                 // This action does the work of triggering the next frame animation.
                 let commenceNextFrame = SKAction.run {
                     self.keyIndex = self.nextKeyIndex()
