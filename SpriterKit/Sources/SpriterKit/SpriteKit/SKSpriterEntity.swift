@@ -94,6 +94,10 @@ public class SKSpriterEntity : SKNode {
     ///
     var tweenFrames : Bool = true
     
+    /// The application can use this to override the zPosition of an object.  The key to the dictionary is the
+    /// objectID of the object getting the override, and the value is the zPosition to be used by the bone.
+    public var zIndexOverride : [Int: CGFloat] = [:]
+    
 #if DEBUG
     /// This can be used to slow down the animation during debugging.  A larger number means a slower animation.
     ///
@@ -474,6 +478,10 @@ public class SKSpriterEntity : SKNode {
                                 objects[objectName] = sprite
                             }
                             
+                            if let zOverride = self.zIndexOverride[objectRef.id] {
+                                sprite.zPositionOverride = zOverride
+                            }
+
                             if objectRef.parentID != NO_PARENT {
                                 // now see if there is a parent (objects should always have bone as a parent...)
                                 //

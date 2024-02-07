@@ -33,6 +33,11 @@ public class SKSpriterObject : SKSpriteNode {
     /// The SpriterObject for the current key frame
     var reference: SpriterObject
     
+    /// An override value for the zPosition of the objects parent.  Normally, a SpriterObject uses the zPosition of it's
+    /// parent node to manage it's own zPosiiton relative to other nodes.  This property may be used via the
+    /// `zIndexOverride` property of the SKSpriterEntity to supplant the parents zPosition.
+    var zPositionOverride : CGFloat? = nil
+    
     /// Initialises a new SKSpriterObject, and prepares it for initial use.
     /// - Parameters:
     ///   - spriterObj: The SpriterObject use to se tthe initial state of the object.
@@ -115,15 +120,20 @@ public class SKSpriterObject : SKSpriteNode {
             // the SpriteKit presentation.
             //
             let relativeZPosition = CGFloat(newZ) / 1000.0
+            let zPositionBase : CGFloat
             
-            if let parent = self.parent {
-                self.zPosition = parent.zPosition + relativeZPosition
+            if let override = self.zPositionOverride {
+                zPositionBase = override
+            } else if let parent = self.parent {
+                zPositionBase = parent.zPosition
             } else {
                 // if there is no parent, then just ensure that the components of this entity respect
                 // the zIndex.
                 //
-                self.zPosition = relativeZPosition
+                zPositionBase = 0.0
             }
+            
+            self.zPosition = zPositionBase + relativeZPosition
         }
     }
     

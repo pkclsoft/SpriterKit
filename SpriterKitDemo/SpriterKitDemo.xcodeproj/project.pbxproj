@@ -41,6 +41,35 @@
 		D042BFB42B2A5F7C004B441A /* GameSceneEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */; };
 		D042BFB52B2A5F7D004B441A /* GameSceneEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */; };
 		D042BFB62B2A5F7D004B441A /* GameSceneEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */; };
+		D072E43A2B73143200F18303 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D072E4392B73143200F18303 /* AppDelegate.swift */; };
+		D072E4422B73143200F18303 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D072E4412B73143200F18303 /* GameViewController.swift */; };
+		D072E4452B73143200F18303 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D072E4432B73143200F18303 /* Main.storyboard */; };
+		D072E44A2B73143200F18303 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D072E4482B73143200F18303 /* LaunchScreen.storyboard */; };
+		D072E4552B73145900F18303 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D072E4542B73145900F18303 /* AppDelegate.swift */; };
+		D072E45D2B73145900F18303 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D072E45C2B73145900F18303 /* GameViewController.swift */; };
+		D072E4622B73145A00F18303 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D072E4602B73145A00F18303 /* Main.storyboard */; };
+		D072E46E2B73147900F18303 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D072E46D2B73147900F18303 /* AppDelegate.swift */; };
+		D072E4762B73147900F18303 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D072E4752B73147900F18303 /* GameViewController.swift */; };
+		D072E4792B73147900F18303 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D072E4772B73147900F18303 /* Main.storyboard */; };
+		D072E47E2B73147A00F18303 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D072E47C2B73147A00F18303 /* LaunchScreen.storyboard */; };
+		D072E4832B73151C00F18303 /* GameSceneOverrideZ.sks in Resources */ = {isa = PBXBuildFile; fileRef = D072E4822B73151C00F18303 /* GameSceneOverrideZ.sks */; };
+		D072E4842B73151C00F18303 /* GameSceneOverrideZ.sks in Resources */ = {isa = PBXBuildFile; fileRef = D072E4822B73151C00F18303 /* GameSceneOverrideZ.sks */; };
+		D072E4852B73151C00F18303 /* GameSceneOverrideZ.sks in Resources */ = {isa = PBXBuildFile; fileRef = D072E4822B73151C00F18303 /* GameSceneOverrideZ.sks */; };
+		D072E4872B73153800F18303 /* GameSceneOverrideZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = D072E4862B73153800F18303 /* GameSceneOverrideZ.swift */; };
+		D072E4882B73153800F18303 /* GameSceneOverrideZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = D072E4862B73153800F18303 /* GameSceneOverrideZ.swift */; };
+		D072E4892B73153800F18303 /* GameSceneOverrideZ.swift in Sources */ = {isa = PBXBuildFile; fileRef = D072E4862B73153800F18303 /* GameSceneOverrideZ.swift */; };
+		D09E8B362B7317FA00845D8E /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D09E8B352B7317FA00845D8E /* SpriterKit */; };
+		D09E8B382B73181500845D8E /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D09E8B372B73181500845D8E /* SpriterKit */; };
+		D09E8B3A2B73182900845D8E /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D09E8B392B73182900845D8E /* SpriterKit */; };
+		D09E8B3B2B73187100845D8E /* GreyGuy.scml in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */; };
+		D09E8B3C2B73187100845D8E /* GreyGuy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */; };
+		D09E8B3D2B73187200845D8E /* GreyGuy.scml in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */; };
+		D09E8B3E2B73187200845D8E /* GreyGuy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */; };
+		D09E8B3F2B73187200845D8E /* GreyGuy.scml in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6EA2B1BDA4E000A06BE /* GreyGuy.scml */; };
+		D09E8B402B73187200845D8E /* GreyGuy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */; };
+		D09E8B412B7318FD00845D8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */; };
+		D09E8B422B7318FE00845D8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */; };
+		D09E8B432B7318FE00845D8E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */; };
 		D0E04AEF2B2BBB1300B8B796 /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0E04AEE2B2BBB1300B8B796 /* SpriterKit */; };
 		D0E04AF12B2BBB2900B8B796 /* SpriterKit in Frameworks */ = {isa = PBXBuildFile; productRef = D0E04AF02B2BBB2900B8B796 /* SpriterKit */; };
 		D0E0E6A32B1BD7C2000A06BE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0E0E6A22B1BD7C2000A06BE /* AppDelegate.swift */; };
@@ -87,6 +116,23 @@
 		D042BF9B2B2A5E13004B441A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D042BFA92B2A5F63004B441A /* GameSceneEvents.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneEvents.sks; sourceTree = "<group>"; };
 		D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneEvents.swift; sourceTree = "<group>"; };
+		D072E4372B73143200F18303 /* SpriterKitDemo overrideZ iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpriterKitDemo overrideZ iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D072E4392B73143200F18303 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D072E4412B73143200F18303 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		D072E4442B73143200F18303 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D072E4492B73143200F18303 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D072E4522B73145900F18303 /* SpriterKitDemo overrideZ macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpriterKitDemo overrideZ macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D072E4542B73145900F18303 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D072E45C2B73145900F18303 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		D072E4612B73145A00F18303 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D072E4632B73145A00F18303 /* SpriterKitDemo_overrideZ_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpriterKitDemo_overrideZ_macOS.entitlements; sourceTree = "<group>"; };
+		D072E46B2B73147900F18303 /* SpriterKitDemo overrideZ tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SpriterKitDemo overrideZ tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D072E46D2B73147900F18303 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D072E4752B73147900F18303 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		D072E4782B73147900F18303 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D072E47D2B73147A00F18303 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D072E4822B73151C00F18303 /* GameSceneOverrideZ.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSceneOverrideZ.sks; sourceTree = "<group>"; };
+		D072E4862B73153800F18303 /* GameSceneOverrideZ.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSceneOverrideZ.swift; sourceTree = "<group>"; };
 		D0E0E6982B1BD7C1000A06BE /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		D0E0E6992B1BD7C1000A06BE /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -131,6 +177,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				D042BF712B2A5BFC004B441A /* SpriterKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D072E4342B73143200F18303 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D09E8B362B7317FA00845D8E /* SpriterKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D072E44F2B73145900F18303 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D09E8B382B73181500845D8E /* SpriterKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D072E4682B73147900F18303 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D09E8B3A2B73182900845D8E /* SpriterKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +264,39 @@
 			path = "SpriterKitDemo Events macOS";
 			sourceTree = "<group>";
 		};
+		D072E4382B73143200F18303 /* SpriterKitDemo overrideZ iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D072E4392B73143200F18303 /* AppDelegate.swift */,
+				D072E4412B73143200F18303 /* GameViewController.swift */,
+				D072E4432B73143200F18303 /* Main.storyboard */,
+				D072E4482B73143200F18303 /* LaunchScreen.storyboard */,
+			);
+			path = "SpriterKitDemo overrideZ iOS";
+			sourceTree = "<group>";
+		};
+		D072E4532B73145900F18303 /* SpriterKitDemo overrideZ macOS */ = {
+			isa = PBXGroup;
+			children = (
+				D072E4542B73145900F18303 /* AppDelegate.swift */,
+				D072E45C2B73145900F18303 /* GameViewController.swift */,
+				D072E4602B73145A00F18303 /* Main.storyboard */,
+				D072E4632B73145A00F18303 /* SpriterKitDemo_overrideZ_macOS.entitlements */,
+			);
+			path = "SpriterKitDemo overrideZ macOS";
+			sourceTree = "<group>";
+		};
+		D072E46C2B73147900F18303 /* SpriterKitDemo overrideZ tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				D072E46D2B73147900F18303 /* AppDelegate.swift */,
+				D072E4752B73147900F18303 /* GameViewController.swift */,
+				D072E4772B73147900F18303 /* Main.storyboard */,
+				D072E47C2B73147A00F18303 /* LaunchScreen.storyboard */,
+			);
+			path = "SpriterKitDemo overrideZ tvOS";
+			sourceTree = "<group>";
+		};
 		D0E0E6912B1BD7C0000A06BE = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +307,9 @@
 				D0E0E6A12B1BD7C2000A06BE /* SpriterKitDemo iOS */,
 				D0E0E6B12B1BD7C2000A06BE /* SpriterKitDemo tvOS */,
 				D0E0E6C12B1BD7C2000A06BE /* SpriterKitDemo macOS */,
+				D072E4382B73143200F18303 /* SpriterKitDemo overrideZ iOS */,
+				D072E4532B73145900F18303 /* SpriterKitDemo overrideZ macOS */,
+				D072E46C2B73147900F18303 /* SpriterKitDemo overrideZ tvOS */,
 				D0E0E6A02B1BD7C2000A06BE /* Products */,
 				D0E0E6E42B1BD8B9000A06BE /* Frameworks */,
 			);
@@ -218,7 +324,9 @@
 				D0E0E6E92B1BDA4E000A06BE /* GreyGuy.xcassets */,
 				D0E0E6982B1BD7C1000A06BE /* GameScene.sks */,
 				D042BFA92B2A5F63004B441A /* GameSceneEvents.sks */,
+				D072E4822B73151C00F18303 /* GameSceneOverrideZ.sks */,
 				D0E0E6992B1BD7C1000A06BE /* GameScene.swift */,
+				D072E4862B73153800F18303 /* GameSceneOverrideZ.swift */,
 				D042BFB02B2A5F78004B441A /* GameSceneEvents.swift */,
 				D0E0E69A2B1BD7C2000A06BE /* Assets.xcassets */,
 			);
@@ -234,6 +342,9 @@
 				D042BF582B2A5BD3004B441A /* SpriterKitDemo Events iOS.app */,
 				D042BF692B2A5BEC004B441A /* SpriterKitDemo Events tvOS.app */,
 				D042BF7B2B2A5BFC004B441A /* SpriterKitDemo Events macOS.app */,
+				D072E4372B73143200F18303 /* SpriterKitDemo overrideZ iOS.app */,
+				D072E4522B73145900F18303 /* SpriterKitDemo overrideZ macOS.app */,
+				D072E46B2B73147900F18303 /* SpriterKitDemo overrideZ tvOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -341,6 +452,66 @@
 			productReference = D042BF7B2B2A5BFC004B441A /* SpriterKitDemo Events macOS.app */;
 			productType = "com.apple.product-type.application";
 		};
+		D072E4362B73143200F18303 /* SpriterKitDemo overrideZ iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D072E44B2B73143200F18303 /* Build configuration list for PBXNativeTarget "SpriterKitDemo overrideZ iOS" */;
+			buildPhases = (
+				D072E4332B73143200F18303 /* Sources */,
+				D072E4342B73143200F18303 /* Frameworks */,
+				D072E4352B73143200F18303 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SpriterKitDemo overrideZ iOS";
+			packageProductDependencies = (
+				D09E8B352B7317FA00845D8E /* SpriterKit */,
+			);
+			productName = "SpriterKitDemo overrideZ iOS";
+			productReference = D072E4372B73143200F18303 /* SpriterKitDemo overrideZ iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D072E4512B73145900F18303 /* SpriterKitDemo overrideZ macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D072E4642B73145A00F18303 /* Build configuration list for PBXNativeTarget "SpriterKitDemo overrideZ macOS" */;
+			buildPhases = (
+				D072E44E2B73145900F18303 /* Sources */,
+				D072E44F2B73145900F18303 /* Frameworks */,
+				D072E4502B73145900F18303 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SpriterKitDemo overrideZ macOS";
+			packageProductDependencies = (
+				D09E8B372B73181500845D8E /* SpriterKit */,
+			);
+			productName = "SpriterKitDemo overrideZ macOS";
+			productReference = D072E4522B73145900F18303 /* SpriterKitDemo overrideZ macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D072E46A2B73147900F18303 /* SpriterKitDemo overrideZ tvOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D072E47F2B73147A00F18303 /* Build configuration list for PBXNativeTarget "SpriterKitDemo overrideZ tvOS" */;
+			buildPhases = (
+				D072E4672B73147900F18303 /* Sources */,
+				D072E4682B73147900F18303 /* Frameworks */,
+				D072E4692B73147900F18303 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SpriterKitDemo overrideZ tvOS";
+			packageProductDependencies = (
+				D09E8B392B73182900845D8E /* SpriterKit */,
+			);
+			productName = "SpriterKitDemo overrideZ tvOS";
+			productReference = D072E46B2B73147900F18303 /* SpriterKitDemo overrideZ tvOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 		D0E0E69E2B1BD7C2000A06BE /* SpriterKitDemo iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0E0E6D82B1BD7C2000A06BE /* Build configuration list for PBXNativeTarget "SpriterKitDemo iOS" */;
@@ -408,9 +579,18 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1500;
+				LastSwiftUpdateCheck = 1520;
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
+					D072E4362B73143200F18303 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					D072E4512B73145900F18303 = {
+						CreatedOnToolsVersion = 15.2;
+					};
+					D072E46A2B73147900F18303 = {
+						CreatedOnToolsVersion = 15.2;
+					};
 					D0E0E69E2B1BD7C2000A06BE = {
 						CreatedOnToolsVersion = 15.0.1;
 					};
@@ -444,6 +624,9 @@
 				D042BF462B2A5BD3004B441A /* SpriterKitDemo Events iOS */,
 				D042BF592B2A5BEC004B441A /* SpriterKitDemo Events tvOS */,
 				D042BF6A2B2A5BFC004B441A /* SpriterKitDemo Events macOS */,
+				D072E4362B73143200F18303 /* SpriterKitDemo overrideZ iOS */,
+				D072E4512B73145900F18303 /* SpriterKitDemo overrideZ macOS */,
+				D072E46A2B73147900F18303 /* SpriterKitDemo overrideZ tvOS */,
 			);
 		};
 /* End PBXProject section */
@@ -484,6 +667,44 @@
 				D042BFAF2B2A5F68004B441A /* GameSceneEvents.sks in Resources */,
 				D042BF802B2A5C0D004B441A /* gunner_player_smaller_head.scml in Resources */,
 				D042BF772B2A5BFC004B441A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D072E4352B73143200F18303 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D072E4832B73151C00F18303 /* GameSceneOverrideZ.sks in Resources */,
+				D09E8B3C2B73187100845D8E /* GreyGuy.xcassets in Resources */,
+				D09E8B3B2B73187100845D8E /* GreyGuy.scml in Resources */,
+				D072E4452B73143200F18303 /* Main.storyboard in Resources */,
+				D09E8B412B7318FD00845D8E /* Assets.xcassets in Resources */,
+				D072E44A2B73143200F18303 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D072E4502B73145900F18303 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D09E8B3E2B73187200845D8E /* GreyGuy.xcassets in Resources */,
+				D072E4842B73151C00F18303 /* GameSceneOverrideZ.sks in Resources */,
+				D072E4622B73145A00F18303 /* Main.storyboard in Resources */,
+				D09E8B3D2B73187200845D8E /* GreyGuy.scml in Resources */,
+				D09E8B422B7318FE00845D8E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D072E4692B73147900F18303 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D072E4792B73147900F18303 /* Main.storyboard in Resources */,
+				D09E8B402B73187200845D8E /* GreyGuy.xcassets in Resources */,
+				D09E8B3F2B73187200845D8E /* GreyGuy.scml in Resources */,
+				D072E4852B73151C00F18303 /* GameSceneOverrideZ.sks in Resources */,
+				D09E8B432B7318FE00845D8E /* Assets.xcassets in Resources */,
+				D072E47E2B73147A00F18303 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +779,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D072E4332B73143200F18303 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D072E4422B73143200F18303 /* GameViewController.swift in Sources */,
+				D072E43A2B73143200F18303 /* AppDelegate.swift in Sources */,
+				D072E4872B73153800F18303 /* GameSceneOverrideZ.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D072E44E2B73145900F18303 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D072E45D2B73145900F18303 /* GameViewController.swift in Sources */,
+				D072E4882B73153800F18303 /* GameSceneOverrideZ.swift in Sources */,
+				D072E4552B73145900F18303 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D072E4672B73147900F18303 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D072E4892B73153800F18303 /* GameSceneOverrideZ.swift in Sources */,
+				D072E4762B73147900F18303 /* GameViewController.swift in Sources */,
+				D072E46E2B73147900F18303 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0E0E69B2B1BD7C2000A06BE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -629,6 +880,46 @@
 				D042BF9A2B2A5E13004B441A /* Base */,
 			);
 			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D072E4432B73143200F18303 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D072E4442B73143200F18303 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D072E4482B73143200F18303 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D072E4492B73143200F18303 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		D072E4602B73145A00F18303 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D072E4612B73145A00F18303 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D072E4772B73147900F18303 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D072E4782B73147900F18303 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D072E47C2B73147A00F18303 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D072E47D2B73147A00F18303 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 		D0E0E6A62B1BD7C2000A06BE /* Main.storyboard */ = {
@@ -847,6 +1138,172 @@
 				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		D072E44C2B73143200F18303 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pkclsoft.SpriterKitDemo-overrideZ-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D072E44D2B73143200F18303 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarHidden = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pkclsoft.SpriterKitDemo-overrideZ-iOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D072E4652B73145A00F18303 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SpriterKitDemo overrideZ macOS/SpriterKitDemo_overrideZ_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pkclsoft.SpriterKitDemo-overrideZ-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		D072E4662B73145A00F18303 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "SpriterKitDemo overrideZ macOS/SpriterKitDemo_overrideZ_macOS.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSMainStoryboardFile = Main;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.6;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pkclsoft.SpriterKitDemo-overrideZ-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		D072E4802B73147A00F18303 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pkclsoft.SpriterKitDemo-overrideZ-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 17.2;
+			};
+			name = Debug;
+		};
+		D072E4812B73147A00F18303 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.pkclsoft.SpriterKitDemo-overrideZ-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 17.2;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1170,6 +1627,33 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		D072E44B2B73143200F18303 /* Build configuration list for PBXNativeTarget "SpriterKitDemo overrideZ iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D072E44C2B73143200F18303 /* Debug */,
+				D072E44D2B73143200F18303 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D072E4642B73145A00F18303 /* Build configuration list for PBXNativeTarget "SpriterKitDemo overrideZ macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D072E4652B73145A00F18303 /* Debug */,
+				D072E4662B73145A00F18303 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D072E47F2B73147A00F18303 /* Build configuration list for PBXNativeTarget "SpriterKitDemo overrideZ tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D072E4802B73147A00F18303 /* Debug */,
+				D072E4812B73147A00F18303 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D0E0E6952B1BD7C0000A06BE /* Build configuration list for PBXProject "SpriterKitDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1221,6 +1705,18 @@
 			productName = SpriterKit;
 		};
 		D042BF6B2B2A5BFC004B441A /* SpriterKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SpriterKit;
+		};
+		D09E8B352B7317FA00845D8E /* SpriterKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SpriterKit;
+		};
+		D09E8B372B73181500845D8E /* SpriterKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SpriterKit;
+		};
+		D09E8B392B73182900845D8E /* SpriterKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = SpriterKit;
 		};
