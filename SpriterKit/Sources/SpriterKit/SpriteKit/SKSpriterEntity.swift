@@ -455,7 +455,12 @@ public class SKSpriterEntity : SKNode {
                                 //
                                 let parentPos = parent.convert(object.position, from: self)
                                 
-                                del.entity(self, pointTriggeredAt: parentPos, withAngle:object.angle)
+                                self.run(.sequence([
+                                    .wait(forDuration: duration),
+                                    .run {
+                                        del.entity(self, pointTriggeredAt: parentPos, withAngle:object.angle)
+                                    }
+                                ]))
                             }
                         } else {
                             // otherwise, we are looking at an object that is actually a sprite...
@@ -559,9 +564,13 @@ public class SKSpriterEntity : SKNode {
             //
             if let del = self.delegate,
                let events = animation.eventlines(atTime: mainlineKeyTime) {
-                events.forEach { eventline in
-                    del.entity(self, reachedEventWithName: eventline.name)
-                }
+                self.run(.sequence([
+                    .wait(forDuration: duration),
+                    .run {
+                        events.forEach { eventline in
+                            del.entity(self, reachedEventWithName: eventline.name)
+                        }
+                    }]))
             }
             
             // this is the overall animation "manager".  All it does is wait for the duration of the current
