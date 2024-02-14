@@ -41,10 +41,15 @@ fi
 
 TARGET="${2}.xcassets"
 
-# If the destination does not exist, then create it.
-if [ ! -d "${2}.xcassets" ]; then
-    mkdir "${TARGET}"
+# If the destination exists, then remove it.
+if [ -d "${TARGET}" ]; then
+    rm -rf "${TARGET}"
 fi
+
+# Now create the destination anew.
+mkdir "${TARGET}"
+
+CATALOGNAME=`basename ${2}`
 
 SOURCE="${1}"
 
@@ -110,7 +115,7 @@ function copyFile {
 # #3 = where to place the Image Set
 # #4 = the atlas name - will be prepended to the asset name so that it is unique for the asset.
 function createUniversalImageSet {
-    if [ ".${4}" != ".unnamed" ]; then
+    if [[ "${4:0:7}" != "unnamed" ]]; then
         mkdir -p "${3}/${4}_${2}.imageset"
         copied=0
 
@@ -173,15 +178,24 @@ function moveAtlas {
 }
 
 # if there are any png files in the Spriter export area, they will be in an unnamed folder
-# within the SCML file.  So create a folder called "unnamed" and copy the png's into there
-# so that they get picked up and placed into an atlas called "unnamed".
+# within the SCML file.  So create a folder called "unnamed_<catalog>" and copy the png's into there
+# so that they get picked up and placed into an atlas called "unnamed_<catalog>" where
+# <catalog> is the value of $2.
+#
+# Any files called guide.png are ignored as they are typically put there by Robert of GDS
+# as a guide only and are not needed.
 #
 UNNAMED_COUNT=`find ${SOURCE} -maxdepth 1 -iname \*.png | wc -l`
 
 if [ ${UNNAMED_COUNT} -gt 0 ]; then
-  if [ ! -d "${SOURCE}/unnamed" ]; then
-    mkdir ${SOURCE}/unnamed
-    cp ${SOURCE}/*.png ${SOURCE}/unnamed
+  
+  if [ ! -d "${SOURCE}/unnamed_${CATALOGNAME}" ]; then
+    mkdir "${SOURCE}/unnamed_${CATALOGNAME}"
+    cp ${SOURCE}/*.png "${SOURCE}/unnamed_${CATALOGNAME}"
+    
+    if [ -f "${SOURCE}/unnamed_${CATALOGNAME}/guide.png" ]; then
+      rm "${SOURCE}/unnamed_${CATALOGNAME}/guide.png"
+    fi
   fi
 fi
 
@@ -200,3 +214,9 @@ for ATLAS_SOURCE in ${ATLAS_SOURCES}; do
   moveAtlas "${ATLAS_SOURCE}" "${TARGET}" "${ATLAS_NAME}"
 done;
 IFS="$IFSbkp"
+
+# now, clean up by removing the "unnamed_<catalog>" folder if we created one.
+#
+if [ -d "${SOURCE}/unnamed_${CATALOGNAME}" ]; then
+  rm -rf "${SOURCE}/unnamed_${CATALOGNAME}"
+fi
