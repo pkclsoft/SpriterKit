@@ -76,7 +76,8 @@ class GameSceneOverrideZ: SKScene {
                         greyGuy.zPosition = 100.0
                         
                         // this will place the rear hand behind the red background.
-                        greyGuy.zIndexOverride[2] = -5.1
+                        greyGuy.zIndexOverride.append(SKSpriterEntity.zIndexOverrideInstruction(rule: .allAbove, threshold: 14, override: -5.1))
+                        greyGuy.zIndexOverride.append(SKSpriterEntity.zIndexOverrideInstruction(rule: .allBelow, threshold: 2, override: -5.1))
 
                         scene.addChild(greyGuy)
                     }

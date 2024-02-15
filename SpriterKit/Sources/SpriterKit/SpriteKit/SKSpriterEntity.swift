@@ -94,9 +94,37 @@ public class SKSpriterEntity : SKNode {
     ///
     var tweenFrames : Bool = true
     
-    /// The application can use this to override the zPosition of an object.  The key to the dictionary is the
-    /// objectID of the object getting the override, and the value is the zPosition to be used by the bone.
-    public var zIndexOverride : [Int: CGFloat] = [:]
+    
+    /// For applications needing to adjust the zIndex of objects within the entity, this rule provides a way to
+    /// specify which objects are to be adjusted.
+    public enum zIndexOverrideRule {
+        /// All objects with a matching or greater zIndex.
+        case allAbove
+        /// All objects with a matching or lower zIndex.
+        case allBelow
+        /// Only objects with an exact matching zIndex
+        case exact
+    }
+    
+    /// Provides an instruction to the entity to adjust any objects that meet the instructions specification by the zIndex override
+    /// value.
+    public struct zIndexOverrideInstruction {
+        /// The rule defining what set of objects to match against.
+        var rule : zIndexOverrideRule
+        /// The zIndex threshold used to match in conjunction with the rule.
+        var threshold : Int
+        /// The zPosition base override to apply to matching objects.
+        var override : CGFloat
+        
+        public init(rule: zIndexOverrideRule, threshold: Int, override: CGFloat) {
+            self.rule = rule
+            self.threshold = threshold
+            self.override = override
+        }
+    }
+    
+    /// The application can use this to override the zPosition of an object or objects.
+    public var zIndexOverride : [zIndexOverrideInstruction] = []
     
 #if DEBUG
     /// This can be used to slow down the animation during debugging.  A larger number means a slower animation.
@@ -483,8 +511,24 @@ public class SKSpriterEntity : SKNode {
                                 objects[objectName] = sprite
                             }
                             
-                            if let zOverride = self.zIndexOverride[objectRef.id] {
-                                sprite.zPositionOverride = zOverride
+                            if let objZ = objectRef.zIndex,
+                               zIndexOverride.count > 0 {
+                                zIndexOverride.forEach { instruction in
+                                    switch instruction.rule {
+                                        case .allAbove:
+                                            if objZ >= instruction.threshold {
+                                                sprite.zPositionOverride = instruction.override
+                                            }
+                                        case .allBelow:
+                                            if objZ <= instruction.threshold {
+                                                sprite.zPositionOverride = instruction.override
+                                            }
+                                        case .exact:
+                                            if objZ == instruction.threshold {
+                                                sprite.zPositionOverride = instruction.override
+                                            }
+                                    }
+                                }
                             }
 
                             if objectRef.parentID != NO_PARENT {
