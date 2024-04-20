@@ -63,6 +63,17 @@ public class SKSpriterObject : SKSpriteNode {
         fatalError("init(coder:) has not been implemented")
     }
     
+#if DEBUG
+//    func numStr(of: CGFloat, digits: Int = 3) -> String {
+//        return String(format: "%03.\(digits)f", of)
+//    }
+//
+//    private func printStats() {
+//        print("obj:\(self.name) x=\(numStr(of:  self.position.x)) y=\(numStr(of: self.position.y)) angle=\(numStr(of: CGFloat(GLKMathRadiansToDegrees(Float(self.zRotation))))) scale_x=\(numStr(of: self.xScale)) scale_y=\(numStr(of: self.yScale))")
+//    }
+//    
+#endif
+
     /// Updates this nodes reference with instructions from the specified parent bone.
     /// - Parameter parent: the parent bone.
     func update(withParent parent: SKSpriterBone) {
@@ -100,8 +111,12 @@ public class SKSpriterObject : SKSpriteNode {
         // if the next frame is using a new texture, then change to it.
         if updateReference.folderID != prevReference.folderID ||
             updateReference.fileID != prevReference.fileID {
-            self.changeTexture(using: reference)
+            self.changeTexture(using: updateReference)
         }
+        
+#if DEBUG
+//        printStats()
+#endif
         
         self.position = updateReference.position
 
@@ -113,6 +128,10 @@ public class SKSpriterObject : SKSpriteNode {
         
         self.alpha = updateReference.alpha
         
+#if DEBUG
+//        printStats()
+#endif
+
         if let newZ = updateReference.zIndex {
             // Because SpriteKit apps quite often optimize performance by using the ignoresSiblingOrder
             // property on the SKView, the zIndex needs to be turned into a fraction and added to

@@ -184,6 +184,7 @@ public class SKSpriterEntity : SKNode {
             debugLabel.fontSize = 60.0
             debugLabel.position = CGPoint(x: 0.0, y: -300.0)
             debugLabel.zPosition = 10000.0
+            debugLabel.fontSize *= 1.5
             
             nodeTree.addChild(debugLabel)
         }
@@ -239,39 +240,16 @@ public class SKSpriterEntity : SKNode {
         }
     }
     
-    /// Returns the duration to the next key frame using `self.keyIndex` to reference the
-    /// current key frame.
-    /// - Returns: A `TimeInterval` representing the interval in milliseconds to the next key frame.
-    func nextDuration() -> TimeInterval {
-        if let times = self.keyTimes {
-            return duration(followingTime: times[self.keyIndex])
+    func prevKeyIndex() -> Int {
+        if self.keyIndex > 0 {
+            return self.keyIndex - 1
+        } else if let times = self.keyTimes {
+            return times.count - 1
         } else {
-            // this should never happen.
-            return 0.0
+            return 0
         }
     }
-    
-    /// Returns the duration to the key frame that follows the specified key frame time.
-    /// - Parameter prevTime: the TimeInterval represnting the time at which the duration would commence.
-    /// - Returns: A `TimeInterval` representing the interval in milliseconds to the next key frame.
-    func duration(followingTime prevTime: TimeInterval) -> TimeInterval {
-        if let times = self.keyTimes {
-            let nextIndex = self.nextKeyIndex()
-            
-            if nextIndex == 0 {
-                if let animation = self.animation {
-                    return animation.interval
-                } else {
-                    return times[nextIndex + 1]
-                }
-            } else {
-                return (times[nextIndex] - prevTime)
-            }
-        } else {
-            return 0.0
-        }
-    }
-    
+        
 #if DEBUG
     /// A simple utility for formatting floating point numbers for debugging.
     /// - Parameters:
@@ -318,12 +296,24 @@ public class SKSpriterEntity : SKNode {
                 duration = 0.0
                 initialised = true
             } else {
-                duration = nextDuration()
+                if self.keyIndex == self.keyTimes!.count {
+                    duration = animation.length - key.time
+                } else if self.keyIndex == 0 {
+                    let prevKI = self.prevKeyIndex()
+                    let prevKeyTime = self.keyTimes![prevKI]
+                    duration = animation.length - prevKeyTime
+                } else {
+                    let prevKI = self.prevKeyIndex()
+                    let prevKeyTime = self.keyTimes![prevKI]
+                    let prevKey = mainline.key(forTimeInterval: prevKeyTime)
+                    duration = key.time - prevKey.time
+                }
             }
             
 #if DEBUG
             duration *= debugTimeFactor
-            self.debugLabel.text = "frame time: \(numStr(of: key.time))"
+            let animationTime = ((Date.timeIntervalSinceReferenceDate - self.debugTime) / self.debugTimeFactor).millisecondIntValue()
+            self.debugLabel.text = "frame time: \(numStr(of: key.time)), duraton: \(duration), animationTime: \(animationTime)"
 #endif
             
             // Now traverse all of the bone references and build up or update the node tree representing the bones.
@@ -623,6 +613,11 @@ public class SKSpriterEntity : SKNode {
             if self.animate {
                 // This action does the work of triggering the next frame animation.
                 let commenceNextFrame = SKAction.run {
+                    #if DEBUG
+//                    let animationTime = ((Date.timeIntervalSinceReferenceDate - self.debugTime) / self.debugTimeFactor).millisecondIntValue()
+//                    print("animation time: \(animationTime))")
+                    #endif
+                    
                     self.keyIndex = self.nextKeyIndex()
                     
                     if self.keyIndex == 0 {
@@ -645,6 +640,7 @@ public class SKSpriterEntity : SKNode {
                 // so that you can screen record it to see what it happening in slow-mo.
                 //
 #if DEBUG
+//                print("keyIndex : \(self.keyIndex), duration: \(duration)")
                 
                 self.run(.sequence([
                     .customAction(withDuration: duration, actionBlock: { node, elapsed in
@@ -652,7 +648,7 @@ public class SKSpriterEntity : SKNode {
                         
                         let inFrameTime = (TimeInterval(elapsed) / self.debugTimeFactor).millisecondIntValue()
                         
-                        self.debugLabel.text = "frame: \(inFrameTime), animation: \(animationTime))"
+                        self.debugLabel.text = "frame: \(inFrameTime), animation: \(animationTime)), duration: \(duration.millisecondIntValue())"
                     }),
                     commenceNextFrame
                 ]))
