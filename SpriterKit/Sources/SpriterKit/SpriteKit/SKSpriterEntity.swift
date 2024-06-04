@@ -301,7 +301,7 @@ public class SKSpriterEntity : SKNode {
                 } else if self.keyIndex == 0 {
                     let prevKI = self.prevKeyIndex()
                     let prevKeyTime = self.keyTimes![prevKI]
-                    duration = animation.length - prevKeyTime
+                    duration = max(animation.length - prevKeyTime, 0.001)
                 } else {
                     let prevKI = self.prevKeyIndex()
                     let prevKeyTime = self.keyTimes![prevKI]
