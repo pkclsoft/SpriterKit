@@ -147,9 +147,6 @@ struct SpriterObject: SpriterParseable {
     func tween(to other: SpriterObject, forPercent percent: CGFloat) -> SpriterObject {
         var result : SpriterObject = self
         
-        result.fileID = other.fileID
-        result.folderID = other.folderID
-        
         result.angle = SKSpriterUtilities.tweenAngle(a: result.angle, b: other.angle, t: percent, spin: result.spin)
         
         result.position = result.position.lerp(toB: other.position, alpha: percent)

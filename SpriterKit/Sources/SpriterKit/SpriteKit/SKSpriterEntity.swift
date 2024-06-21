@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SKSpriterEntity.swift
 //
 //
 //  Created by Peter Easdown on 30/10/2023.
@@ -73,10 +73,6 @@ public class SKSpriterEntity : SKNode {
     /// lookup the timeline of the bone using the parent ID (which is a bone ID), to reference the correct bone.
     ///
     var timelinePerBone : [Int : Int] = [:]
-    
-    /// Has the entity been initialised yet?  If not then the first frame will take 0 milliseconds.
-    ///
-    var initialised : Bool = false
     
     /// This becomes a store of all of the bones in the current animation.  It is used as a fast lookup for successive
     /// frames.
@@ -177,19 +173,6 @@ public class SKSpriterEntity : SKNode {
         
         self.addChild(nodeTree)
         
-#if DEBUG
-        // place the debug label down the bottom.
-        if showDebugLabel {
-            debugLabel.fontColor = .yellow
-            debugLabel.fontSize = 60.0
-            debugLabel.position = CGPoint(x: 0.0, y: -300.0)
-            debugLabel.zPosition = 10000.0
-            debugLabel.fontSize *= 1.5
-            
-            nodeTree.addChild(debugLabel)
-        }
-#endif
-        
         // find the entity and start the specified animation.
         if let entity = spriterData.entity(withEntityID: entityID) {
             self.entity = entity
@@ -209,6 +192,30 @@ public class SKSpriterEntity : SKNode {
             // Having found the animation, save it.
             self.animation = animation
             
+            // Clear out any old artifacts of a previous animation.
+            self.activeObject = [:]
+            self.keyTimes = nil
+            self.keyIndex = 0
+            self.timelinePerBone = [:]
+            self.bones.removeAll()
+            self.objects.removeAll()
+            self.zIndexOverride = []
+            self.removeAllActions()
+            self.nodeTree.removeAllActions()
+            self.nodeTree.removeAllChildren()
+            
+    #if DEBUG
+            // place the debug label down the bottom.
+            if showDebugLabel {
+                debugLabel.fontColor = .yellow
+                debugLabel.fontSize = 12.0
+                debugLabel.position = CGPoint(x: 0.0, y: -100.0)
+                debugLabel.zPosition = 10000.0
+                
+                nodeTree.addChild(debugLabel)
+            }
+    #endif
+
             // Now grab the mainline, and kick things off.
             //
             if let mainline = animation.mainline {
@@ -292,28 +299,23 @@ public class SKSpriterEntity : SKNode {
             var duration : TimeInterval
             
             // if this is the first time, then it needs to be instantaneous.
-            if !initialised {
-                duration = 0.0
-                initialised = true
+            if self.keyIndex == self.keyTimes!.count {
+                duration = animation.length - key.time
+            } else if self.keyIndex == 0 {
+                let prevKI = self.prevKeyIndex()
+                let prevKeyTime = self.keyTimes![prevKI]
+                duration = max(animation.length - prevKeyTime, 0.001)
             } else {
-                if self.keyIndex == self.keyTimes!.count {
-                    duration = animation.length - key.time
-                } else if self.keyIndex == 0 {
-                    let prevKI = self.prevKeyIndex()
-                    let prevKeyTime = self.keyTimes![prevKI]
-                    duration = max(animation.length - prevKeyTime, 0.001)
-                } else {
-                    let prevKI = self.prevKeyIndex()
-                    let prevKeyTime = self.keyTimes![prevKI]
-                    let prevKey = mainline.key(forTimeInterval: prevKeyTime)
-                    duration = key.time - prevKey.time
-                }
+                let prevKI = self.prevKeyIndex()
+                let prevKeyTime = self.keyTimes![prevKI]
+                let prevKey = mainline.key(forTimeInterval: prevKeyTime)
+                duration = key.time - prevKey.time
             }
             
 #if DEBUG
             duration *= debugTimeFactor
             let animationTime = ((Date.timeIntervalSinceReferenceDate - self.debugTime) / self.debugTimeFactor).millisecondIntValue()
-            self.debugLabel.text = "frame time: \(numStr(of: key.time)), duraton: \(duration), animationTime: \(animationTime)"
+            self.debugLabel.text = "frame time: \(numStr(of: key.time)), duraton: \(numStr(of: CGFloat(duration))), keyIndex: \(self.keyIndex), animationTime: \(numStr(of: CGFloat(animationTime)))"
 #endif
             
             // Now traverse all of the bone references and build up or update the node tree representing the bones.
@@ -495,6 +497,8 @@ public class SKSpriterEntity : SKNode {
                                 //
                                 sprite.prevReference = sprite.reference
                                 sprite.reference = object
+                                
+                                sprite.changeTexture(using: sprite.prevReference)
                             } else {
                                 sprite = SKSpriterObject(forSpriterObject: object, usingSpriterModel: self.model, andName: objectName)
                                 
@@ -648,7 +652,7 @@ public class SKSpriterEntity : SKNode {
                         
                         let inFrameTime = (TimeInterval(elapsed) / self.debugTimeFactor).millisecondIntValue()
                         
-                        self.debugLabel.text = "frame: \(inFrameTime), animation: \(animationTime)), duration: \(duration.millisecondIntValue())"
+                        self.debugLabel.text = "frame time: \(self.numStr(of: CGFloat(inFrameTime))), duraton: \(self.numStr(of: CGFloat(duration))), keyIndex: \(self.keyIndex), animationTime: \(self.numStr(of: CGFloat(animationTime)))"
                     }),
                     commenceNextFrame
                 ]))

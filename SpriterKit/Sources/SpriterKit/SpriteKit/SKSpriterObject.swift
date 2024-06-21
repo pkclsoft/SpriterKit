@@ -108,12 +108,6 @@ public class SKSpriterObject : SKSpriteNode {
     /// Update the actual SKSpriteNode properties from the specified reference SpriterObject.
     /// - Parameter updateReference: the SpriterObject used to dictate all visual aspects of the object.
     func update(fromReference updateReference: SpriterObject) {
-        // if the next frame is using a new texture, then change to it.
-        if updateReference.folderID != prevReference.folderID ||
-            updateReference.fileID != prevReference.fileID {
-            self.changeTexture(using: updateReference)
-        }
-        
 #if DEBUG
 //        printStats()
 #endif
@@ -164,7 +158,7 @@ public class SKSpriterObject : SKSpriteNode {
            let folder = self.spriterModel.folder(withFolderID: folderID),
            let file = folder.file(withID: fileID) {
             if let modelTexture = folder.texture(ofObject: reference, fromBundle: self.spriterModel.resourceBundle) {
-                self.texture = modelTexture
+                self.run(.setTexture(modelTexture, resize: false))
                 self.size = file.size
                 
                 self.anchorPoint = reference.pivot
