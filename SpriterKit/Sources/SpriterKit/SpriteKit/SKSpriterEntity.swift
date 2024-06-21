@@ -74,7 +74,11 @@ public class SKSpriterEntity : SKNode {
     ///
     var timelinePerBone : [Int : Int] = [:]
     
-    /// This becomes a store of all of the bones in the current animation.  It is used as a fast lookup for successive
+    /// Has the entity been initialised yet?  If not then the first frame will take 0 milliseconds.
+    ///
+    var initialised : Bool = false
+    
+/// This becomes a store of all of the bones in the current animation.  It is used as a fast lookup for successive
     /// frames.
     var bones : [String: SKSpriterBone] = [:]
 
@@ -299,17 +303,22 @@ public class SKSpriterEntity : SKNode {
             var duration : TimeInterval
             
             // if this is the first time, then it needs to be instantaneous.
-            if self.keyIndex == self.keyTimes!.count {
-                duration = animation.length - key.time
-            } else if self.keyIndex == 0 {
-                let prevKI = self.prevKeyIndex()
-                let prevKeyTime = self.keyTimes![prevKI]
-                duration = max(animation.length - prevKeyTime, 0.001)
+            if !initialised {
+                duration = 0.0
+                initialised = true
             } else {
-                let prevKI = self.prevKeyIndex()
-                let prevKeyTime = self.keyTimes![prevKI]
-                let prevKey = mainline.key(forTimeInterval: prevKeyTime)
-                duration = key.time - prevKey.time
+                if self.keyIndex == self.keyTimes!.count {
+                    duration = animation.length - key.time
+                } else if self.keyIndex == 0 {
+                    let prevKI = self.prevKeyIndex()
+                    let prevKeyTime = self.keyTimes![prevKI]
+                    duration = max(animation.length - prevKeyTime, 0.001)
+                } else {
+                    let prevKI = self.prevKeyIndex()
+                    let prevKeyTime = self.keyTimes![prevKI]
+                    let prevKey = mainline.key(forTimeInterval: prevKeyTime)
+                    duration = key.time - prevKey.time
+                }
             }
             
 #if DEBUG
