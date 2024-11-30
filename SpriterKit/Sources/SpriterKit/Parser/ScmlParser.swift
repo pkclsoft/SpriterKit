@@ -518,6 +518,8 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                            }),
                            let file = folder.file(withID: fileID) {
                             object.pivot = file.pivot
+                            
+                            folder.texture(ofObject: object, fromBundle: self.resourceBundle)
                         }
                         
                         object.spin = self.entities[lastEntity]

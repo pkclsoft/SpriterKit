@@ -49,7 +49,7 @@ fi
 # Now create the destination anew.
 mkdir "${TARGET}"
 
-CATALOGNAME=`basename ${2}`
+CATALOGNAME=`basename "${2}"`
 
 SOURCE="${1}"
 
