@@ -158,14 +158,17 @@ public class SconParser: NSObject, SpriterParser {
                 // if the object has a default pivot, then adopt the pivot from the file in case it
                 // is not a default value.
                 //
-                if object.pivot == DEFAULT_PIVOT,
-                   let folderID = object.folderID,
+                if let folderID = object.folderID,
                    let fileID = object.fileID,
                    let folder = self.folders.first(where: { folder in
                        return folder.id == folderID
                    }),
                    let file = folder.file(withID: fileID) {
-                    object.pivot = file.pivot
+                    if object.pivot == DEFAULT_PIVOT {
+                        object.pivot = file.pivot
+                    }
+                    
+                    folder.texture(ofObject: object, fromBundle: self.resourceBundle)
                 }
 
                 key.object = object
