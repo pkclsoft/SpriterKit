@@ -85,14 +85,26 @@ public class SpriterFolder: SpriterParseable {
     
     #if canImport(UIKit)
     func preload(fileName : String, fromBundle bundle: Bundle = Bundle.main) {
-        if let image = UIImage(named: fileName, in: bundle, compatibleWith: nil) {
-            self.images[fileName] = SKTexture(image: image)
+        let texture = SKTexture(imageNamed: fileName)
+        
+        if texture.size() == .zero {
+            if let image = UIImage(named: fileName, in: bundle, compatibleWith: nil) {
+                self.images[fileName] = SKTexture(image: image)
+            }
+        } else {
+            self.images[fileName] = texture
         }
     }
     #elseif canImport(AppKit)
     func preload(fileName : String, fromBundle bundle: Bundle = Bundle.main) {
-        if let image = bundle.image(forResource: fileName) {
-            self.images[fileName] = SKTexture(image: image)
+        let texture = SKTexture(imageNamed: fileName)
+        
+        if texture.size() == .zero {
+            if let image = bundle.image(forResource: fileName) {
+                self.images[fileName] = SKTexture(image: image)
+            }
+        } else {
+            self.images[fileName] = texture
         }
     }
     #endif

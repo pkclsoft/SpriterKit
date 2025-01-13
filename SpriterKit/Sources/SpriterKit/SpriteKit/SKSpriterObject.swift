@@ -112,15 +112,25 @@ public class SKSpriterObject : SKSpriteNode {
 //        printStats()
 #endif
         
-        self.position = updateReference.position
+        if updateReference.position != self.position {
+            self.position = updateReference.position
+        }
 
-        self.xScale = updateReference.xScale
+        if updateReference.xScale != self.xScale {
+            self.xScale = updateReference.xScale
+        }
 
-        self.yScale = updateReference.yScale
+        if updateReference.yScale != self.yScale {
+            self.yScale = updateReference.yScale
+        }
 
-        self.zRotation = updateReference.angle
+        if updateReference.angle != self.zRotation {
+            self.zRotation = updateReference.angle
+        }
         
-        self.alpha = updateReference.alpha
+        if updateReference.alpha != self.alpha {
+            self.alpha = updateReference.alpha
+        }
         
 #if DEBUG
 //        printStats()
@@ -146,7 +156,11 @@ public class SKSpriterObject : SKSpriteNode {
                 zPositionBase = 0.0
             }
             
-            self.zPosition = zPositionBase + relativeZPosition
+            let newValue = zPositionBase + relativeZPosition
+            
+            if newValue != self.zPosition {
+                self.zPosition = newValue
+            }
         }
     }
     
