@@ -520,7 +520,8 @@ public class ScmlParser: NSObject, SpriterParser, XMLParserDelegate {
                                 object.pivot = file.pivot
                             }
                             
-                            folder.texture(ofObject: object, fromBundle: self.resourceBundle)
+                            // this is done simply to trigger a preload of the texture.
+                            _ = folder.texture(ofObject: object, fromBundle: self.resourceBundle)
                         }
                         
                         object.spin = self.entities[lastEntity]

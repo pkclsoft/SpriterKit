@@ -7,7 +7,6 @@
 
 import Foundation
 import SpriteKit
-import GLKit
 
 /// A SpriteKit node that provides a real bone implementation that can be inserted into the node tree, and be used as a
 /// container for other bones and objects.  A `SKSpriterBone` uses the functions and features of SpriteKit to achieve a lot

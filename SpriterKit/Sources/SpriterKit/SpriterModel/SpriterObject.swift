@@ -11,8 +11,8 @@
 //
 
 import Foundation
-import GLKit
 import SpriteKit
+import CGExtKit
 
 struct SpriterObject: SpriterParseable {
     
@@ -70,7 +70,7 @@ struct SpriterObject: SpriterParseable {
         }
         
         if let angle = data.value(forKey: "angle") as? CGFloat {
-            self.angle = CGFloat(GLKMathDegreesToRadians(Float(angle)))
+            self.angle = angle.radians()
         }
         
         if let scaleX = data.value(forKey: "scale_x") as? CGFloat {
@@ -115,7 +115,7 @@ struct SpriterObject: SpriterParseable {
         }
         
         if let angle = attributes["angle"] {
-            self.angle = CGFloat(GLKMathDegreesToRadians(Float(angle.CGFloatValue())))
+            self.angle = angle.CGFloatValue().radians()
         }
         
         if let scaleX = attributes["scale_x"] {

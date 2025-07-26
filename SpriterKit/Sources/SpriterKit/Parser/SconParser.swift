@@ -168,7 +168,8 @@ public class SconParser: NSObject, SpriterParser {
                         object.pivot = file.pivot
                     }
                     
-                    folder.texture(ofObject: object, fromBundle: self.resourceBundle)
+                    // this is done simply to trigger a preload of the texture.
+                    _ = folder.texture(ofObject: object, fromBundle: self.resourceBundle)
                 }
 
                 key.object = object
