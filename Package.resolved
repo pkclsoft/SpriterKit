@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "cgextkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pkclsoft/CGExtKit",
+      "state" : {
+        "revision" : "46421319f4a7aabdc98be1a3c9756355f2c88f86",
+        "version" : "1.0.7"
+      }
+    }
+  ],
+  "version" : 2
+}
